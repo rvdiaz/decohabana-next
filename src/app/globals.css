@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 18px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 5px solid;
+  border-color: #fff #0000;
+  animation: l1 0.7s infinite;
+}
+@keyframes l1 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: block;
+  position: absolute;
+  right: 10px;
+}
+
+input[type="datetime-local"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}

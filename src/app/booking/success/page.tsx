@@ -1,0 +1,198 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { CheckCircle, Calendar, Clock, MapPin, Phone, Mail, Car, Download } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { getBookingData, clearBookingData } from '@/lib/booking-storage';
+
+const SuccessPage: React.FC = () => {
+  const router = useRouter();
+  const [bookingData, setBookingData] = useState(getBookingData());
+  const bookingId = `PR-${Date.now().toString().slice(-6)}`;
+
+  useEffect(() => {
+    const data = getBookingData();
+    setBookingData(data);
+    
+    // Redirect if no complete booking data
+    if (!data.from || !data.to || !data.date || !data.time || !data.selectedCar || !data.user || !data.payment) {
+      router.push('/');
+    }
+  }, [router]);
+  
+  const generatePDF = () => {
+    // In a real app, this would generate a PDF
+    alert('PDF receipt will be generated in a real implementation');
+  };
+
+  const handleNewBooking = () => {
+    clearBookingData();
+    router.push('/');
+  };
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-green-500 to-green-600 text-white py-6">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <CheckCircle className="w-16 h-16 mx-auto mb-4" />
+          <h1 className="text-3xl font-bold mb-2">Booking Confirmed!</h1>
+          <p className="text-green-100">Thank you for choosing Prestige Rides</p>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        {/* Booking Details */}
+        <div className="bg-gray-900 rounded-xl p-8 mb-8">
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-2">Booking Details</h2>
+              <p className="text-gray-300">Booking ID: <span className="font-mono text-yellow-400">{bookingId}</span></p>
+            </div>
+            <button
+              onClick={generatePDF}
+              className="flex items-center px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Download Receipt
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <Car className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                <div>
+                  <p className="font-semibold">Vehicle</p>
+                  <p className="text-gray-300">{bookingData.selectedCar?.name}</p>
+                  <p className="text-sm text-gray-400">{bookingData.selectedCar?.type}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <Calendar className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                <div>
+                  <p className="font-semibold">Date & Time</p>
+                  <p className="text-gray-300">{bookingData.date}</p>
+                  <p className="text-gray-300">{bookingData.time}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <MapPin className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                <div>
+                  <p className="font-semibold">Route</p>
+                  <p className="text-gray-300">From: {bookingData.from}</p>
+                  <p className="text-gray-300">To: {bookingData.to}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <p className="font-semibold text-yellow-400 mb-2">Customer Information</p>
+                <p className="text-gray-300">{bookingData.user?.name}</p>
+                <p className="text-gray-300">{bookingData.user?.email}</p>
+                <p className="text-gray-300">{bookingData.user?.phone}</p>
+              </div>
+
+              <div>
+                <p className="font-semibold text-yellow-400 mb-2">Payment Status</p>
+                <p className="text-green-400">✓ Payment Confirmed</p>
+                <p className="text-gray-300 text-sm">Card ending in ****{bookingData.payment?.cardNumber.slice(-4)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pickup Instructions */}
+        <div className="bg-gray-900 rounded-xl p-8 mb-8">
+          <h2 className="text-2xl font-bold text-yellow-400 mb-6">Pickup Instructions</h2>
+          
+          <div className="space-y-6">
+            <div className="flex items-start">
+              <Clock className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+              <div>
+                <p className="font-semibold">Arrival Time</p>
+                <p className="text-gray-300">Your chauffeur will arrive 15 minutes before your scheduled pickup time</p>
+                <p className="text-yellow-400 font-semibold">Expected arrival: {bookingData.time}</p>
+              </div>
+            </div>
+
+            <div className="flex items-start">
+              <Phone className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+              <div>
+                <p className="font-semibold">Chauffeur Contact</p>
+                <p className="text-gray-300">You will receive your chauffeur's contact information 1 hour before pickup</p>
+                <p className="text-yellow-400">Emergency: +1 (555) 123-4567</p>
+              </div>
+            </div>
+
+            <div className="flex items-start">
+              <MapPin className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+              <div>
+                <p className="font-semibold">Pickup Location</p>
+                <p className="text-gray-300">{bookingData.from}</p>
+                <p className="text-sm text-gray-400">Please be ready at the designated pickup location</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Important Notes */}
+        <div className="bg-yellow-400/10 rounded-xl p-6 border border-yellow-400/20">
+          <h3 className="text-lg font-semibold text-yellow-400 mb-4">Important Notes</h3>
+          <ul className="space-y-2 text-sm text-gray-300">
+            <li>• Please be ready 5 minutes before your scheduled pickup time</li>
+            <li>• Your chauffeur will wait for up to 15 minutes after the scheduled time</li>
+            <li>• Additional waiting time will be charged at $2 per minute</li>
+            <li>• For any changes or cancellations, please contact us at least 24 hours in advance</li>
+            <li>• Gratuity is not included but greatly appreciated</li>
+          </ul>
+        </div>
+
+        {/* Contact Information */}
+        <div className="mt-8 text-center">
+          <p className="text-gray-300 mb-4">Need assistance? Contact us:</p>
+          <div className="flex justify-center space-x-8">
+            <a href="tel:+15551234567" className="flex items-center text-yellow-400 hover:text-yellow-300">
+              <Phone className="w-4 h-4 mr-2" />
+              +1 (555) 123-4567
+            </a>
+            <a href="mailto:support@prestigerides.com" className="flex items-center text-yellow-400 hover:text-yellow-300">
+              <Mail className="w-4 h-4 mr-2" />
+              support@prestigerides.com
+            </a>
+          </div>
+        </div>
+
+        {/* Thank You Message */}
+        <div className="mt-12 text-center">
+          <h3 className="text-2xl font-bold text-yellow-400 mb-4">Thank You!</h3>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            We appreciate your business and look forward to providing you with an exceptional luxury transportation experience. 
+            Your satisfaction is our priority, and we're committed to making your journey memorable.
+          </p>
+          
+          <div className="mt-8 space-x-4">
+            <button
+              onClick={handleNewBooking}
+              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Book Another Ride
+            </button>
+            <Link
+              href="/dashboard"
+              className="inline-block bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              View Dashboard
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SuccessPage;
