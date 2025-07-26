@@ -1,9 +1,22 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Mail, Phone, User, Lock, Eye, EyeOff } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { saveBookingData, getBookingData, saveUserData } from '@/lib/booking-storage';
+import React, { useState, useEffect } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Mail,
+  Phone,
+  User,
+  Lock,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  saveBookingData,
+  getBookingData,
+  saveUserData,
+} from "@/lib/booking-storage";
 
 const AccountPage: React.FC = () => {
   const router = useRouter();
@@ -11,36 +24,44 @@ const AccountPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name: bookingData.user?.name || '',
-    email: bookingData.user?.email || '',
-    phone: bookingData.user?.phone || '',
-    password: '',
-    confirmPassword: ''
+    name: bookingData.user?.name || "",
+    email: bookingData.user?.email || "",
+    phone: bookingData.user?.phone || "",
+    password: "",
+    confirmPassword: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const data = getBookingData();
     setBookingData(data);
-    
+
     // Redirect if no booking data or car selection
-    if (!data.from || !data.to || !data.date || !data.time || !data.selectedCar) {
-      router.push('/');
+    if (
+      !data.from ||
+      !data.to ||
+      !data.date ||
+      !data.time ||
+      !data.selectedCar
+    ) {
+      router.push("/");
     }
   }, [router]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
-    if (isSignUp && !formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
-    if (isSignUp && !formData.phone.trim()) newErrors.phone = 'Phone number is required';
-    if (!formData.password) newErrors.password = 'Password is required';
+
+    if (isSignUp && !formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Email is invalid";
+    if (isSignUp && !formData.phone.trim())
+      newErrors.phone = "Phone number is required";
+    if (!formData.password) newErrors.password = "Password is required";
     if (isSignUp && formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = "Passwords do not match";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -51,75 +72,26 @@ const AccountPage: React.FC = () => {
       const userData = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phone
+        phone: formData.phone,
       };
-      
+
       saveBookingData({ user: userData });
       saveUserData(userData);
-      
-      router.push('/booking/payment');
+
+      router.push("/booking/payment");
     }
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
-  };
-
-  const handlePrev = () => {
-    router.push('/booking/select-car');
   };
 
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black py-4">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <button
-                onClick={handlePrev}
-                className="mr-4 p-2 rounded-full bg-black/20 hover:bg-black/30 transition-colors"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <h1 className="text-2xl font-bold">Account Information</h1>
-            </div>
-            <div className="text-sm">
-              <p>{bookingData.selectedCar?.name}</p>
-              <p>{bookingData.date} at {bookingData.time}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="bg-gray-900 py-4">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex justify-between items-center">
-            <div className="flex space-x-8">
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm font-bold text-black">✓</div>
-                <span className="ml-2 text-sm">Booking Details</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm font-bold text-black">✓</div>
-                <span className="ml-2 text-sm">Select Vehicle</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-black">3</div>
-                <span className="ml-2 text-sm text-yellow-400">Account</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                <span className="ml-2 text-sm text-gray-400">Payment</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Sign In Form */}
       <div className="max-w-2xl mx-auto px-4 py-12">
@@ -129,7 +101,9 @@ const AccountPage: React.FC = () => {
             <button
               onClick={() => setIsSignUp(false)}
               className={`flex-1 py-2 px-4 rounded-md transition-colors ${
-                !isSignUp ? 'bg-yellow-400 text-black' : 'text-gray-400 hover:text-white'
+                !isSignUp
+                  ? "bg-yellow-400 text-black"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               Sign In
@@ -137,7 +111,9 @@ const AccountPage: React.FC = () => {
             <button
               onClick={() => setIsSignUp(true)}
               className={`flex-1 py-2 px-4 rounded-md transition-colors ${
-                isSignUp ? 'bg-yellow-400 text-black' : 'text-gray-400 hover:text-white'
+                isSignUp
+                  ? "bg-yellow-400 text-black"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               Create Account
@@ -154,13 +130,15 @@ const AccountPage: React.FC = () => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  onChange={(e) => handleInputChange("name", e.target.value)}
                   className={`w-full px-4 py-3 rounded-lg bg-black/50 border ${
-                    errors.name ? 'border-red-500' : 'border-gray-600'
+                    errors.name ? "border-red-500" : "border-gray-600"
                   } text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors`}
                   placeholder="Enter your full name"
                 />
-                {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                {errors.name && (
+                  <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+                )}
               </div>
             )}
 
@@ -172,13 +150,15 @@ const AccountPage: React.FC = () => {
               <input
                 type="email"
                 value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
+                onChange={(e) => handleInputChange("email", e.target.value)}
                 className={`w-full px-4 py-3 rounded-lg bg-black/50 border ${
-                  errors.email ? 'border-red-500' : 'border-gray-600'
+                  errors.email ? "border-red-500" : "border-gray-600"
                 } text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors`}
                 placeholder="Enter your email address"
               />
-              {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
 
             {isSignUp && (
@@ -190,13 +170,15 @@ const AccountPage: React.FC = () => {
                 <input
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  onChange={(e) => handleInputChange("phone", e.target.value)}
                   className={`w-full px-4 py-3 rounded-lg bg-black/50 border ${
-                    errors.phone ? 'border-red-500' : 'border-gray-600'
+                    errors.phone ? "border-red-500" : "border-gray-600"
                   } text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors`}
                   placeholder="Enter your phone number"
                 />
-                {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
+                {errors.phone && (
+                  <p className="text-red-400 text-sm mt-1">{errors.phone}</p>
+                )}
               </div>
             )}
 
@@ -207,11 +189,13 @@ const AccountPage: React.FC = () => {
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={formData.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("password", e.target.value)
+                  }
                   className={`w-full px-4 py-3 rounded-lg bg-black/50 border ${
-                    errors.password ? 'border-red-500' : 'border-gray-600'
+                    errors.password ? "border-red-500" : "border-gray-600"
                   } text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors pr-12`}
                   placeholder="Enter your password"
                 />
@@ -220,10 +204,16 @@ const AccountPage: React.FC = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
                 </button>
               </div>
-              {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password}</p>}
+              {errors.password && (
+                <p className="text-red-400 text-sm mt-1">{errors.password}</p>
+              )}
             </div>
 
             {isSignUp && (
@@ -235,13 +225,21 @@ const AccountPage: React.FC = () => {
                 <input
                   type="password"
                   value={formData.confirmPassword}
-                  onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("confirmPassword", e.target.value)
+                  }
                   className={`w-full px-4 py-3 rounded-lg bg-black/50 border ${
-                    errors.confirmPassword ? 'border-red-500' : 'border-gray-600'
+                    errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-gray-600"
                   } text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors`}
                   placeholder="Confirm your password"
                 />
-                {errors.confirmPassword && <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>}
+                {errors.confirmPassword && (
+                  <p className="text-red-400 text-sm mt-1">
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
             )}
 
@@ -249,14 +247,17 @@ const AccountPage: React.FC = () => {
               type="submit"
               className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
             >
-              {isSignUp ? 'Create Account & Continue' : 'Sign In & Continue'}
+              {isSignUp ? "Create Account & Continue" : "Sign In & Continue"}
               <ChevronRight className="ml-2 w-5 h-5" />
             </button>
           </form>
 
           {!isSignUp && (
             <div className="mt-6 text-center">
-              <a href="#" className="text-yellow-400 hover:text-yellow-300 text-sm">
+              <a
+                href="#"
+                className="text-yellow-400 hover:text-yellow-300 text-sm"
+              >
                 Forgot your password?
               </a>
             </div>

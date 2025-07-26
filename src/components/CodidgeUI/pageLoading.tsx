@@ -1,4 +1,5 @@
 import { LoadingSpinner } from "./loadingSpinner";
+import { LoadingIndicator } from "./loadingWidget";
 
 interface ILoadingPageProps {
   className?: string;
@@ -11,11 +12,7 @@ export const PageLoading = ({ className }: ILoadingPageProps) => {
         className ?? ""
       }`}
     >
-      <LoadingSpinner
-        size={8}
-        arcColor="fill-brand-200"
-        ringColor="text-brand-500"
-      />
+      <LoadingIndicator />
     </div>
   );
 };

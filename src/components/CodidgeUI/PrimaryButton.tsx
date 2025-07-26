@@ -26,7 +26,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 }) => {
   const disabledAux = loading || props.disabled;
   const bgColor = disabledAux
-    ? "bg-gradient-to-r from-yellow-700 to-yellow-800 hover:from-yellow-700 hover:to-yellow-800 !cursor-default"
+    ? "bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-600 hover:to-gray-700 !cursor-default"
     : "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700";
 
   return (

@@ -1,6 +1,7 @@
 import { IImage } from "@/common/interfaces";
 
 export interface ICarClass {
+  id: string;
   name: string;
   description: string;
   maxPassengers: string;
@@ -9,6 +10,10 @@ export interface ICarClass {
     label: string;
     value: string;
   }[];
+  supportsHourly: boolean;
+  supportsDistance: boolean;
   hourlyRate: number;
   pricePerKm: number;
+  baseFare: number;
+  minimumFare: number;
 }
