@@ -26,3 +26,18 @@ input[type="datetime-local"] {
   appearance: none;
   -moz-appearance: textfield;
 }
+
+.vi__character {
+  border: none;
+  font-size: 20px;
+  border-radius: 8px;
+
+  /* light theme */
+  color: #667085;
+  background-color: #f2f4f7;
+  box-shadow: 0 2px 0 #d0d5dd;
+}
+
+.vi__character--selected {
+  outline: 2px solid #fdc700;
+}

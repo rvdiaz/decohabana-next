@@ -22,7 +22,7 @@ interface InputProps {
   hint?: string;
   errorMessage?: string;
   onKeyPress?: (e: React.KeyboardEvent) => void;
-  label?: string;
+  label?: ReactNode;
   clearable?: boolean;
   loading?: boolean;
   rightIcon?: ReactNode;
@@ -84,7 +84,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div>
-        {label && <Label>{label}</Label>}
+        {label && <Label className="mb-1">{label}</Label>}
         <div className="relative">
           <input
             ref={ref} // ✅ Forwarded here

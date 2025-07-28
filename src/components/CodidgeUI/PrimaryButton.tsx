@@ -36,7 +36,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       className={`cursor-pointer w-full text-black font-semibold py-4 px-6 rounded-lg duration-300 transform hover:scale-105 ${bgColor} ${sizeClasses[size]} ${props.className}`}
     >
       {loading ? (
-        <div className="py-[3px]">
+        <div className="w-fit py-[3px] mx-auto">
           <LoadingIndicator />
         </div>
       ) : (

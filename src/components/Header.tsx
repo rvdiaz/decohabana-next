@@ -1,30 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Menu, X, Phone, Mail, User, LogOut } from "lucide-react";
 import Link from "next/link";
-import { clearUserData, getUserData } from "@/lib/booking-storage";
+import { useCustomer } from "@/context/authProvider";
+import { LogoutButton } from "./AuthForms/widgets/logoutButton";
 
 interface HeaderProps {
-  isSignedIn?: boolean;
-  user?: any;
   onSignOut?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isSignedIn, onSignOut }) => {
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const userData = getUserData();
-    if (userData) {
-      setUser(userData);
-    }
-  }, []);
-
-  const handleSignOut = () => {
-    clearUserData();
-    setUser(null);
-  };
+const Header: React.FC<HeaderProps> = ({ onSignOut }) => {
+  const { customer } = useCustomer();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -86,12 +73,12 @@ const Header: React.FC<HeaderProps> = ({ isSignedIn, onSignOut }) => {
 
           {/* User Section */}
           <div className="hidden md:flex items-center space-x-4">
-            {isSignedIn && user ? (
+            {customer ? (
               <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
                   <User className="w-4 h-4 text-yellow-400" />
                   <span className="text-white text-sm">
-                    Welcome, {user.name}
+                    Welcome, {customer.name}
                   </span>
                 </div>
                 <Link
@@ -100,13 +87,7 @@ const Header: React.FC<HeaderProps> = ({ isSignedIn, onSignOut }) => {
                 >
                   Dashboard
                 </Link>
-                <button
-                  onClick={onSignOut}
-                  className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span className="text-sm">Sign Out</span>
-                </button>
+                <LogoutButton />
               </div>
             ) : (
               <div className="flex items-center space-x-4 text-sm text-gray-300">
@@ -170,10 +151,10 @@ const Header: React.FC<HeaderProps> = ({ isSignedIn, onSignOut }) => {
                 Contact
               </button>
 
-              {isSignedIn && user ? (
+              {customer ? (
                 <div className="pt-4 border-t border-gray-700">
                   <p className="text-yellow-400 text-sm mb-2">
-                    Welcome, {user.name}
+                    Welcome, {customer.name}
                   </p>
                   <Link
                     href="/dashboard"
@@ -181,13 +162,8 @@ const Header: React.FC<HeaderProps> = ({ isSignedIn, onSignOut }) => {
                   >
                     Dashboard
                   </Link>
-                  <button
-                    onClick={onSignOut}
-                    className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign Out</span>
-                  </button>
+                  <LogoutButton />
+                 
                 </div>
               ) : (
                 <div className="pt-4 border-t border-gray-700 space-y-2 text-sm text-gray-300">

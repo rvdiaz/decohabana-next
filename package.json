@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
+    "aws-amplify": "^6.15.3",
     "clsx": "^2.1.1",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.525.0",
@@ -18,7 +19,8 @@
     "postcss": "^8.5.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-hook-form": "^7.61.1"
+    "react-hook-form": "^7.61.1",
+    "react-verification-input": "^4.2.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

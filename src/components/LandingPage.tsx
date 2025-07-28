@@ -1,3 +1,5 @@
+"use server";
+
 import React from "react";
 import { Contact } from "lucide-react";
 import Header from "./Header";

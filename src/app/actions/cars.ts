@@ -1,3 +1,5 @@
+"use server";
+
 import { getCarClassesQuery } from "@/components/Cars/api/queries";
 import { getQueriesVariables } from "@/core";
 

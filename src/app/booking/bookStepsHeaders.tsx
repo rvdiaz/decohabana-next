@@ -1,20 +1,31 @@
 "use client";
 
+import { useCustomer } from "@/context/authProvider";
 import { ChevronLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 export const BookingStepsHeader = () => {
-  const pathname = usePathname();
+  const { customer } = useCustomer(); // access customer status
 
-  const routes = [
-    "/booking/select-car",
-    "/booking/account",
-    "/booking/payment",
-    "/booking/success",
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // All possible steps
+  const allSteps = [
+    { label: "Booking Details", route: "/booking/select-car" }, // optional intro
+    { label: "Select Vehicle", route: "/booking/select-car" },
+    { label: "Account", route: "/booking/account" },
+    { label: "Payment", route: "/booking/payment" },
   ];
 
-  const currentIndex = routes.indexOf(pathname);
+  console.log(":::customer", customer);
 
+  // Filter out "Account" if user is signed in
+  const steps = customer
+    ? allSteps.filter((step) => step.route !== "/booking/account")
+    : allSteps;
+
+  // Step title mapping
   const stepTitles: Record<string, string> = {
     "/booking/select-car": "Select Your Vehicle",
     "/booking/account": "Your Account",
@@ -22,10 +33,16 @@ export const BookingStepsHeader = () => {
     "/booking/success": "Booking Complete",
   };
 
+  const title = stepTitles[pathname] || "Booking";
+
+  // Extract routes to calculate currentIndex
+  const stepRoutes = steps.map((s) => s.route);
+  const currentIndex = stepRoutes.indexOf(pathname);
+
   const getStatus = (stepIndex: number, route: string) => {
-    if (stepIndex === 0) return "completed"; // first step always completed
-    if (routes.indexOf(route) < currentIndex) return "completed";
-    if (routes.indexOf(route) === currentIndex) return "current";
+    if (stepIndex === 0) return "completed";
+    if (stepRoutes.indexOf(route) < currentIndex) return "completed";
+    if (stepRoutes.indexOf(route) === currentIndex) return "current";
     return "upcoming";
   };
 
@@ -41,20 +58,26 @@ export const BookingStepsHeader = () => {
     return "text-gray-400";
   };
 
-  const steps = [
-    { label: "Booking Details", route: "/booking/select-car" }, // always completed
-    { label: "Select Vehicle", route: "/booking/select-car" },
-    { label: "Account", route: "/booking/account" },
-    { label: "Payment", route: "/booking/payment" },
-  ];
-
-  const router = useRouter();
-
   const handlePrev = () => {
-    router.back();
-  };
+    const route = pathname;
 
-  const title = stepTitles[pathname] || "Booking";
+    if (customer) {
+      // Logged in user flow: select-car → payment
+      if (route === "/booking/payment") {
+        router.push("/booking/select-car");
+      } else if (route === "/booking/select-car") {
+        // Optional: navigate out or disable if it's the first step
+        router.push("/"); // Or router.back() or do nothing
+      }
+    } else {
+      // Guest user flow: select-car → account → payment
+      if (route === "/booking/payment") {
+        router.push("/booking/account");
+      } else if (route === "/booking/account") {
+        router.push("/booking/select-car");
+      }
+    }
+  };
 
   return (
     <div>
@@ -73,6 +96,7 @@ export const BookingStepsHeader = () => {
           </div>
         </div>
       </div>
+
       <div className="bg-gray-900 py-4">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center">

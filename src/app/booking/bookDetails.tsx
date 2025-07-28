@@ -31,7 +31,7 @@ export const BookingSummaryWidgetHeader = () => {
 
   return (
     <div className="w-full overflow-x-auto  text-white py-3 px-4 rounded-lg shadow-md">
-      <div className="max-w-6xl px-4 mx-auto flex items-center space-x-4 text-sm ">
+      <div className="w-full md:max-w-6xl px-4 mx-auto flex flex-col md:flex-row items-center space-x-4 text-sm ">
         <Item
           icon={<MapPin size={16} />}
           label="Pickup"

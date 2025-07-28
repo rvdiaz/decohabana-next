@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Users } from "lucide-react";
+import React, { useState } from "react";
+import { ChevronRight, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getBookingData } from "@/lib/booking-storage";
 import { useBooking } from "../BookingProvider";
 import { ICarClass } from "@/components/Cars/interfaces";
-import { BookingSummaryWidgetHeader } from "../bookDetails";
 import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
+import { useCustomer } from "@/context/authProvider";
 
 const CarSelectionPage: React.FC = () => {
+  const { customer } = useCustomer(); // access customer status
+
   const { availableCarTypes: availableCarTypesCtx } = useBooking();
   const [selectedCar, setselectedCar] = useState<ICarClass | undefined>();
 
@@ -19,25 +20,16 @@ const CarSelectionPage: React.FC = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const data = getBookingData();
-
-    // Redirect if no booking data
-    if (!data.from || !data.to || !data.date || !data.time) {
-      router.push("/");
-    }
-  }, [router]);
-
   const handleCarSelect = (car: ICarClass) => {
     setselectedCar(car);
   };
 
   const handleNext = () => {
-    router.push("/booking/account");
-  };
-
-  const handlePrev = () => {
-    router.push("/");
+    if (customer) {
+      router.push("/booking/payment");
+    } else {
+      router.push("/booking/account");
+    }
   };
 
   const formatPrice = (price: number) => {

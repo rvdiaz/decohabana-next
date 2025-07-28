@@ -1,12 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Calendar, ChevronRight, Clock, MapPin } from "lucide-react";
-import Input from "../CodidgeUI/InputField";
-import { LoadScript } from "@react-google-maps/api";
-import { PlacesAutoCompleteWidget } from "../CodidgeUI/PlacesAutoComplete";
-import PrimaryButton, { ButtonSize } from "../CodidgeUI/PrimaryButton";
+import React from "react";
 import { BookingForm } from "./bookingForm";
+import { LoadScript } from "@react-google-maps/api";
 
 const googleKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 
