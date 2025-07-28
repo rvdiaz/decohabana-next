@@ -11,17 +11,17 @@ import PrimaryButton, {
 import { useCustomer } from "@/context/authProvider";
 
 const CarSelectionPage: React.FC = () => {
+  const { bookingParams, setBookingState, selectedCarType } = useBooking();
   const { customer } = useCustomer(); // access customer status
 
   const { availableCarTypes: availableCarTypesCtx } = useBooking();
-  const [selectedCar, setselectedCar] = useState<ICarClass | undefined>();
 
   const availabilityCars = availableCarTypesCtx ?? [];
 
   const router = useRouter();
 
   const handleCarSelect = (car: ICarClass) => {
-    setselectedCar(car);
+    setBookingState({ ...bookingParams, selectedCarType: car });
   };
 
   const handleNext = () => {
@@ -31,6 +31,8 @@ const CarSelectionPage: React.FC = () => {
       router.push("/booking/account");
     }
   };
+
+  console.log(":::bookingParams", bookingParams);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -47,7 +49,7 @@ const CarSelectionPage: React.FC = () => {
           className="flex !w-fit mx-auto"
           size={ButtonSize.LARGE}
           onClick={handleNext}
-          disabled={!selectedCar}
+          disabled={!selectedCarType}
         >
           Continue to Account
           <ChevronRight className="ml-2 w-5 h-5" />
@@ -56,88 +58,94 @@ const CarSelectionPage: React.FC = () => {
       {/* Car Selection */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {availabilityCars.map((car) => (
-            <div
-              key={car.id}
-              className={`bg-gray-900 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                selectedCar?.id === car.id
-                  ? "border-yellow-400 shadow-2xl shadow-yellow-400/20"
-                  : "border-gray-700 hover:border-gray-600"
-              }`}
-              onClick={() => handleCarSelect(car)}
-            >
-              <div className="relative">
-                <img
-                  src={car.image.url}
-                  alt={car.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold">
-                  {car.name}
-                </div>
-                {selectedCar?.id === car.id && (
-                  <div className="absolute inset-0 bg-yellow-400/20 flex items-center justify-center">
-                    <div className="bg-yellow-400 text-black p-3 rounded-full">
-                      <svg
-                        className="w-6 h-6"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+          {availabilityCars
+            .slice()
+            .sort((a, b) => a.tripQuotePrice - b.tripQuotePrice)
+            .map((car) => {
+              return (
+                <div
+                  key={car.id}
+                  className={`bg-gray-900 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+                    selectedCarType?.id === car.id
+                      ? "border-yellow-400 shadow-2xl shadow-yellow-400/20"
+                      : "border-gray-700 hover:border-gray-600"
+                  }`}
+                  onClick={() => handleCarSelect(car)}
+                >
+                  <div className="relative">
+                    <img
+                      src={car.image.url}
+                      alt={car.name}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold">
+                      {car.name}
+                    </div>
+                    {selectedCarType?.id === car.id && (
+                      <div className="absolute inset-0 bg-yellow-400/20 flex items-center justify-center">
+                        <div className="bg-yellow-400 text-black p-3 rounded-full">
+                          <svg
+                            className="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-xl font-bold text-yellow-400">
+                        {car.name}
+                      </h3>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold">
+                          {formatPrice(car.tripQuotePrice)}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center mb-4">
+                      <Users className="w-5 h-5 text-yellow-400 mr-2" />
+                      <span className="text-sm">
+                        Up to {car.maxPassengers} passengers
+                      </span>
+                    </div>
+
+                    <p className="text-gray-300 text-sm mb-4">
+                      {car.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {car.features.map((feature, index) => (
+                        <span
+                          key={index}
+                          className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
+                        >
+                          {feature.label}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                )}
-              </div>
-
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-bold text-yellow-400">
-                    {car.name}
-                  </h3>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold">
-                      {formatPrice(car.hourlyRate)}
-                    </div>
-                    <div className="text-sm text-gray-400">per hour</div>
-                  </div>
                 </div>
-
-                <div className="flex items-center mb-4">
-                  <Users className="w-5 h-5 text-yellow-400 mr-2" />
-                  <span className="text-sm">
-                    Up to {car.maxPassengers} passengers
-                  </span>
-                </div>
-
-                <p className="text-gray-300 text-sm mb-4">{car.description}</p>
-
-                <div className="flex flex-wrap gap-2">
-                  {car.features.map((feature, index) => (
-                    <span
-                      key={index}
-                      className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
-                    >
-                      {feature.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
         </div>
         <div className="text-center pt-8">
           <PrimaryButton
             className="flex !w-fit mx-auto"
             size={ButtonSize.LARGE}
             onClick={handleNext}
-            disabled={!selectedCar}
+            disabled={!selectedCarType}
           >
-            Continue to Account
+            Next
             <ChevronRight className="ml-2 w-5 h-5" />
           </PrimaryButton>
         </div>

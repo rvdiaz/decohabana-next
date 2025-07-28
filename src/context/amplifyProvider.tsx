@@ -1,6 +1,5 @@
 "use client";
 
-import { LoadScript } from "@react-google-maps/api";
 import { Amplify } from "aws-amplify";
 import { ReactNode, useEffect } from "react";
 

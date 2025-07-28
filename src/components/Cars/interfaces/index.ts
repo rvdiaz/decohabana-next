@@ -16,4 +16,5 @@ export interface ICarClass {
   pricePerKm: number;
   baseFare: number;
   minimumFare: number;
+  tripQuotePrice: number;
 }

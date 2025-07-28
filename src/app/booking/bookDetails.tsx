@@ -31,7 +31,7 @@ export const BookingSummaryWidgetHeader = () => {
 
   return (
     <div className="w-full overflow-x-auto  text-white py-3 px-4 rounded-lg shadow-md">
-      <div className="w-full md:max-w-6xl px-4 mx-auto flex flex-col md:flex-row items-center space-x-4 text-sm ">
+      <div className="w-full md:max-w-6xl px-0 md:px-4 mx-auto flex flex-col md:flex-row items-start space-x-4 text-sm ">
         <Item
           icon={<MapPin size={16} />}
           label="Pickup"
@@ -82,4 +82,6 @@ export const BookingSummaryWidgetHeader = () => {
   );
 };
 
-const Separator = () => <div className="w-px h-5 bg-gray-600" />;
+const Separator = () => (
+  <div className="h-[1px] my-2 md:my-0 w-full md:w-px md:h-5 bg-gray-200" />
+);

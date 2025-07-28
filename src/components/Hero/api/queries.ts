@@ -20,6 +20,7 @@ export const getCarClassesAvilabilityQuery = `
             pricePerKm
             baseFare
             minimumFare
+            tripQuotePrice
         }
     }
 `;
