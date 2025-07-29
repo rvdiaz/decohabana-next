@@ -2,7 +2,7 @@
 
 import { getQueriesVariables } from "@/core";
 import { payChargeMutation } from "../../lib/graphql/payments/mutations";
-import { BookingParams } from "@/context/bookingProvider";
+import { BookingParams } from "@/interfaces/booking";
 
 export const payBooking = async ({
   bookingDetails,

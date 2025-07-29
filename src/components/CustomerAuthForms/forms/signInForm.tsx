@@ -4,12 +4,13 @@ import { fetchUserAttributes, signIn, signOut } from "aws-amplify/auth";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Customer, useCustomer } from "@/context/authProvider";
+import { useCustomer } from "@/context/authProvider";
 import { getCustomerAction } from "@/lib/actions/customer";
 import Input from "@/components/CodidgeUI/InputField";
 import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
+import { ICustomer } from "@/interfaces/customer";
 
 type FormData = {
   email: string;
@@ -31,7 +32,7 @@ export const SignInForm = () => {
   const getUserFromDatabase = async (userId: string) => {
     try {
       const customer = await getCustomerAction(userId);
-      refreshCustomer(customer as Customer);
+      refreshCustomer(customer as ICustomer);
       router.push("/booking/payment");
     } catch (error) {
       await signOut();

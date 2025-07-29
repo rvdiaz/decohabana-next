@@ -10,18 +10,12 @@ import {
 import { Amplify } from "aws-amplify";
 import { getCurrentUser } from "aws-amplify/auth";
 import { getCustomerAction } from "@/lib/actions/customer";
-
-export type Customer = {
-  id: string;
-  email: string;
-  name: string;
-  phone: string;
-};
+import { ICustomer } from "@/interfaces/customer";
 
 type CustomerContextType = {
-  customer: Customer | null;
+  customer: ICustomer | null;
   loading: boolean;
-  refreshCustomer: (cus: Customer | null) => Promise<void>;
+  refreshCustomer: (cus: ICustomer | null) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -30,7 +24,7 @@ const CustomerContext = createContext<CustomerContextType | undefined>(
 );
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [customer, setCustomer] = useState<ICustomer | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Configure Amplify once on the client
@@ -57,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setCustomer(null);
         } else {
           const customer = await getCustomerAction(user.userId);
-          refreshCustomer(customer as Customer);
+          refreshCustomer(customer as ICustomer);
         }
         setLoading(false);
       } catch (error) {
@@ -68,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     getUser();
   }, []);
 
-  const refreshCustomer = async (customer: Customer | null) => {
+  const refreshCustomer = async (customer: ICustomer | null) => {
     try {
       setCustomer(customer);
     } catch {

@@ -6,6 +6,10 @@ export const payChargeMutation = `mutation payBooking($tenant: TenantData!, $boo
         }
         chargeId
         message
+        customerExternalReference {
+            sourceHandler
+            referenceId
+        }
     }
   }
 `;

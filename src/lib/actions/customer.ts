@@ -3,15 +3,11 @@
 import { addCustomerMutation } from "@/lib/graphql/customer/mutation";
 import { getQueriesVariables } from "@/core";
 import { getCustomerQuery } from "../graphql/customer/queries";
+import { ICustomerInput } from "@/interfaces/customer";
 
-interface ICustomerInput {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-}
-
-export const addCustomerAction = async (customer: ICustomerInput) => {
+export const addCustomerAction = async (
+  customer: Partial<Omit<ICustomerInput, "externalReference">>
+) => {
   try {
     const response = await fetch(
       process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,

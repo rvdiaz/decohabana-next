@@ -73,6 +73,8 @@ export const BookingStepsHeader = () => {
         router.push("/booking/account");
       } else if (route === "/booking/account") {
         router.push("/booking/select-car");
+      } else if (route === "/booking/select-car") {
+        router.push("/");
       }
     }
   };

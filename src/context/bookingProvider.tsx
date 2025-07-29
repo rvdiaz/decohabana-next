@@ -1,8 +1,6 @@
 "use client";
-import { ICarClass } from "@/interfaces/carTypes";
 import { PageLoading } from "@/components/CodidgeUI/pageLoading";
 import { IExtraServices } from "@/interfaces/extraServices";
-import { BookMode, IMapLocation } from "@/interfaces/hero";
 import React, {
   createContext,
   useContext,
@@ -10,22 +8,7 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-
-export interface BookingParams {
-  pickupLocation: IMapLocation;
-  dropoffLocation: IMapLocation;
-  startDate: string;
-  endDate: string;
-  bookHours: number;
-  bookMode: BookMode;
-}
-
-interface BookingState {
-  bookingParams?: BookingParams;
-  availableCarTypes?: ICarClass[];
-  selectedCarType?: ICarClass;
-  selectedAddons?: IExtraServices[];
-}
+import { BookingState } from "@/interfaces/booking";
 
 interface BookingCtx extends BookingState {
   setBookingState: (s: Partial<BookingState>) => void;

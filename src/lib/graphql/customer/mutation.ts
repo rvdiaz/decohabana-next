@@ -5,6 +5,10 @@ mutation addCustomer($tenant: TenantData!, $customer: CustomerInput!){
         name
         email
         phone
+        externalReference {
+            referenceId
+            sourceHandler
+        }
     }
 }
 `;

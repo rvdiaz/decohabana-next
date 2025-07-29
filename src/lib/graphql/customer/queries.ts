@@ -5,6 +5,10 @@ query getCustomer($tenant: TenantData!, $customerId: ID!){
         name
         email
         phone
+        externalReference {
+            referenceId
+            sourceHandler
+        }
     }
 }
 `;

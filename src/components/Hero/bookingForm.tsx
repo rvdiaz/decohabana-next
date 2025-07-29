@@ -88,6 +88,8 @@ export const BookingForm = () => {
             };
           } = await getCarClassesAvailables(bookingDetails);
 
+          console.log("::::carTypes", carTypes);
+
           localStorage.setItem(
             "bookingFlow",
             JSON.stringify({

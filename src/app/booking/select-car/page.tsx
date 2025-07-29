@@ -138,9 +138,9 @@ const CarSelectionPage = ({
                     <input
                       type="checkbox"
                       className="hidden"
-                      checked={selectedAddons?.some(
-                        (a) => a.name === addon.name
-                      )}
+                      checked={
+                        !!selectedAddons?.some((a) => a.name === addon.name)
+                      }
                       onChange={() => handleAddonToggle(addon)}
                     />
                     <div className="flex items-center space-x-3">

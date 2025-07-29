@@ -1,4 +1,4 @@
-import { Customer, useCustomer } from "@/context/authProvider";
+import { useCustomer } from "@/context/authProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { MailCheck } from "lucide-react";
 import { addCustomerAction } from "@/lib/actions/customer";
 import Label from "@/components/CodidgeUI/Label";
 import PrimaryButton from "@/components/CodidgeUI/PrimaryButton";
+import { ICustomer } from "@/interfaces/customer";
 
 export const SignUpVerification = ({
   onSuccess,
@@ -59,7 +60,7 @@ export const SignUpVerification = ({
             phone: phoneParams,
             id: userId,
           });
-          refreshCustomer(customer as Customer);
+          refreshCustomer(customer as ICustomer);
           router.push("/booking/payment");
         }
 

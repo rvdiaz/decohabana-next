@@ -33,7 +33,7 @@ const CARD_ELEMENT_OPTIONS = {
 
 export const CheckoutForm = () => {
   const { bookingParams, selectedCarType, selectedAddons } = useBooking();
-  const { customer } = useCustomer();
+  const { customer, refreshCustomer } = useCustomer();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -93,10 +93,17 @@ export const CheckoutForm = () => {
             name: customer?.name,
             email: customer?.email,
             phone: customer?.phone,
+            externalReference: customer?.externalReference,
           },
         };
 
         const res = await payBooking(input);
+        refreshCustomer({
+          ...customer!,
+          externalReference:
+            res?.customerExternalReference ?? customer?.externalReference,
+        });
+
         return res;
       }
     } catch (error) {
