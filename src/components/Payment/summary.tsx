@@ -1,11 +1,16 @@
 import React from "react";
-import { useBooking } from "../../BookingProvider";
 import { useCustomer } from "@/context/authProvider";
-import { Shield } from "lucide-react";
+import { useBooking } from "@/context/bookingProvider";
 
 export const TripSummary = () => {
-  const { bookingParams, selectedCarType } = useBooking();
+  const { bookingParams, selectedCarType, selectedAddons } = useBooking();
   const { customer } = useCustomer();
+
+  const totalExtraServices = selectedAddons?.reduce((add: number, item) => {
+    add += item.price.amount;
+
+    return add;
+  }, 0);
 
   return (
     <div className="bg-gray-900 rounded-xl p-4 md:p-8">
@@ -40,20 +45,23 @@ export const TripSummary = () => {
         <hr className="border-gray-700" />
 
         <div className="flex justify-between">
-          <span className="text-gray-300">Base Price:</span>
+          <span className="text-gray-300">Car Class Price:</span>
           <span>${selectedCarType?.tripQuotePrice}</span>
         </div>
 
-        {/*   <div className="flex justify-between">
-          <span className="text-gray-300">0</span>
-          <span>${866}</span>
-        </div> */}
+        <div className="flex justify-between">
+          <span className="text-gray-300">Extra Services Price:</span>
+          <span>${totalExtraServices}</span>
+        </div>
 
         <hr className="border-gray-700" />
 
         <div className="flex justify-between text-xl font-bold text-yellow-400">
           <span>Total:</span>
-          <span>${selectedCarType?.tripQuotePrice}</span>
+          <span>
+            $
+            {(selectedCarType?.tripQuotePrice ?? 0) + (totalExtraServices ?? 0)}
+          </span>
         </div>
       </div>
     </div>

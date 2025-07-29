@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { TripSummary } from "./widgets/summary";
-import { CheckoutForm } from "./widgets/checkoutForm";
+import { CheckoutForm } from "../../../components/Payment/checkoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { TripSummary } from "@/components/Payment/summary";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API ?? "");
 

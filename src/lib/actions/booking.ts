@@ -1,7 +1,7 @@
 "use server";
 
-import { getCarClassesAvilabilityQuery } from "@/components/Hero/api/queries";
-import { BookMode, IMapLocation } from "@/components/Hero/interface";
+import { getCarClassesAvilabilityQuery } from "@/lib/graphql/hero/queries";
+import { BookMode, IMapLocation } from "@/interfaces/hero";
 import { getQueriesVariables } from "@/core";
 
 interface BookingInput {

@@ -1,7 +1,8 @@
 "use client";
-import { ICarClass } from "@/components/Cars/interfaces";
+import { ICarClass } from "@/interfaces/carTypes";
 import { PageLoading } from "@/components/CodidgeUI/pageLoading";
-import { BookMode, IMapLocation } from "@/components/Hero/interface";
+import { IExtraServices } from "@/interfaces/extraServices";
+import { BookMode, IMapLocation } from "@/interfaces/hero";
 import React, {
   createContext,
   useContext,
@@ -23,17 +24,19 @@ interface BookingState {
   bookingParams?: BookingParams;
   availableCarTypes?: ICarClass[];
   selectedCarType?: ICarClass;
+  selectedAddons?: IExtraServices[];
 }
 
 interface BookingCtx extends BookingState {
   setBookingState: (s: Partial<BookingState>) => void;
   clearBooking: () => void;
+  handleAddonToggle: (addon: IExtraServices) => void;
 }
 
 const BookingContext = createContext<BookingCtx | undefined>(undefined);
 
 export const BookingProvider = ({ children }: { children: ReactNode }) => {
-  const [state, setState] = useState<BookingState>({});
+  const [state, setState] = useState<BookingState | null>({});
   const [loading, setloading] = useState(true);
 
   // 1️⃣  Hydrate from localStorage on mount
@@ -47,6 +50,21 @@ export const BookingProvider = ({ children }: { children: ReactNode }) => {
   const setBookingState = (patch: Partial<BookingState>) => {
     setState((prev) => {
       const next = { ...prev, ...patch };
+      localStorage.setItem("bookingFlow", JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const handleAddonToggle = (addon: IExtraServices) => {
+    setState((prev) => {
+      const currentAddons = prev?.selectedAddons || [];
+      const isSelected = currentAddons.some((a) => a.name === addon.name); // Or use a unique ID if available
+
+      const updatedAddons = isSelected
+        ? currentAddons.filter((a) => a.name !== addon.name)
+        : [...currentAddons, addon];
+
+      const next = { ...prev, selectedAddons: updatedAddons };
       localStorage.setItem("bookingFlow", JSON.stringify(next));
       return next;
     });
@@ -67,7 +85,7 @@ export const BookingProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <BookingContext.Provider
-      value={{ ...state, setBookingState, clearBooking }}
+      value={{ ...state, setBookingState, clearBooking, handleAddonToggle }}
     >
       {children}
     </BookingContext.Provider>

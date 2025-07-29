@@ -3,13 +3,13 @@ import { PlacesAutoCompleteWidget } from "../CodidgeUI/PlacesAutoComplete";
 import Input from "../CodidgeUI/InputField";
 import { Calendar, ChevronRight } from "lucide-react";
 import PrimaryButton, { ButtonSize } from "../CodidgeUI/PrimaryButton";
-import { BookMode, IBookingFormInput } from "./interface";
+import { BookMode, IBookingFormInput } from "../../interfaces/hero";
 import { Controller, useForm } from "react-hook-form";
 import Select from "../CodidgeUI/Select";
-import { calculateEndDate, validateDateTime } from "./helpers";
-import { getCarClassesAvailables } from "@/app/actions/booking";
-import { ICarClass } from "../Cars/interfaces";
+import { getCarClassesAvailables } from "@/lib/actions/booking";
+import { ICarClass } from "../../interfaces/carTypes";
 import { useRouter } from "next/navigation";
+import { calculateEndDate, validateDateTime } from "@/lib/utils/hero";
 
 const durationOptions = Array.from({ length: 23 }, (_, i) => {
   const hour = i + 2;

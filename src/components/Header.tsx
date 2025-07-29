@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Menu, X, Phone, Mail, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useCustomer } from "@/context/authProvider";
-import { LogoutButton } from "./AuthForms/widgets/logoutButton";
+import { LogoutButton } from "./CustomerAuthForms/widgets/logoutButton";
 
 interface HeaderProps {
   onSignOut?: () => void;

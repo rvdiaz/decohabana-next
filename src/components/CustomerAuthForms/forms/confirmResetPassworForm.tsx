@@ -3,10 +3,10 @@ import { useState } from "react";
 import { confirmResetPassword } from "aws-amplify/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Label from "../CodidgeUI/Label";
-import Input from "../CodidgeUI/InputField";
+import Label from "../../CodidgeUI/Label";
+import Input from "../../CodidgeUI/InputField";
 import Link from "next/link";
-import PrimaryButton from "../CodidgeUI/PrimaryButton";
+import PrimaryButton from "../../CodidgeUI/PrimaryButton";
 
 type FormData = {
   newPassword: string;

@@ -9,7 +9,7 @@ import {
 } from "react";
 import { Amplify } from "aws-amplify";
 import { getCurrentUser } from "aws-amplify/auth";
-import { getCustomerAction } from "@/app/actions/customer";
+import { getCustomerAction } from "@/lib/actions/customer";
 
 export type Customer = {
   id: string;

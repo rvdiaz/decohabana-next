@@ -1,8 +1,8 @@
 "use server";
 
-import { addCustomerMutation } from "@/components/AuthForms/api/mutation";
-import { getCustomerQuery } from "@/components/AuthForms/api/queries";
+import { addCustomerMutation } from "@/lib/graphql/customer/mutation";
 import { getQueriesVariables } from "@/core";
+import { getCustomerQuery } from "../graphql/customer/queries";
 
 interface ICustomerInput {
   id: string;

@@ -1,7 +1,7 @@
 import { ImageOff, Users } from "lucide-react";
 import React from "react";
-import { ICarClass } from "./interfaces";
-import { getCarsAction } from "@/app/actions/cars";
+import { ICarClass } from "../../interfaces/carTypes";
+import { getCarsAction } from "@/lib/actions/cars";
 
 export async function CarContainers() {
   const { getCarTypes: cars }: { getCarTypes: ICarClass[] } =
@@ -40,12 +40,7 @@ export async function CarContainers() {
                 key={index}
                 className="bg-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-yellow-400 transition-all duration-300 transform hover:scale-105"
               >
-                <div className="relative">
-                  {imageWidget}
-                  {/*  <div className="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold">
-                    {car.name}
-                  </div> */}
-                </div>
+                <div className="relative">{imageWidget}</div>
 
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
@@ -66,21 +61,6 @@ export async function CarContainers() {
                       Up to {car.maxPassengers} passengers
                     </span>
                   </div>
-
-                  {/*      <p className="text-gray-300 text-sm mb-4">
-                    {car.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {car.features.slice(0, 3).map((feature, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
-                      >
-                        {feature.label}
-                      </span>
-                    ))}
-                  </div> */}
                 </div>
               </div>
             );

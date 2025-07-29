@@ -1,4 +1,3 @@
-import PrimaryButton from "@/components/CodidgeUI/PrimaryButton";
 import TextButton from "@/components/CodidgeUI/TextButton";
 import { useCustomer } from "@/context/authProvider";
 import { signOut } from "aws-amplify/auth";

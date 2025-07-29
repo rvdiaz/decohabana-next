@@ -1,9 +1,7 @@
-"use server";
-
-import { getCarClassesQuery } from "@/components/Cars/api/queries";
+import { getExtraServicesQuery } from "@/lib/graphql/extraServices/queries";
 import { getQueriesVariables } from "@/core";
 
-export const getCarsAction = async () => {
+export const getExtraServices = async () => {
   try {
     const response = await fetch(
       process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
@@ -13,15 +11,17 @@ export const getCarsAction = async () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: getCarClassesQuery,
-          variables: getQueriesVariables,
+          query: getExtraServicesQuery,
+          variables: {
+            ...getQueriesVariables,
+          },
         }),
       }
     );
     const result = await response.json();
-    return result.data;
+    return result.data.getExtraServices;
   } catch (error) {
-    console.log("::error getting cars", error);
+    console.log("::error adding customer", error);
     return [];
   }
 };

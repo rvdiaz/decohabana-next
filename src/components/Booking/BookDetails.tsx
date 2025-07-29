@@ -1,6 +1,8 @@
-import { BookMode } from "@/components/Hero/interface";
+"use client";
+
+import { useBooking } from "@/context/bookingProvider";
+import { BookMode } from "@/interfaces/hero";
 import { MapPin, Clock, CalendarRange } from "lucide-react";
-import { BookingParams, useBooking } from "./BookingProvider";
 
 export const BookingSummaryWidgetHeader = () => {
   const { bookingParams } = useBooking();

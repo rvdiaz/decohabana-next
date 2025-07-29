@@ -1,8 +1,7 @@
 "use client";
-
-import { SignInForm } from "@/components/AuthForms/signInForm";
-import { SignUpForm } from "@/components/AuthForms/signUpForm";
-import { SignUpVerification } from "@/components/AuthForms/signUpVerification";
+import { SignInForm } from "@/components/CustomerAuthForms/forms/signInForm";
+import { SignUpForm } from "@/components/CustomerAuthForms/forms/signUpForm";
+import { SignUpVerification } from "@/components/CustomerAuthForms/forms/signUpVerification";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 

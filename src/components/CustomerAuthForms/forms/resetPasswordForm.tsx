@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { resetPassword } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
-import Input from "../CodidgeUI/InputField";
+import Input from "../../CodidgeUI/InputField";
 import Link from "next/link";
-import PrimaryButton from "../CodidgeUI/PrimaryButton";
+import PrimaryButton from "../../CodidgeUI/PrimaryButton";
 
 type FormData = {
   email: string;

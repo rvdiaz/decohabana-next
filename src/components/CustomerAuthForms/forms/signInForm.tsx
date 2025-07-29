@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import { fetchUserAttributes, signIn, signOut } from "aws-amplify/auth";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Input from "../CodidgeUI/InputField";
 import Link from "next/link";
-import PrimaryButton, { ButtonSize } from "../CodidgeUI/PrimaryButton";
-import { getCustomerAction } from "@/app/actions/customer";
 import { Customer, useCustomer } from "@/context/authProvider";
+import { getCustomerAction } from "@/lib/actions/customer";
+import Input from "@/components/CodidgeUI/InputField";
+import PrimaryButton, {
+  ButtonSize,
+} from "@/components/CodidgeUI/PrimaryButton";
 
 type FormData = {
   email: string;

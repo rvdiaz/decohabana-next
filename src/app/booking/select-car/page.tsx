@@ -1,24 +1,32 @@
 "use client";
-
-import React, { useState } from "react";
-import { ChevronRight, Users } from "lucide-react";
+import React from "react";
+import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useBooking } from "../BookingProvider";
-import { ICarClass } from "@/components/Cars/interfaces";
+import { ICarClass } from "@/interfaces/carTypes";
 import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
 import { useCustomer } from "@/context/authProvider";
+import { IExtraServices } from "@/interfaces/extraServices";
+import { useBooking } from "@/context/bookingProvider";
 
-const CarSelectionPage: React.FC = () => {
-  const { bookingParams, setBookingState, selectedCarType } = useBooking();
-  const { customer } = useCustomer(); // access customer status
+const CarSelectionPage = ({
+  extraServices,
+}: {
+  extraServices: IExtraServices[];
+}) => {
+  const {
+    bookingParams,
+    setBookingState,
+    selectedCarType,
+    selectedAddons,
+    handleAddonToggle,
+  } = useBooking();
+  const { customer } = useCustomer();
 
   const { availableCarTypes: availableCarTypesCtx } = useBooking();
 
   const availabilityCars = availableCarTypesCtx ?? [];
-
-  console.log(":availabilityCars", availabilityCars);
 
   const router = useRouter();
 
@@ -56,88 +64,110 @@ const CarSelectionPage: React.FC = () => {
         </PrimaryButton>
       </div>
       {/* Car Selection */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl space-y-4 mx-auto px-4 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {availabilityCars
-            .slice()
             .sort((a, b) => a.tripQuotePrice - b.tripQuotePrice)
-            .map((car) => {
-              return (
-                <div
-                  key={car.id}
-                  className={`bg-gray-900 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                    selectedCarType?.id === car.id
-                      ? "border-yellow-400 shadow-2xl shadow-yellow-400/20"
-                      : "border-gray-700 hover:border-gray-600"
-                  }`}
-                  onClick={() => handleCarSelect(car)}
-                >
-                  <div className="relative">
-                    <img
-                      src={car.image.url}
-                      alt={car.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-4 right-4 bg-black/70 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold">
+            .map((car) => (
+              <div
+                key={car.id}
+                className={`rounded-lg overflow-hidden border-2 transition-all cursor-pointer p-3 bg-gray-900 hover:scale-[1.02] ${
+                  selectedCarType?.id === car.id
+                    ? "border-yellow-400 shadow-lg"
+                    : "border-gray-700 hover:border-gray-600"
+                }`}
+                onClick={() => handleCarSelect(car)}
+              >
+                <div className="flex items-center space-x-3">
+                  <img
+                    src={car.image.url}
+                    alt={car.name}
+                    className="w-24 h-24 rounded object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-yellow-400">
                       {car.name}
-                    </div>
-                    {selectedCarType?.id === car.id && (
-                      <div className="absolute inset-0 bg-yellow-400/20 flex items-center justify-center">
-                        <div className="bg-yellow-400 text-black p-3 rounded-full">
-                          <svg
-                            className="w-6 h-6"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-xl font-bold text-yellow-400">
-                        {car.name}
-                      </h3>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold">
-                          {formatPrice(car.tripQuotePrice)}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center mb-4">
-                      <Users className="w-5 h-5 text-yellow-400 mr-2" />
-                      <span className="text-sm">
-                        Up to {car.maxPassengers} passengers
-                      </span>
-                    </div>
-
-                    <p className="text-gray-300 text-sm mb-4">
-                      {car.description}
+                    </h3>
+                    <p className="text-sm text-gray-400">
+                      Up to {car.maxPassengers} passengers
                     </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {car.features.map((feature, index) => (
-                        <span
-                          key={index}
-                          className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
-                        >
-                          {feature.label}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-yellow-300 font-bold text-xl">
+                      {formatPrice(car.tripQuotePrice)}
+                    </p>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
         </div>
+        {/* Selected Car Expanded Details */}
+        {selectedCarType && (
+          <div className="p-6 rounded-xl bg-gray-800 border border-yellow-500 space-y-4">
+            <h2 className="text-2xl font-bold text-yellow-400">
+              {selectedCarType.name}
+            </h2>
+            <p className="text-gray-300">{selectedCarType.description}</p>
+            <div className="flex flex-wrap gap-2">
+              {selectedCarType.features.map((feature, idx) => (
+                <span
+                  key={idx}
+                  className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
+                >
+                  {feature.label}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Add-ons Selection */}
+        {selectedCarType && (
+          <div className="p-6 rounded-xl bg-gray-900 border border-gray-700 space-y-4">
+            <h3 className="text-xl font-semibold text-white">Select Add-ons</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {extraServices
+                .filter((addon) => addon.available)
+                .map((addon) => (
+                  <label
+                    key={addon.name}
+                    className={`cursor-pointer border-2 rounded-lg p-4 bg-gray-800 hover:border-yellow-400 ${
+                      selectedAddons?.some((a) => a.name === addon.name)
+                        ? "border-yellow-400"
+                        : "border-gray-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="hidden"
+                      checked={selectedAddons?.some(
+                        (a) => a.name === addon.name
+                      )}
+                      onChange={() => handleAddonToggle(addon)}
+                    />
+                    <div className="flex items-center space-x-3">
+                      {addon.image?.url && (
+                        <img
+                          src={addon.image.url}
+                          alt={addon.name}
+                          className="w-16 h-16 object-cover rounded"
+                        />
+                      )}
+                      <div>
+                        <h4 className="text-yellow-400 font-bold">
+                          {addon.name}
+                        </h4>
+                        <p className="text-sm text-gray-400">
+                          {addon.description}
+                        </p>
+                        <p className="text-yellow-300 text-sm font-semibold">
+                          {formatPrice(addon.price.amount)}
+                        </p>
+                      </div>
+                    </div>
+                  </label>
+                ))}
+            </div>
+          </div>
+        )}
         <div className="text-center pt-8">
           <PrimaryButton
             className="flex !w-fit mx-auto"

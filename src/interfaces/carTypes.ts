@@ -1,4 +1,4 @@
-import { IImage } from "@/common/interfaces";
+import { IImage } from "@/interfaces/common";
 
 export interface ICarClass {
   id: string;

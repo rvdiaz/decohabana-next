@@ -5,9 +5,9 @@ import { useState } from "react";
 import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
-import { useBooking } from "../../BookingProvider";
 import { useCustomer } from "@/context/authProvider";
-import { payBooking } from "@/app/actions/checkout";
+import { payBooking } from "@/lib/actions/checkout";
+import { useBooking } from "@/context/bookingProvider";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -32,7 +32,7 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 export const CheckoutForm = () => {
-  const { bookingParams, selectedCarType } = useBooking();
+  const { bookingParams, selectedCarType, selectedAddons } = useBooking();
   const { customer } = useCustomer();
 
   const stripe = useStripe();
@@ -40,6 +40,12 @@ export const CheckoutForm = () => {
   const { handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const totalExtraServices = selectedAddons?.reduce((add: number, item) => {
+    add += item.price.amount;
+
+    return add;
+  }, 0);
 
   const onSubmit = async () => {
     try {
@@ -77,7 +83,9 @@ export const CheckoutForm = () => {
           },
           cardToken: result.token.id,
           totalPrice: {
-            amount: selectedCarType?.tripQuotePrice ?? 0,
+            amount:
+              (selectedCarType?.tripQuotePrice ?? 0) +
+              (totalExtraServices ?? 0),
             currencyCode: "USD",
           },
           customerData: {

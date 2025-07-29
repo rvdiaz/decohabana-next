@@ -3,11 +3,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import VerificationInput from "react-verification-input";
-import PrimaryButton from "../CodidgeUI/PrimaryButton";
 import { confirmSignUp, fetchUserAttributes, signIn } from "aws-amplify/auth";
-import { addCustomerAction } from "@/app/actions/customer";
-import Label from "../CodidgeUI/Label";
 import { MailCheck } from "lucide-react";
+import { addCustomerAction } from "@/lib/actions/customer";
+import Label from "@/components/CodidgeUI/Label";
+import PrimaryButton from "@/components/CodidgeUI/PrimaryButton";
 
 export const SignUpVerification = ({
   onSuccess,

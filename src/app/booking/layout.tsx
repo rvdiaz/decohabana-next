@@ -1,12 +1,11 @@
-"use client";
+"use server";
 
-// app/booking/layout.tsx
 import React from "react";
-import { BookingProvider } from "./BookingProvider";
-import { BookingSummaryWidgetHeader } from "./BookDetails";
-import { BookingStepsHeader } from "./BookStepsHeaders";
+import { BookingSummaryWidgetHeader } from "../../components/Booking/BookDetails";
+import { BookingProvider } from "@/context/bookingProvider";
+import { BookingStepsHeader } from "@/components/Booking/BookStepsHeaders";
 
-export default function BookingLayout({
+export default async function BookingLayout({
   children,
 }: {
   children: React.ReactNode;
