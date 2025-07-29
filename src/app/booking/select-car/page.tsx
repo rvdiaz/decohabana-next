@@ -18,6 +18,8 @@ const CarSelectionPage: React.FC = () => {
 
   const availabilityCars = availableCarTypesCtx ?? [];
 
+  console.log(":availabilityCars", availabilityCars);
+
   const router = useRouter();
 
   const handleCarSelect = (car: ICarClass) => {
@@ -31,8 +33,6 @@ const CarSelectionPage: React.FC = () => {
       router.push("/booking/account");
     }
   };
-
-  console.log(":::bookingParams", bookingParams);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -51,7 +51,7 @@ const CarSelectionPage: React.FC = () => {
           onClick={handleNext}
           disabled={!selectedCarType}
         >
-          Continue to Account
+          Next
           <ChevronRight className="ml-2 w-5 h-5" />
         </PrimaryButton>
       </div>

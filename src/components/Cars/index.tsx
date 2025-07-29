@@ -3,101 +3,6 @@ import React from "react";
 import { ICarClass } from "./interfaces";
 import { getCarsAction } from "@/app/actions/cars";
 
-const fleetCars = [
-  {
-    name: "Executive Sedan",
-    type: "Business Class",
-    image:
-      "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800",
-    price: 120,
-    capacity: 3,
-    features: ["WiFi", "Climate Control", "Premium Sound", "Privacy Partition"],
-    description:
-      "Perfect for business meetings and airport transfers with professional chauffeur service.",
-  },
-  {
-    name: "Luxury SUV",
-    type: "Premium",
-    image:
-      "https://images.pexels.com/photos/1119796/pexels-photo-1119796.jpeg?auto=compress&cs=tinysrgb&w=800",
-    price: 180,
-    capacity: 6,
-    features: [
-      "Spacious Interior",
-      "Entertainment System",
-      "Refreshment Bar",
-      "Tinted Windows",
-    ],
-    description:
-      "Ideal for group travel and special occasions with maximum comfort and style.",
-  },
-  {
-    name: "Stretch Limousine",
-    type: "Ultra Luxury",
-    image:
-      "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=800",
-    price: 350,
-    capacity: 10,
-    features: [
-      "Full Bar",
-      "LED Lighting",
-      "Premium Sound System",
-      "Luxury Seating",
-    ],
-    description:
-      "The ultimate luxury experience for weddings, proms, and special celebrations.",
-  },
-  {
-    name: "Party Bus",
-    type: "Group Luxury",
-    image:
-      "https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=800",
-    price: 500,
-    capacity: 20,
-    features: [
-      "Dance Floor",
-      "Full Bar",
-      "Premium Audio",
-      "Disco Lights",
-      "Leather Seating",
-    ],
-    description:
-      "Perfect for bachelor parties, birthdays, and group celebrations with ultimate entertainment.",
-  },
-  {
-    name: "Rolls Royce Phantom",
-    type: "Ultra Premium",
-    image:
-      "https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=800",
-    price: 800,
-    capacity: 4,
-    features: [
-      "Handcrafted Interior",
-      "Champagne Service",
-      "Starlight Headliner",
-      "Massage Seats",
-    ],
-    description:
-      "The pinnacle of luxury transportation for the most discerning clients.",
-  },
-  {
-    name: "Mercedes Sprinter Van",
-    type: "Group Executive",
-    image:
-      "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=800",
-    price: 250,
-    capacity: 14,
-    features: [
-      "Executive Seating",
-      "Conference Table",
-      "WiFi",
-      "Refreshment Center",
-    ],
-    description:
-      "Perfect for corporate groups and executive team transportation.",
-  },
-];
-
 export async function CarContainers() {
   const { getCarTypes: cars }: { getCarTypes: ICarClass[] } =
     await getCarsAction();
@@ -162,7 +67,7 @@ export async function CarContainers() {
                     </span>
                   </div>
 
-                  <p className="text-gray-300 text-sm mb-4">
+                  {/*      <p className="text-gray-300 text-sm mb-4">
                     {car.description}
                   </p>
 
@@ -175,7 +80,7 @@ export async function CarContainers() {
                         {feature.label}
                       </span>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );

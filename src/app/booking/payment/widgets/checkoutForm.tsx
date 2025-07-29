@@ -7,6 +7,7 @@ import PrimaryButton, {
 } from "@/components/CodidgeUI/PrimaryButton";
 import { useBooking } from "../../BookingProvider";
 import { useCustomer } from "@/context/authProvider";
+import { payBooking } from "@/app/actions/checkout";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -41,22 +42,60 @@ export const CheckoutForm = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const onSubmit = async () => {
-    setErrorMsg("");
-    if (!stripe || !elements) return;
+    try {
+      setErrorMsg("");
+      if (!stripe || !elements) return;
 
-    const card = elements.getElement(CardElement);
-    if (!card) return;
+      const card = elements.getElement(CardElement);
+      if (!card) return;
 
-    setLoading(true);
-    const result = await stripe.createToken(card);
+      setLoading(true);
+      const result = await stripe.createToken(card);
 
-    if (result.error) {
-      setErrorMsg(result.error.message || "Payment failed.");
-    } else {
-      console.log("Token created:", result.token);
-      // Submit token to backend
+      if (result.error) {
+        setErrorMsg(result.error.message || "Payment failed.");
+      } else {
+        const input = {
+          bookingDetails: {
+            startDate: bookingParams!.startDate,
+            endDate: bookingParams!.endDate,
+            bookHours: bookingParams!.bookHours,
+            bookMode: bookingParams!.bookMode,
+            pickupLocation: bookingParams!.pickupLocation,
+            dropoffLocation: bookingParams!.dropoffLocation,
+          },
+          selectedCarType: {
+            tripQuotePrice: selectedCarType!.tripQuotePrice,
+            id: selectedCarType!.id,
+            name: selectedCarType!.name,
+            supportsHourly: selectedCarType!.supportsHourly,
+            supportsDistance: selectedCarType!.supportsDistance,
+            hourlyRate: selectedCarType!.hourlyRate,
+            pricePerKm: selectedCarType!.pricePerKm,
+            baseFare: selectedCarType!.baseFare,
+            minimumFare: selectedCarType!.minimumFare,
+          },
+          cardToken: result.token.id,
+          totalPrice: {
+            amount: selectedCarType?.tripQuotePrice ?? 0,
+            currencyCode: "USD",
+          },
+          customerData: {
+            id: customer?.id,
+            name: customer?.name,
+            email: customer?.email,
+            phone: customer?.phone,
+          },
+        };
+
+        const res = await payBooking(input);
+        return res;
+      }
+    } catch (error) {
+      console.log("::error", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

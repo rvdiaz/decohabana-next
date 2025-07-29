@@ -5,11 +5,8 @@ import { TripSummary } from "./widgets/summary";
 import { CheckoutForm } from "./widgets/checkoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { useBooking } from "../BookingProvider";
 
-const stripePromise = loadStripe(
-  "pk_test_51RLpU2CyTnLlqBBumW0My11NYuF7WPNUvr5yS9lq8c8SDQZv6iMV6YA49NeLZzTlkul3c7CBMFiUV8tBohanpX7100ipESDtWR"
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API ?? "");
 
 const PaymentPage: React.FC = () => {
   return (

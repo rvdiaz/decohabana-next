@@ -11,12 +11,12 @@ declare global {
 
 const getIconForType = (types: string[]) => {
   if (types.includes("airport"))
-    return <Plane className="w-4 h-4 text-blue-600" />;
+    return <Plane className="w-4 h-4 text-white" />;
   if (types.includes("establishment") || types.includes("business"))
-    return <Building className="w-4 h-4 text-green-600" />;
+    return <Building className="w-4 h-4 text-white" />;
   if (types.includes("route") || types.includes("street_address"))
-    return <Navigation className="w-4 h-4 text-purple-600" />;
-  return <MapPin className="w-4 h-4 text-gray-500" />;
+    return <Navigation className="w-4 h-4 text-white" />;
+  return <MapPin className="w-4 h-4 text-white" />;
 };
 
 interface PlaceData {
@@ -192,7 +192,7 @@ export const PlacesAutoCompleteWidget = ({
       )}
 
       {suggestions.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full bg-white border-gray-200 rounded-lg shadow-lg max-h-64 overflow-auto">
+        <div className="absolute z-50 mt-1 w-full bg-gray-800 border-gray-900 rounded-lg shadow-lg max-h-80 overflow-auto">
           {suggestions.map((s, i) => {
             const types = s.placePrediction.types || [];
             const primary = s.placePrediction.text?.toString();
@@ -203,17 +203,17 @@ export const PlacesAutoCompleteWidget = ({
               <div
                 key={i}
                 onClick={() => handleSelect(s)}
-                className="flex items-start gap-3 p-3 cursor-pointer hover:bg-gray-50 border-b border-b-gray-200 last:border-none"
+                className="flex items-start gap-3 p-3 cursor-pointer hover:bg-gray-900 border-b border-b-gray-700 last:border-none"
               >
                 <div className="flex-shrink-0 mt-0.5">
                   {getIconForType(types)}
                 </div>
-                <div className="min-w-0 flex-1">
-                  <div className="font-medium text-sm text-gray-900 truncate">
+                <div className="min-w-0 flex-1 text-left">
+                  <div className="font-medium text-sm text-white truncate">
                     {primary}
                   </div>
                   {secondary && (
-                    <div className="text-xs text-gray-500 mt-0.5 truncate">
+                    <div className="text-xs text-white mt-0.5 truncate">
                       {secondary}
                     </div>
                   )}

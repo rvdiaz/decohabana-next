@@ -3,18 +3,36 @@
 import { getQueriesVariables } from "@/core";
 import { payChargeMutation } from "../booking/payment/api/mutations";
 import { BookingParams } from "../booking/BookingProvider";
-import { ICarClass } from "@/components/Cars/interfaces";
 
-export const payBooking = async (
-  bookingDetails: BookingParams,
-  selectedCarType: ICarClass,
-  cardToken: string,
+export const payBooking = async ({
+  bookingDetails,
+  selectedCarType,
+  cardToken,
+  totalPrice,
+  customerData,
+}: {
+  bookingDetails: BookingParams;
+  selectedCarType: any;
+  cardToken: string;
   totalPrice: {
     amount: number;
     currencyCode: string;
-  }
-) => {
+  };
+  customerData: any;
+}) => {
   try {
+    const body = JSON.stringify({
+      query: payChargeMutation,
+      variables: {
+        ...getQueriesVariables,
+        cardToken,
+        totalPrice,
+        bookingDetails,
+        customerData,
+        carTypeDetails: selectedCarType,
+      },
+    });
+
     const response = await fetch(
       process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
       {
@@ -22,18 +40,13 @@ export const payBooking = async (
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          query: payChargeMutation,
-          variables: {
-            ...getQueriesVariables,
-          },
-        }),
+        body,
       }
     );
+
     const result = await response.json();
-    return result.data.addCustomer;
+    return result.data.payBooking;
   } catch (error) {
-    console.log("::error adding customer", error);
-    return [];
+    console.log("::");
   }
 };
