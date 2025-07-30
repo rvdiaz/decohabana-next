@@ -2,7 +2,9 @@
 
 import { useBooking } from "@/context/bookingProvider";
 import { BookMode } from "@/interfaces/hero";
+import { formatFriendlyDate } from "@/lib/utils/general";
 import { MapPin, Clock, CalendarRange } from "lucide-react";
+import { ReactNode } from "react";
 
 export const BookingSummaryWidgetHeader = () => {
   const { bookingParams } = useBooking();
@@ -22,7 +24,7 @@ export const BookingSummaryWidgetHeader = () => {
   }: {
     icon: React.ReactNode;
     label: string;
-    value: string | number;
+    value: string | number | ReactNode;
   }) => (
     <div className="flex items-center space-x-2 text-sm text-white px-2">
       <span className="text-yellow-400">{icon}</span>
@@ -55,7 +57,9 @@ export const BookingSummaryWidgetHeader = () => {
         <Item
           icon={<CalendarRange size={16} />}
           label="Start"
-          value={startDate}
+          value={formatFriendlyDate(startDate, {
+            showTime: false,
+          })}
         />
 
         {bookMode === BookMode.trip && endDate && (
@@ -63,8 +67,10 @@ export const BookingSummaryWidgetHeader = () => {
             <Separator />
             <Item
               icon={<CalendarRange size={16} />}
-              label="End"
-              value={endDate}
+              label="Aprox. End"
+              value={formatFriendlyDate(endDate, {
+                showTime: false,
+              })}
             />
           </>
         )}

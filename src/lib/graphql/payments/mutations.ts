@@ -3,8 +3,8 @@ export const payChargeMutation = `mutation payBooking($tenant: TenantData!, $boo
         success
         booking {
             id
+            bookingCode
         }
-        chargeId
         message
         customerExternalReference {
             sourceHandler

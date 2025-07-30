@@ -4,13 +4,15 @@ import { signOut } from "aws-amplify/auth";
 import { LogOut } from "lucide-react";
 import React, { useState } from "react";
 
-export const LogoutButton = () => {
+export const LogoutButton = ({ className }: { className?: string }) => {
   const { refreshCustomer } = useCustomer();
   const [loading, setLoading] = useState(false);
 
   return (
     <TextButton
-      className="text-white hover:bg-transparent hover:text-yellow-400 gap-1"
+      className={`text-red-400 bg-transparent hover:bg-gray-800 hover:text-red-500 gap-1 ${
+        className ?? ""
+      }`}
       loading={loading}
       onClick={async () => {
         try {

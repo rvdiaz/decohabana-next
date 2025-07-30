@@ -1,3 +1,5 @@
+"use server";
+
 import { getExtraServicesQuery } from "@/lib/graphql/extraServices/queries";
 import { getQueriesVariables } from "@/core";
 

@@ -2,6 +2,7 @@ import { ImageOff, Users } from "lucide-react";
 import React from "react";
 import { ICarClass } from "../../interfaces/carTypes";
 import { getCarsAction } from "@/lib/actions/cars";
+import { PriceDisplay } from "../CodidgeUI/priceDisplay";
 
 export async function CarContainers() {
   const { getCarTypes: cars }: { getCarTypes: ICarClass[] } =
@@ -49,7 +50,12 @@ export async function CarContainers() {
                     </h3>
                     <div className="text-right">
                       <div className="text-2xl font-bold">
-                        ${car.hourlyRate}
+                        <PriceDisplay
+                          price={{
+                            amount: car.hourlyRate,
+                            currencyCode: "USD",
+                          }}
+                        />
                       </div>
                       <div className="text-sm text-gray-400">per hour</div>
                     </div>

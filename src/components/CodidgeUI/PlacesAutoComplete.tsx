@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Input from "./InputField";
-import { Building, Map, MapPin, Navigation, Plane, X } from "lucide-react";
+import { Building, MapPin, Navigation, Plane, X } from "lucide-react";
 import IconButton from "./IconButton";
-
-declare global {
-  interface Window {
-    google: any;
-  }
-}
+import { getGoogleSuggestions } from "@/lib/actions/google";
 
 const getIconForType = (types: string[]) => {
   if (types.includes("airport"))
@@ -30,6 +25,7 @@ interface IAutoCompleteProps {
   placeholder?: string;
   initialValue: string;
   onChange: (val: PlaceData) => void;
+  autoCompleteRestrictions: Record<string, any>;
 }
 
 export const PlacesAutoCompleteWidget = ({
@@ -37,6 +33,7 @@ export const PlacesAutoCompleteWidget = ({
   placeholder,
   initialValue,
   onChange,
+  autoCompleteRestrictions,
 }: IAutoCompleteProps) => {
   const [input, setInput] = useState(initialValue || "");
   const [selectedPlace, setSelectedPlace] = useState<PlaceData | null>(null);
@@ -44,23 +41,10 @@ export const PlacesAutoCompleteWidget = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const libraryRef = useRef<any>(null);
   const sessionTokenRef = useRef<any>(null);
   const debounceTimerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Load library & session token once
-  useEffect(() => {
-    (async () => {
-      const lib = (await window.google.maps.importLibrary(
-        "places"
-      )) as google.maps.PlacesLibrary;
-      libraryRef.current = lib;
-      sessionTokenRef.current = new lib.AutocompleteSessionToken();
-    })();
-  }, []);
-
-  // Click outside to close suggestions
   useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
@@ -96,17 +80,13 @@ export const PlacesAutoCompleteWidget = ({
   }, [input]);
 
   const fetchSuggestions = async (query: string) => {
-    if (!libraryRef.current) return;
     setLoading(true);
     try {
-      const { AutocompleteSuggestion } = libraryRef.current;
-      const { suggestions } =
-        await AutocompleteSuggestion.fetchAutocompleteSuggestions({
-          input: query,
-          language: "en-US",
-          region: "us",
-          sessionToken: sessionTokenRef.current,
-        });
+      const suggestions = await getGoogleSuggestions(query, {
+        ...autoCompleteRestrictions,
+        sessionToken: sessionTokenRef.current,
+      });
+
       setSuggestions(suggestions || []);
     } catch (err) {
       console.error("Suggestion fetch failed", err);
@@ -118,25 +98,22 @@ export const PlacesAutoCompleteWidget = ({
   const handleSelect = async (suggestion: any) => {
     setLoading(true);
     try {
-      const place = suggestion.placePrediction.toPlace();
-
-      await place.fetchFields({
-        fields: ["displayName", "formattedAddress", "id"],
-      });
+      const placeId = suggestion.placePrediction.placeId;
+      const displayName =
+        suggestion.placePrediction.structuredFormat.mainText.text;
+      const formattedAddress =
+        suggestion.placePrediction.structuredFormat.secondaryText.text;
 
       const placeData: PlaceData = {
-        displayName: place.displayName || "Unknown",
-        formattedAddress: place.formattedAddress || "",
-        id: place.id || "",
+        displayName: displayName || "Unknown",
+        formattedAddress: formattedAddress || "",
+        id: placeId || "",
       };
       onChange(placeData);
       setInput(placeData.displayName); // sync local display
 
       setSelectedPlace(placeData);
       setSuggestions([]);
-      // New token for next search
-      sessionTokenRef.current =
-        new libraryRef.current.AutocompleteSessionToken();
     } catch (err) {
       console.error("Place selection failed", err);
       setError("Failed to select place. Please try again.");
@@ -178,6 +155,7 @@ export const PlacesAutoCompleteWidget = ({
         />
         {selectedPlace && !loading && (
           <IconButton
+            type="button"
             className="absolute !p-1 right-3 top-12 transform -translate-y-1/2 hover:bg-gray-100 !rounded-full"
             onClick={handleClear}
             icon={<X size={16} />}
@@ -195,15 +173,15 @@ export const PlacesAutoCompleteWidget = ({
         <div className="absolute z-50 mt-1 w-full bg-gray-800 border-gray-900 rounded-lg shadow-lg max-h-80 overflow-auto">
           {suggestions.map((s, i) => {
             const types = s.placePrediction.types || [];
-            const primary = s.placePrediction.text?.toString();
+            const primary = s.placePrediction?.structuredFormat?.mainText?.text;
             const secondary =
-              s.placePrediction?.structuredFormat?.secondaryText?.toString();
+              s.placePrediction?.structuredFormat?.secondaryText?.text;
 
             return (
               <div
                 key={i}
                 onClick={() => handleSelect(s)}
-                className="flex items-start gap-3 p-3 cursor-pointer hover:bg-gray-900 border-b border-b-gray-700 last:border-none"
+                className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-900 border-b border-b-gray-700 last:border-none"
               >
                 <div className="flex-shrink-0 mt-0.5">
                   {getIconForType(types)}

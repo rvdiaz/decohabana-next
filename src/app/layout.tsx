@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AmplifyProvider from "@/context/amplifyProvider";
 import { AuthProvider } from "@/context/authProvider";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AmplifyProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <div className="min-h-screen bg-black text-white">
+              <Header />
+              {children}
+            </div>
+          </AuthProvider>
         </AmplifyProvider>
       </body>
     </html>

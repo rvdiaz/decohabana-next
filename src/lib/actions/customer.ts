@@ -2,8 +2,12 @@
 
 import { addCustomerMutation } from "@/lib/graphql/customer/mutation";
 import { getQueriesVariables } from "@/core";
-import { getCustomerQuery } from "../graphql/customer/queries";
+import {
+  getCustomerBooking,
+  getCustomerQuery,
+} from "../graphql/customer/queries";
 import { ICustomerInput } from "@/interfaces/customer";
+import { IBooking } from "@/interfaces/booking";
 
 export const addCustomerAction = async (
   customer: Partial<Omit<ICustomerInput, "externalReference">>
@@ -56,5 +60,39 @@ export const getCustomerAction = async (customerId: string) => {
   } catch (error) {
     console.log("::error getting customer", error);
     return [];
+  }
+};
+
+export const getCustomerBookingAction = async (
+  customerId: string
+): Promise<{
+  past: IBooking[];
+  upcoming: IBooking[];
+} | null> => {
+  try {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: getCustomerBooking,
+          variables: {
+            ...getQueriesVariables,
+            customerId,
+          },
+        }),
+      }
+    );
+    const result = await response.json();
+    return result.data.getCustomerBooking;
+  } catch (error) {
+    console.log("::error getting customer", error);
+    return {
+      past: [],
+      upcoming: [],
+    };
   }
 };

@@ -8,7 +8,7 @@ interface IconButtonProps
   variant?: "primary" | "secondary" | "danger";
 }
 
-const IconButton: React.FC<IconButtonProps> = ({
+const  IconButton: React.FC<IconButtonProps> = ({
   loading,
   icon,
   variant = "secondary",

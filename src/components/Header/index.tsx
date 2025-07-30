@@ -1,17 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { Menu, X, Phone, Mail, User, LogOut } from "lucide-react";
+import { Menu, X, Phone, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useCustomer } from "@/context/authProvider";
-import { LogoutButton } from "./CustomerAuthForms/widgets/logoutButton";
+import { usePathname, useRouter } from "next/navigation";
+import TextButton from "../CodidgeUI/TextButton";
+import { LogoutButton } from "../CustomerAuthForms/widgets/logoutButton";
 
 interface HeaderProps {
   onSignOut?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onSignOut }) => {
+const Header: React.FC<HeaderProps> = () => {
   const { customer } = useCustomer();
+  const pathname = usePathname();
+
+  const router = useRouter();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -22,6 +27,10 @@ const Header: React.FC<HeaderProps> = ({ onSignOut }) => {
     }
     setIsMenuOpen(false);
   };
+
+  if (pathname.includes("booking")) {
+    return;
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-400/20">
@@ -74,21 +83,14 @@ const Header: React.FC<HeaderProps> = ({ onSignOut }) => {
           {/* User Section */}
           <div className="hidden md:flex items-center space-x-4">
             {customer ? (
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2">
-                  <User className="w-4 h-4 text-yellow-400" />
-                  <span className="text-white text-sm">
-                    Welcome, {customer.name}
-                  </span>
-                </div>
-                <Link
-                  href="/dashboard"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Dashboard
-                </Link>
-                <LogoutButton />
-              </div>
+              <TextButton
+                onClick={() => {
+                  router.push("/profile");
+                }}
+                className="flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
+              >
+                <User size={24} />
+              </TextButton>
             ) : (
               <div className="flex items-center space-x-4 text-sm text-gray-300">
                 <div className="flex items-center space-x-1">
@@ -120,50 +122,55 @@ const Header: React.FC<HeaderProps> = ({ onSignOut }) => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-yellow-400/20">
             <nav className="flex flex-col space-y-4">
-              <Link
+              {/* <Link
                 href="/"
                 className="text-white hover:text-yellow-400 transition-colors text-left"
               >
                 Home
-              </Link>
-              <button
+              </Link> */}
+              <TextButton
+                className="flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
                 onClick={() => scrollToSection("fleet")}
-                className="text-white hover:text-yellow-400 transition-colors text-left"
+              >
+                Home
+              </TextButton>
+              <TextButton
+                className="flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
+                onClick={() => scrollToSection("fleet")}
               >
                 Our Fleet
-              </button>
-              <button
+              </TextButton>
+              <TextButton
+                className="flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
                 onClick={() => scrollToSection("services")}
-                className="text-white hover:text-yellow-400 transition-colors text-left"
               >
                 Services
-              </button>
-              <button
+              </TextButton>
+              <TextButton
+                className="flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
                 onClick={() => scrollToSection("faq")}
-                className="text-white hover:text-yellow-400 transition-colors text-left"
               >
                 FAQ
-              </button>
-              <button
+              </TextButton>
+              <TextButton
+                className="flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
                 onClick={() => scrollToSection("contact")}
-                className="text-white hover:text-yellow-400 transition-colors text-left"
               >
                 Contact
-              </button>
+              </TextButton>
 
               {customer ? (
-                <div className="pt-4 border-t border-gray-700">
-                  <p className="text-yellow-400 text-sm mb-2">
-                    Welcome, {customer.name}
-                  </p>
-                  <Link
-                    href="/dashboard"
-                    className="block text-gray-300 hover:text-white transition-colors mb-2"
+                <div className="w-full pt-4 border-t border-gray-700 space-y-4">
+                  <TextButton
+                    onClick={() => {
+                      router.push("/profile");
+                    }}
+                    className="w-full flex items-center gap-2 bg-transparent hover:bg-gray-800 text-white hover:text-yellow-500"
                   >
-                    Dashboard
-                  </Link>
-                  <LogoutButton />
-                 
+                    <User size={18} />
+                    <span>Profile</span>
+                  </TextButton>
+                  <LogoutButton className="w-full" />
                 </div>
               ) : (
                 <div className="pt-4 border-t border-gray-700 space-y-2 text-sm text-gray-300">

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Contact } from "lucide-react";
-import Header from "./Header";
 import { Hero } from "./Hero";
 import { GeneralServices } from "./GeneralServices";
 import { Features } from "./Features";
@@ -12,8 +11,7 @@ import { CarContainers } from "./Cars";
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Header />
+    <div>
       <Hero />
       <CarContainers />
       <GeneralServices />

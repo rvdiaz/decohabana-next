@@ -1,3 +1,4 @@
+import { IPrices } from "@/interfaces/common";
 import moment from "moment";
 
 export const validateDateTime = (value: string) => {

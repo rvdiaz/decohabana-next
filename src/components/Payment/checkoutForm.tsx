@@ -8,6 +8,7 @@ import PrimaryButton, {
 import { useCustomer } from "@/context/authProvider";
 import { payBooking } from "@/lib/actions/checkout";
 import { useBooking } from "@/context/bookingProvider";
+import { useRouter } from "next/navigation";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -32,7 +33,10 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 export const CheckoutForm = () => {
-  const { bookingParams, selectedCarType, selectedAddons } = useBooking();
+  const router = useRouter();
+
+  const { bookingParams, selectedCarType, selectedAddons, setBookingState } =
+    useBooking();
   const { customer, refreshCustomer } = useCustomer();
 
   const stripe = useStripe();
@@ -61,6 +65,12 @@ export const CheckoutForm = () => {
       if (result.error) {
         setErrorMsg(result.error.message || "Payment failed.");
       } else {
+        const extraServ = selectedAddons?.map((serv) => ({
+          id: serv.id,
+          name: serv.name,
+          price: serv.price,
+        }));
+
         const input = {
           bookingDetails: {
             startDate: bookingParams!.startDate,
@@ -69,6 +79,7 @@ export const CheckoutForm = () => {
             bookMode: bookingParams!.bookMode,
             pickupLocation: bookingParams!.pickupLocation,
             dropoffLocation: bookingParams!.dropoffLocation,
+            extraServices: extraServ,
           },
           selectedCarType: {
             tripQuotePrice: selectedCarType!.tripQuotePrice,
@@ -98,11 +109,19 @@ export const CheckoutForm = () => {
         };
 
         const res = await payBooking(input);
+
         refreshCustomer({
           ...customer!,
           externalReference:
             res?.customerExternalReference ?? customer?.externalReference,
         });
+
+        if (res?.success) {
+          setBookingState({
+            bookingCode: res.booking.bookingCode,
+          });
+          router.push("/booking/success");
+        }
 
         return res;
       }

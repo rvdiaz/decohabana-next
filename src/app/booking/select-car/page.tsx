@@ -9,6 +9,7 @@ import PrimaryButton, {
 import { useCustomer } from "@/context/authProvider";
 import { IExtraServices } from "@/interfaces/extraServices";
 import { useBooking } from "@/context/bookingProvider";
+import { PriceDisplay } from "@/components/CodidgeUI/priceDisplay";
 
 const CarSelectionPage = ({
   extraServices,
@@ -40,13 +41,6 @@ const CarSelectionPage = ({
     } else {
       router.push("/booking/account");
     }
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(price);
   };
 
   return (
@@ -91,9 +85,14 @@ const CarSelectionPage = ({
                     <p className="text-sm text-gray-400">
                       Up to {car.maxPassengers} passengers
                     </p>
-                    <p className="text-yellow-300 font-bold text-xl">
-                      {formatPrice(car.tripQuotePrice)}
-                    </p>
+                    <div className="text-yellow-300 font-bold text-xl">
+                      <PriceDisplay
+                        price={{
+                          amount: car.tripQuotePrice,
+                          currencyCode: "USD",
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -158,9 +157,9 @@ const CarSelectionPage = ({
                         <p className="text-sm text-gray-400">
                           {addon.description}
                         </p>
-                        <p className="text-yellow-300 text-sm font-semibold">
-                          {formatPrice(addon.price.amount)}
-                        </p>
+                        <div className="text-yellow-300 text-sm font-semibold">
+                          <PriceDisplay price={addon.price} />
+                        </div>
                       </div>
                     </div>
                   </label>

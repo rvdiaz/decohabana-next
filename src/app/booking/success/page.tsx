@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CheckCircle,
   Calendar,
@@ -9,23 +9,34 @@ import {
   Phone,
   Mail,
   Car,
-  Download,
+  User,
+  MailCheck,
+  PhoneIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useBooking } from "@/context/bookingProvider";
+import { formatFriendlyDate } from "@/lib/utils/general";
+import { useCustomer } from "@/context/authProvider";
 
 const SuccessPage: React.FC = () => {
-  const router = useRouter();
-  const bookingId = `PR-${Date.now().toString().slice(-6)}`;
+  const { bookingParams, selectedCarType, setBookingState, bookingCode } =
+    useBooking();
+  const { customer } = useCustomer();
 
-  const generatePDF = () => {
-    // In a real app, this would generate a PDF
-    alert("PDF receipt will be generated in a real implementation");
-  };
+  const router = useRouter();
 
   const handleNewBooking = () => {
     router.push("/");
   };
+
+  useEffect(() => {
+    if (bookingCode) {
+      setBookingState({
+        paid: true,
+      });
+    }
+  }, [bookingCode]);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -50,48 +61,46 @@ const SuccessPage: React.FC = () => {
               </h2>
               <p className="text-gray-300">
                 Booking ID:{" "}
-                <span className="font-mono text-yellow-400">{bookingId}</span>
+                <span className="font-mono text-yellow-400">{bookingCode}</span>
               </p>
             </div>
-            <button
-              onClick={generatePDF}
-              className="flex items-center px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Download Receipt
-            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <div className="flex items-start">
-                <Car className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
-                <div>
+                <Car size={18} className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                <div className="w-fit">
                   <p className="font-semibold">Vehicle</p>
-                  <p className="text-gray-300">
-                    {/*  {bookingData.selectedCar?.name} */}
-                  </p>
+                  <p className="text-gray-300">{selectedCarType?.name}</p>
                   <p className="text-sm text-gray-400">
-                    {/*  {bookingData.selectedCar?.type} */}
+                    {selectedCarType?.description}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start">
-                <Calendar className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
-                <div>
-                  {/*  <p className="font-semibold">Date & Time</p>
-                  <p className="text-gray-300">{bookingData.date}</p>
-                  <p className="text-gray-300">{bookingData.time}</p> */}
+              {bookingParams?.startDate && (
+                <div className="flex items-start">
+                  <Calendar className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                  <div className="w-fit">
+                    <p className="font-semibold">Date & Time</p>
+                    <p className="text-gray-300">
+                      {formatFriendlyDate(bookingParams?.startDate)}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
-                <div>
-                  {/*   <p className="font-semibold">Route</p>
-                  <p className="text-gray-300">From: {bookingData.from}</p>
-                  <p className="text-gray-300">To: {bookingData.to}</p> */}
+                <div className="w-fit">
+                  <p className="font-semibold">Route</p>
+                  <p className="text-gray-300">
+                    From: {bookingParams?.pickupLocation.displayName}
+                  </p>
+                  <p className="text-gray-300">
+                    To: {bookingParams?.dropoffLocation.displayName}
+                  </p>
                 </div>
               </div>
             </div>
@@ -101,9 +110,23 @@ const SuccessPage: React.FC = () => {
                 <p className="font-semibold text-yellow-400 mb-2">
                   Customer Information
                 </p>
-                {/*  <p className="text-gray-300">{bookingData.user?.name}</p>
-                <p className="text-gray-300">{bookingData.user?.email}</p>
-                <p className="text-gray-300">{bookingData.user?.phone}</p> */}
+                <div className="space-y-2">
+                  {customer?.name && (
+                    <p className="text-gray-100 flex items-center gap-2">
+                      <User size={18} /> {customer?.name}
+                    </p>
+                  )}
+                  {customer?.email && (
+                    <p className="text-gray-100 flex items-center gap-2">
+                      <MailCheck size={18} /> {customer?.email}
+                    </p>
+                  )}
+                  {customer?.phone && (
+                    <p className="text-gray-100 flex items-center gap-2">
+                      <PhoneIcon size={18} /> {customer?.phone}
+                    </p>
+                  )}
+                </div>
               </div>
 
               <div>

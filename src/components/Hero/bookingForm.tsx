@@ -46,7 +46,6 @@ export const BookingForm = () => {
     handleSubmit,
     register,
     control,
-    reset,
     formState: { isDirty, errors },
     watch,
     setError,
@@ -88,7 +87,7 @@ export const BookingForm = () => {
             };
           } = await getCarClassesAvailables(bookingDetails);
 
-          console.log("::::carTypes", carTypes);
+          console.log(":::carTypes", carTypes);
 
           localStorage.setItem(
             "bookingFlow",
@@ -179,6 +178,17 @@ export const BookingForm = () => {
                     placeholder="Enter pickup address"
                     initialValue={""}
                     onChange={field.onChange}
+                    autoCompleteRestrictions={{
+                      locationRestriction: {
+                        circle: {
+                          center: {
+                            latitude: 25.7617,
+                            longitude: -80.1918,
+                          },
+                          radius: 50000,
+                        },
+                      },
+                    }}
                   />
                 </div>
               );
@@ -223,6 +233,17 @@ export const BookingForm = () => {
                   placeholder="Enter destination address"
                   initialValue={field.value.displayName ?? ""}
                   onChange={field.onChange}
+                  autoCompleteRestrictions={{
+                    locationBias: {
+                      circle: {
+                        center: {
+                          latitude: 25.7617,
+                          longitude: -80.1918,
+                        },
+                        radius: 50000.0,
+                      },
+                    },
+                  }}
                 />
               )}
             />

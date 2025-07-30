@@ -9,11 +9,21 @@ import {
 } from "react";
 import { Amplify } from "aws-amplify";
 import { getCurrentUser } from "aws-amplify/auth";
-import { getCustomerAction } from "@/lib/actions/customer";
+import {
+  getCustomerAction,
+  getCustomerBookingAction,
+} from "@/lib/actions/customer";
 import { ICustomer } from "@/interfaces/customer";
+import { IBooking } from "@/interfaces/booking";
 
 type CustomerContextType = {
   customer: ICustomer | null;
+  customerBookings: {
+    past: IBooking[];
+    upcoming: IBooking[];
+  } | null;
+  updateBooking: (boo: IBooking) => void;
+  loadingBookings: boolean;
   loading: boolean;
   refreshCustomer: (cus: ICustomer | null) => Promise<void>;
   signOut: () => Promise<void>;
@@ -25,7 +35,12 @@ const CustomerContext = createContext<CustomerContextType | undefined>(
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [customer, setCustomer] = useState<ICustomer | null>(null);
+  const [customerBookings, setCustomerBookings] = useState<{
+    past: IBooking[];
+    upcoming: IBooking[];
+  } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadingBookings, setLoadingBookings] = useState(true);
 
   // Configure Amplify once on the client
   useEffect(() => {
@@ -62,6 +77,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     getUser();
   }, []);
 
+  useEffect(() => {
+    const getCustomerBookings = async (customerId: string) => {
+      try {
+        setLoadingBookings(true);
+        const bookings = await getCustomerBookingAction(customerId);
+        setCustomerBookings(bookings);
+        setLoadingBookings(false);
+      } catch (error) {
+        setLoadingBookings(false);
+      }
+    };
+
+    if (customer?.id) {
+      getCustomerBookings(customer?.id);
+    }
+
+    // getUser();
+  }, [customer?.id]);
+
   const refreshCustomer = async (customer: ICustomer | null) => {
     try {
       setCustomer(customer);
@@ -70,6 +104,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const updateBooking = (updatedBooking: IBooking) => {
+    const newUpdates = customerBookings?.upcoming.map((prevBook) =>
+      prevBook.id === updatedBooking.id ? updatedBooking : prevBook!
+    );
+
+    setCustomerBookings({
+      past: customerBookings?.past ?? [],
+      upcoming: newUpdates ?? [],
+    });
   };
 
   const signOut = async () => {
@@ -82,6 +127,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       value={{
         customer,
         loading,
+        loadingBookings,
+        customerBookings,
+        updateBooking,
         refreshCustomer,
         signOut,
       }}
