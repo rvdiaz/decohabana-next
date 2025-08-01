@@ -68,8 +68,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           const customer = await getCustomerAction(user.userId);
           refreshCustomer(customer as ICustomer);
         }
-        setLoading(false);
       } catch (error) {
+        setLoading(false);
+      } finally {
         setLoading(false);
       }
     };

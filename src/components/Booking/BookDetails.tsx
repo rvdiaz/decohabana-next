@@ -8,14 +8,6 @@ import { ReactNode } from "react";
 
 export const BookingSummaryWidgetHeader = () => {
   const { bookingParams } = useBooking();
-  const {
-    pickupLocation,
-    dropoffLocation,
-    startDate,
-    endDate,
-    bookHours,
-    bookMode,
-  } = bookingParams!;
 
   const Item = ({
     icon,
@@ -39,49 +31,53 @@ export const BookingSummaryWidgetHeader = () => {
         <Item
           icon={<MapPin size={16} />}
           label="Pickup"
-          value={pickupLocation.displayName}
+          value={bookingParams?.pickupLocation.displayName ?? ""}
         />
 
-        {bookMode === BookMode.trip && dropoffLocation?.displayName && (
-          <>
-            <Separator />
-            <Item
-              icon={<MapPin size={16} />}
-              label="Dropoff"
-              value={dropoffLocation.displayName}
-            />
-          </>
-        )}
+        {bookingParams?.bookMode === BookMode.trip &&
+          bookingParams?.dropoffLocation?.displayName && (
+            <>
+              <Separator />
+              <Item
+                icon={<MapPin size={16} />}
+                label="Dropoff"
+                value={bookingParams?.dropoffLocation.displayName}
+              />
+            </>
+          )}
 
         <Separator />
-        <Item
-          icon={<CalendarRange size={16} />}
-          label="Start"
-          value={formatFriendlyDate(startDate, {
-            showTime: false,
-          })}
-        />
-
-        {bookMode === BookMode.trip && endDate && (
-          <>
-            <Separator />
-            <Item
-              icon={<CalendarRange size={16} />}
-              label="Aprox. End"
-              value={formatFriendlyDate(endDate, {
-                showTime: false,
-              })}
-            />
-          </>
+        {bookingParams?.startDate && (
+          <Item
+            icon={<CalendarRange size={16} />}
+            label="Start"
+            value={formatFriendlyDate(bookingParams?.startDate, {
+              showTime: false,
+            })}
+          />
         )}
 
-        {bookMode === BookMode.hourly && (
+        {bookingParams?.bookMode === BookMode.trip &&
+          bookingParams?.endDate && (
+            <>
+              <Separator />
+              <Item
+                icon={<CalendarRange size={16} />}
+                label="Aprox. End"
+                value={formatFriendlyDate(bookingParams?.endDate, {
+                  showTime: false,
+                })}
+              />
+            </>
+          )}
+
+        {bookingParams?.bookMode === BookMode.hourly && (
           <>
             <Separator />
             <Item
               icon={<Clock size={16} />}
               label="Duration"
-              value={`${bookHours}h`}
+              value={`${bookingParams?.bookHours}h`}
             />
           </>
         )}

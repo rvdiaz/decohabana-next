@@ -6,9 +6,10 @@ import { useCustomer } from "@/context/authProvider";
 import { CustomerProfile } from "@/components/Profile/customerProfile";
 import { CustomerBookings } from "@/components/Profile/customerBookings";
 import { LogoutButton } from "@/components/CustomerAuthForms/widgets/logoutButton";
+import { PageLoading } from "@/components/CodidgeUI/pageLoading";
 
 const ProfilePage: React.FC = () => {
-  const { customer, loading } = useCustomer();
+  const { customer, loading, loadingBookings } = useCustomer();
   const [activeTab, setActiveTab] = useState("bookings");
   const router = useRouter();
 
@@ -17,6 +18,10 @@ const ProfilePage: React.FC = () => {
       router.push("/");
     }
   }, [customer, loading]);
+
+  if (loadingBookings || loading) {
+    return <PageLoading />;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">

@@ -11,6 +11,7 @@ import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
 import { ICustomer } from "@/interfaces/customer";
+import { toast } from "react-toastify/unstyled";
 
 type FormData = {
   email: string;
@@ -68,6 +69,7 @@ export const SignInForm = () => {
         }
       } catch (error) {
         console.error("Authentication failed:", error);
+        toast.error("Authentication failed");
       } finally {
         console.log("::");
       }

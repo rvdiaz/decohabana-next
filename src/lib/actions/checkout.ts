@@ -33,20 +33,19 @@ export const payBooking = async ({
       },
     });
 
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body,
-      }
-    );
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body,
+    });
 
     const result = await response.json();
     return result.data.payBooking;
   } catch (error) {
-    console.log("::", error);
+    console.log("::error", error);
+    throw Error("Payment failed");
   }
 };

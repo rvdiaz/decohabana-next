@@ -10,6 +10,7 @@ import { getCarClassesAvailables } from "@/lib/actions/booking";
 import { ICarClass } from "../../interfaces/carTypes";
 import { useRouter } from "next/navigation";
 import { calculateEndDate, validateDateTime } from "@/lib/utils/hero";
+import { toast } from "react-toastify";
 
 const durationOptions = Array.from({ length: 23 }, (_, i) => {
   const hour = i + 2;
@@ -67,13 +68,18 @@ export const BookingForm = () => {
         return;
       }
 
-      let bookingDetails = { ...data };
+      const startDate = new Date(data.startDate).toISOString();
+
+      let endDate = data.endDate
+        ? new Date(data.endDate).toISOString()
+        : undefined;
+      let bookingDetails = { ...data, startDate, endDate };
 
       if (data.bookMode === BookMode.hourly) {
         const hours = data.bookHours;
-        const endDate = calculateEndDate(data.startDate, hours * 3600);
+        endDate = calculateEndDate(data.startDate, hours * 3600);
         bookingDetails = {
-          ...data,
+          ...bookingDetails,
           endDate,
         };
       }
@@ -87,7 +93,14 @@ export const BookingForm = () => {
             };
           } = await getCarClassesAvailables(bookingDetails);
 
-          console.log(":::carTypes", carTypes);
+          if (
+            !carTypes.getCarTypesAvailable?.carTypes ||
+            carTypes.getCarTypesAvailable?.carTypes.length === 0
+          ) {
+            toast.error(
+              "No cars are available for the selected trip. Please call us at (123) 456-7890."
+            );
+          }
 
           localStorage.setItem(
             "bookingFlow",

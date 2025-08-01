@@ -8,7 +8,7 @@ import { updateBookingMutation } from "../graphql/booking/mutation";
 interface BookingInput {
   startDate: string;
   bookMode: BookMode;
-  endDate: string;
+  endDate?: string;
   pickupLocation: IMapLocation;
   dropoffLocation: IMapLocation;
   bookHours: number;
@@ -23,32 +23,32 @@ export const getCarClassesAvailables = async ({
   endDate,
 }: BookingInput) => {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: getCarClassesAvilabilityQuery,
-          variables: {
-            ...getQueriesVariables,
-            input: {
-              startDate,
-              bookMode,
-              bookHours,
-              endDate,
-              pickupLocation,
-              dropoffLocation,
-            },
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: getCarClassesAvilabilityQuery,
+        variables: {
+          ...getQueriesVariables,
+          input: {
+            startDate,
+            bookMode,
+            bookHours,
+            endDate,
+            pickupLocation,
+            dropoffLocation,
           },
-        }),
-      }
-    );
+        },
+      }),
+    });
     const result = await response.json();
+    console.log("::error", result);
     return result.data;
   } catch (error) {
+    console.log("::error", error);
     throw Error("Must valid inputs");
   }
 };
@@ -61,23 +61,21 @@ export const updateBookingAction = async ({
   input: any;
 }) => {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: updateBookingMutation,
+        variables: {
+          ...getQueriesVariables,
+          bookingId,
+          booking: input,
         },
-        body: JSON.stringify({
-          query: updateBookingMutation,
-          variables: {
-            ...getQueriesVariables,
-            bookingId,
-            booking: input,
-          },
-        }),
-      }
-    );
+      }),
+    });
     const result = await response.json();
     return result.data.updateBooking;
   } catch (error) {

@@ -45,18 +45,6 @@ const CarSelectionPage = ({
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <div className="text-center pt-8">
-        <PrimaryButton
-          className="flex !w-fit mx-auto"
-          size={ButtonSize.LARGE}
-          onClick={handleNext}
-          disabled={!selectedCarType}
-        >
-          Next
-          <ChevronRight className="ml-2 w-5 h-5" />
-        </PrimaryButton>
-      </div>
       {/* Car Selection */}
       <div className="max-w-6xl space-y-4 mx-auto px-4 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -111,7 +99,7 @@ const CarSelectionPage = ({
                   key={idx}
                   className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
                 >
-                  {feature.label}
+                  {feature?.label}
                 </span>
               ))}
             </div>
@@ -124,7 +112,7 @@ const CarSelectionPage = ({
             <h3 className="text-xl font-semibold text-white">Select Add-ons</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {extraServices
-                .filter((addon) => addon.available)
+                .filter((addon) => addon?.available)
                 .map((addon) => (
                   <label
                     key={addon.name}

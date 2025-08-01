@@ -5,25 +5,25 @@ import { getQueriesVariables } from "@/core";
 
 export const getExtraServices = async () => {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: getExtraServicesQuery,
+        variables: {
+          ...getQueriesVariables,
         },
-        body: JSON.stringify({
-          query: getExtraServicesQuery,
-          variables: {
-            ...getQueriesVariables,
-          },
-        }),
-      }
-    );
+      }),
+    });
     const result = await response.json();
+    console.log("::error adding result extra serv", result);
+
     return result.data.getExtraServices;
   } catch (error) {
-    console.log("::error adding customer", error);
+    console.log("::error adding extra serv", error);
     return [];
   }
 };

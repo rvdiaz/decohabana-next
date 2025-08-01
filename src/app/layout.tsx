@@ -4,6 +4,7 @@ import "./globals.css";
 import AmplifyProvider from "@/context/amplifyProvider";
 import { AuthProvider } from "@/context/authProvider";
 import Header from "@/components/Header";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,9 @@ export default function RootLayout({
             <div className="min-h-screen bg-black text-white">
               <Header />
               {children}
+              <div className="fixed z-90 bottom-0 right-0">
+                <ToastContainer position="bottom-right" />
+              </div>
             </div>
           </AuthProvider>
         </AmplifyProvider>

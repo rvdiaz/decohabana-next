@@ -13,23 +13,22 @@ export const addCustomerAction = async (
   customer: Partial<Omit<ICustomerInput, "externalReference">>
 ) => {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: addCustomerMutation,
+        variables: {
+          ...getQueriesVariables,
+          customer,
         },
-        body: JSON.stringify({
-          query: addCustomerMutation,
-          variables: {
-            ...getQueriesVariables,
-            customer,
-          },
-        }),
-      }
-    );
+      }),
+    });
     const result = await response.json();
+    console.log("::error adding result", result);
     return result.data.addCustomer;
   } catch (error) {
     console.log("::error adding customer", error);
@@ -39,23 +38,23 @@ export const addCustomerAction = async (
 
 export const getCustomerAction = async (customerId: string) => {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: getCustomerQuery,
+        variables: {
+          ...getQueriesVariables,
+          customerId,
         },
-        body: JSON.stringify({
-          query: getCustomerQuery,
-          variables: {
-            ...getQueriesVariables,
-            customerId,
-          },
-        }),
-      }
-    );
+      }),
+    });
     const result = await response.json();
+    console.log("::error adding result", result);
+
     return result.data.getCustomer;
   } catch (error) {
     console.log("::error getting customer", error);
@@ -70,23 +69,22 @@ export const getCustomerBookingAction = async (
   upcoming: IBooking[];
 } | null> => {
   try {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: getCustomerBooking,
+        variables: {
+          ...getQueriesVariables,
+          customerId,
         },
-        body: JSON.stringify({
-          query: getCustomerBooking,
-          variables: {
-            ...getQueriesVariables,
-            customerId,
-          },
-        }),
-      }
-    );
+      }),
+    });
     const result = await response.json();
+    console.log("::error getting result", result);
     return result.data.getCustomerBooking;
   } catch (error) {
     console.log("::error getting customer", error);

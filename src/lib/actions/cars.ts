@@ -6,11 +6,12 @@ import { getQueriesVariables } from "@/core";
 export const getCarsAction = async () => {
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_GRAPHQL_API_ENDPOINT!,
+      process.env.GRAPHQL_API_ENDPOINT!,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": process.env.APPSYNC_API_KEY!,
         },
         body: JSON.stringify({
           query: getCarClassesQuery,

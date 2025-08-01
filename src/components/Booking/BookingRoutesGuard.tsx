@@ -30,7 +30,7 @@ export const BookingRouteGuard = ({
 
     // Prevent access to account page if customer already exists
     if (pathname === "/booking/account" && customer) {
-      router.push("/");
+      //router.push("/");
     }
   }, [hydrated, pathname, paid, customer]);
 

@@ -9,6 +9,7 @@ import { addCustomerAction } from "@/lib/actions/customer";
 import Label from "@/components/CodidgeUI/Label";
 import PrimaryButton from "@/components/CodidgeUI/PrimaryButton";
 import { ICustomer } from "@/interfaces/customer";
+import { toast } from "react-toastify";
 
 export const SignUpVerification = ({
   onSuccess,
@@ -66,6 +67,7 @@ export const SignUpVerification = ({
 
         onSuccess();
       } catch (err) {
+        toast.error("Verification failed");
         console.error("Verification failed:", err);
       }
     });

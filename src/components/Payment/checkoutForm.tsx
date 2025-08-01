@@ -9,6 +9,7 @@ import { useCustomer } from "@/context/authProvider";
 import { payBooking } from "@/lib/actions/checkout";
 import { useBooking } from "@/context/bookingProvider";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -126,6 +127,7 @@ export const CheckoutForm = () => {
         return res;
       }
     } catch (error) {
+      toast.error("Payment failed");
       console.log("::error", error);
     } finally {
       setLoading(false);

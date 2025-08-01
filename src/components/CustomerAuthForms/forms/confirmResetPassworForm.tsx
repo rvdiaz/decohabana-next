@@ -7,6 +7,7 @@ import Label from "../../CodidgeUI/Label";
 import Input from "../../CodidgeUI/InputField";
 import Link from "next/link";
 import PrimaryButton from "../../CodidgeUI/PrimaryButton";
+import { toast } from "react-toastify";
 
 type FormData = {
   newPassword: string;
@@ -43,13 +44,7 @@ export const ConfirmResetPasswordForm = () => {
 
       router.push("/signin");
     } catch (error) {
-      console.error("Authentication failed:", error);
-      /* toast.error(
-        <div>
-          <span className="p-2"> Login failed</span>
-        </div>,
-        { autoClose: 5000 }
-      ); */
+      toast.error("Authentication failed");
     } finally {
       setloading(false);
     }

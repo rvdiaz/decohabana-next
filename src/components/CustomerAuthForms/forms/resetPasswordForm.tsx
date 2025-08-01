@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Input from "../../CodidgeUI/InputField";
 import Link from "next/link";
 import PrimaryButton from "../../CodidgeUI/PrimaryButton";
+import { toast } from "react-toastify";
 
 type FormData = {
   email: string;
@@ -39,12 +40,7 @@ export const ResetPasswordForm = () => {
       }
     } catch (error) {
       console.error("Authentication failed:", error);
-      /* toast.error(
-        <div>
-          <span className="p-2"> Reset password failed</span>
-        </div>,
-        { autoClose: 5000 }
-      ); */
+      toast.error("Reset password failed");
     } finally {
       setloading(false);
     }

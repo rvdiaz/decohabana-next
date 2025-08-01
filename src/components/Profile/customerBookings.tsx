@@ -21,14 +21,10 @@ export const statusHexColors: Record<BookingStatus, string> = {
 };
 
 export const CustomerBookings = () => {
-  const { customerBookings, loadingBookings, updateBooking } = useCustomer();
+  const { customerBookings, updateBooking } = useCustomer();
   const [bookId, setBookId] = useState<string>("");
 
   const [isPending, startTransition] = useTransition();
-
-  if (loadingBookings) {
-    return <PageLoading />;
-  }
 
   return (
     <div className="space-y-6">

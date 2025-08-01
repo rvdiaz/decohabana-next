@@ -2,7 +2,6 @@
 
 import React from "react";
 import { BookingForm } from "./bookingForm";
-import { LoadScript } from "@react-google-maps/api";
 
 export const Hero = () => {
   return (

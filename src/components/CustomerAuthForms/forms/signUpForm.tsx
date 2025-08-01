@@ -7,7 +7,10 @@ import { useRouter } from "next/navigation";
 import { addCustomerAction } from "@/lib/actions/customer";
 import Input from "@/components/CodidgeUI/InputField";
 import { PasswordRules } from "../widgets/passwordRules";
-import PrimaryButton, { ButtonSize } from "@/components/CodidgeUI/PrimaryButton";
+import PrimaryButton, {
+  ButtonSize,
+} from "@/components/CodidgeUI/PrimaryButton";
+import { toast } from "react-toastify";
 
 type FormData = {
   email: string;
@@ -72,6 +75,7 @@ export const SignUpForm = ({ onSuccess }: { onSuccess: () => void }) => {
         refreshCustomer(customer);
         onSuccess();
       } catch (err) {
+        toast.error("Signup error");
         console.error("Signup error:", err);
       }
     });
@@ -197,7 +201,7 @@ export const SignUpForm = ({ onSuccess }: { onSuccess: () => void }) => {
           />
           <span
             onClick={() => setShowConfirm(!showConfirm)}
-            className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2 text-gray-400"
+            className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-12 text-gray-400"
           >
             {showConfirm ? (
               <Eye className="size-5" />

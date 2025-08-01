@@ -5,8 +5,7 @@ import { getCarsAction } from "@/lib/actions/cars";
 import { PriceDisplay } from "../CodidgeUI/priceDisplay";
 
 export async function CarContainers() {
-  const { getCarTypes: cars }: { getCarTypes: ICarClass[] } =
-    await getCarsAction();
+  const cars = await getCarsAction();
 
   return (
     <div id="fleet" className="py-20 bg-gradient-to-b from-gray-900 to-black">
@@ -23,7 +22,7 @@ export async function CarContainers() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {cars.map((car, index) => {
+          {cars?.getCarTypes?.map((car: ICarClass, index: number) => {
             const imageWidget = car.image ? (
               <img
                 src={car.image.url}

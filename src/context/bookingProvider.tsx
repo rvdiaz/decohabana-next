@@ -24,6 +24,7 @@ export const BookingProvider = ({ children }: { children: ReactNode }) => {
 
   // 1️⃣  Hydrate from localStorage on mount
   useEffect(() => {
+    setloading(true);
     const persisted = localStorage.getItem("bookingFlow");
     if (persisted) setState(JSON.parse(persisted));
     setloading(false);
@@ -57,14 +58,6 @@ export const BookingProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("bookingFlow");
     setState({});
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-black text-white">
-        <PageLoading />
-      </div>
-    );
-  }
 
   return (
     <BookingContext.Provider
