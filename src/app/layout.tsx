@@ -27,12 +27,10 @@ export default function RootLayout({
             <div className="min-h-screen bg-black text-white">
               <Header />
               {children}
-              <div className="fixed z-90 bottom-0 right-0">
-                <ToastContainer position="bottom-right" />
-              </div>
             </div>
           </AuthProvider>
         </AmplifyProvider>
+        <ToastContainer position="bottom-right" />
       </body>
     </html>
   );

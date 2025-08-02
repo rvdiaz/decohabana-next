@@ -89,7 +89,7 @@ export const PlacesAutoCompleteWidget = ({
 
       setSuggestions(suggestions || []);
     } catch (err) {
-      console.error("Suggestion fetch failed", err);
+      console.log("Suggestion fetch failed", err);
     } finally {
       setLoading(false);
     }
@@ -115,7 +115,7 @@ export const PlacesAutoCompleteWidget = ({
       setSelectedPlace(placeData);
       setSuggestions([]);
     } catch (err) {
-      console.error("Place selection failed", err);
+      console.log("Place selection failed", err);
       setError("Failed to select place. Please try again.");
     } finally {
       setLoading(false);

@@ -1,32 +1,25 @@
-import { useCustomer } from "@/context/authProvider";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useTransition } from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import VerificationInput from "react-verification-input";
 import { confirmSignUp, fetchUserAttributes, signIn } from "aws-amplify/auth";
 import { MailCheck } from "lucide-react";
-import { addCustomerAction } from "@/lib/actions/customer";
 import Label from "@/components/CodidgeUI/Label";
 import PrimaryButton from "@/components/CodidgeUI/PrimaryButton";
-import { ICustomer } from "@/interfaces/customer";
-import { toast } from "react-toastify";
 
 export const SignUpVerification = ({
   onSuccess,
 }: {
-  onSuccess: () => void;
+  onSuccess: (userId: string, formData: any) => void;
 }) => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-
   const [isPending, startTransition] = useTransition();
+  const [loginError, setLoginError] = useState("");
 
   const emailFromParams = searchParams.get("email") || "";
   const passwordFromParams = searchParams.get("password") || "";
   const phoneParams = searchParams.get("phone") || "";
   const fullNameParams = searchParams.get("fullName") || "";
-
-  const { refreshCustomer } = useCustomer();
 
   const {
     control,
@@ -55,20 +48,16 @@ export const SignUpVerification = ({
           const att = await fetchUserAttributes();
           const userId = att?.["sub"] || "";
 
-          const customer = await addCustomerAction({
+          onSuccess(userId, {
             email: emailFromParams,
             name: fullNameParams,
             phone: phoneParams,
             id: userId,
           });
-          refreshCustomer(customer as ICustomer);
-          router.push("/booking/payment");
         }
-
-        onSuccess();
       } catch (err) {
-        toast.error("Verification failed");
-        console.error("Verification failed:", err);
+        setLoginError("Verification failed");
+        console.log("Verification failed:", err);
       }
     });
   };
@@ -112,9 +101,14 @@ export const SignUpVerification = ({
           </div>
         )}
       />
-      <PrimaryButton loading={isPending} type="submit" className="w-full">
-        Send Code
-      </PrimaryButton>
+      <div>
+        {loginError && (
+          <p className="mb-2 text-sm text-red-500">{loginError}</p>
+        )}
+        <PrimaryButton loading={isPending} type="submit" className="w-full">
+          Send Code
+        </PrimaryButton>
+      </div>
     </form>
   );
 };

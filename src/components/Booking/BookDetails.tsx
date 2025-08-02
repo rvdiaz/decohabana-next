@@ -18,16 +18,20 @@ export const BookingSummaryWidgetHeader = () => {
     label: string;
     value: string | number | ReactNode;
   }) => (
-    <div className="flex items-center space-x-2 text-sm text-white px-2">
+    <div className="flex items-center gap-1 text-sm text-white whitespace-nowrap">
       <span className="text-yellow-400">{icon}</span>
       <span className="font-medium">{label}:</span>
       <span>{value}</span>
     </div>
   );
 
+  const Separator = () => (
+    <div className="hidden md:block w-px h-5 bg-gray-300 mx-2" />
+  );
+
   return (
-    <div className="w-full overflow-x-auto  text-white py-3 px-4 rounded-lg shadow-md">
-      <div className="w-full md:max-w-6xl px-0 md:px-4 mx-auto flex flex-col md:flex-row items-start space-x-4 text-sm ">
+    <div className="w-full bg-gray-900 text-white py-3 px-4 rounded-lg shadow-md overflow-x-auto">
+      <div className="w-full max-w-6xl mx-auto flex flex-wrap gap-y-2 md:flex-nowrap md:gap-x-4 items-center space-x-4">
         <Item
           icon={<MapPin size={16} />}
           label="Pickup"
@@ -46,15 +50,17 @@ export const BookingSummaryWidgetHeader = () => {
             </>
           )}
 
-        <Separator />
         {bookingParams?.startDate && (
-          <Item
-            icon={<CalendarRange size={16} />}
-            label="Start"
-            value={formatFriendlyDate(bookingParams?.startDate, {
-              showTime: false,
-            })}
-          />
+          <>
+            <Separator />
+            <Item
+              icon={<CalendarRange size={16} />}
+              label="Start"
+              value={formatFriendlyDate(bookingParams.startDate, {
+                showTime: false,
+              })}
+            />
+          </>
         )}
 
         {bookingParams?.bookMode === BookMode.trip &&
@@ -64,7 +70,7 @@ export const BookingSummaryWidgetHeader = () => {
               <Item
                 icon={<CalendarRange size={16} />}
                 label="Aprox. End"
-                value={formatFriendlyDate(bookingParams?.endDate, {
+                value={formatFriendlyDate(bookingParams.endDate, {
                   showTime: false,
                 })}
               />
@@ -85,7 +91,3 @@ export const BookingSummaryWidgetHeader = () => {
     </div>
   );
 };
-
-const Separator = () => (
-  <div className="h-[1px] my-2 md:my-0 w-full md:w-px md:h-5 bg-gray-200" />
-);

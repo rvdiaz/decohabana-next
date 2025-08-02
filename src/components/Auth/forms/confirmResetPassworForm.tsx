@@ -2,12 +2,12 @@ import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import { confirmResetPassword } from "aws-amplify/auth";
 import { Eye, EyeOff } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Label from "../../CodidgeUI/Label";
 import Input from "../../CodidgeUI/InputField";
-import Link from "next/link";
 import PrimaryButton from "../../CodidgeUI/PrimaryButton";
-import { toast } from "react-toastify";
+import VerificationInput from "react-verification-input";
+import TextButton from "@/components/CodidgeUI/TextButton";
 
 type FormData = {
   newPassword: string;
@@ -17,9 +17,11 @@ type FormData = {
 export const ConfirmResetPasswordForm = () => {
   const [loading, setloading] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const router = useRouter();
   const username = "";
+  const pathname = usePathname();
 
   const {
     control,
@@ -42,9 +44,9 @@ export const ConfirmResetPasswordForm = () => {
         newPassword: data.newPassword,
       });
 
-      router.push("/signin");
+      router.push("/login");
     } catch (error) {
-      toast.error("Authentication failed");
+      setLoginError("Authentication failed");
     } finally {
       setloading(false);
     }
@@ -79,7 +81,7 @@ export const ConfirmResetPasswordForm = () => {
                   }}
                   render={({ field }) => (
                     <div>
-                      {/*  <VerificationInput
+                      <VerificationInput
                         {...field}
                         length={6}
                         placeholder=""
@@ -89,7 +91,7 @@ export const ConfirmResetPasswordForm = () => {
                             "w-10 h-10 mx-1 text-center border border-gray-300 rounded rounded-xl focus:border-brand-500",
                         }}
                         onChange={(value: string) => field.onChange(value)}
-                      /> */}
+                      />
                     </div>
                   )}
                 />
@@ -125,14 +127,20 @@ export const ConfirmResetPasswordForm = () => {
                 </div>
 
                 <div className="flex items-center justify-end">
-                  <Link
-                    href="/signin"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  <TextButton
+                    type="button"
+                    onClick={() => {
+                      router.push(`${pathname}?auth=login`);
+                    }}
+                    className="!text-white hover:!bg-transparent hover:!text-yellow-500 !text-sm"
                   >
                     Back to Login
-                  </Link>
+                  </TextButton>
                 </div>
                 <div>
+                  {loginError && (
+                    <p className="mb-2 text-sm text-red-500">{loginError}</p>
+                  )}
                   <PrimaryButton
                     loading={loading}
                     type="submit"

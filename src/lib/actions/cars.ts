@@ -5,20 +5,17 @@ import { getQueriesVariables } from "@/core";
 
 export const getCarsAction = async () => {
   try {
-    const response = await fetch(
-      process.env.GRAPHQL_API_ENDPOINT!,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": process.env.APPSYNC_API_KEY!,
-        },
-        body: JSON.stringify({
-          query: getCarClassesQuery,
-          variables: getQueriesVariables,
-        }),
-      }
-    );
+    const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.APPSYNC_API_KEY!,
+      },
+      body: JSON.stringify({
+        query: getCarClassesQuery,
+        variables: getQueriesVariables,
+      }),
+    });
     const result = await response.json();
     return result.data;
   } catch (error) {

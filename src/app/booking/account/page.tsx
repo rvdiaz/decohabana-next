@@ -1,18 +1,28 @@
 "use client";
 import { BookingRouteGuard } from "@/components/Booking/BookingRoutesGuard";
-import { SignInForm } from "@/components/CustomerAuthForms/forms/signInForm";
-import { SignUpForm } from "@/components/CustomerAuthForms/forms/signUpForm";
-import { SignUpVerification } from "@/components/CustomerAuthForms/forms/signUpVerification";
+import { SignInForm } from "@/components/Auth/forms/signInForm";
+import { SignUpForm } from "@/components/Auth/forms/signUpForm";
+import { SignUpVerification } from "@/components/Auth/forms/signUpVerification";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { getCustomerAction } from "@/lib/actions/customer";
+import { useCustomer } from "@/context/authProvider";
+import { ICustomer } from "@/interfaces/customer";
 
 const AccountPage: React.FC = () => {
   const router = useRouter();
+  const { refreshCustomer } = useCustomer();
 
   const [isSignUp, setIsSignUp] = useState(false);
 
   const searchParams = useSearchParams();
   const emailFromParams = searchParams.get("step") || "";
+
+  const handleLoginSuccess = async (userId: string) => {
+    const customer = await getCustomerAction(userId);
+    refreshCustomer(customer as ICustomer);
+    router.push("/booking/payment");
+  };
 
   return (
     <BookingRouteGuard>
@@ -57,7 +67,7 @@ const AccountPage: React.FC = () => {
                     }}
                   />
                 ) : (
-                  <SignInForm />
+                  <SignInForm onSuccess={handleLoginSuccess} />
                 )}
               </div>
             )}

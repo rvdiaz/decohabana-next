@@ -84,7 +84,7 @@ export const BookingStepsHeader = () => {
   }
 
   return (
-    <div className="sticky top-0">
+    <div className="">
       <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black py-2 md:py-4">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between">

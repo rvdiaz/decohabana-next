@@ -1,7 +1,32 @@
+import { ITenant } from "@/interfaces/tenant";
+import { getContactConfigByTenant } from "@/lib/actions/contact";
 import { Mail, MapPinIcon, Phone } from "lucide-react";
 import React from "react";
+import { ProccessForm } from "../CodidgeUI/FormProcessor";
 
-export const Contact = () => {
+export async function ContactPage() {
+  const contactFormConfig: {
+    getTenant: ITenant;
+  } = await getContactConfigByTenant();
+
+  const tenantData = contactFormConfig?.getTenant;
+
+  const contactFormModule =
+    tenantData?.solutions &&
+    tenantData?.solutions
+      .flatMap((solution) => solution.tenantModules)
+      .find((module) => module.moduleKey === "contactSubmissions");
+
+  const metaData = contactFormModule
+    ? JSON.parse(contactFormModule.metaData)
+    : {};
+
+  if (!contactFormModule) {
+    return;
+  }
+
+  const form1 = metaData.find((form: any) => form.formId === "contact");
+
   return (
     <div id="contact" className="relative py-20 bg-black">
       <div
@@ -82,74 +107,10 @@ export const Contact = () => {
               Send us a Message
             </h3>
 
-            <form onSubmit={() => {}} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-300">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    value={""}
-                    onChange={(e) => {}}
-                    className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
-                    placeholder="Your name"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-300">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={""}
-                    onChange={(e) => {}}
-                    className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
-                    placeholder="Your email"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-300">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  value={""}
-                  onChange={(e) => {}}
-                  className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
-                  placeholder="Your phone number"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-300">
-                  Message
-                </label>
-                <textarea
-                  value={""}
-                  onChange={(e) => {}}
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-colors"
-                  placeholder="Tell us about your transportation needs..."
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold py-3 px-6 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105"
-              >
-                Send Message
-              </button>
-            </form>
+            <ProccessForm form={form1} />
           </div>
         </div>
       </div>
     </div>
   );
-};
+}

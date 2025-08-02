@@ -2,27 +2,28 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { fetchUserAttributes, signIn, signOut } from "aws-amplify/auth";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { useCustomer } from "@/context/authProvider";
-import { getCustomerAction } from "@/lib/actions/customer";
+import { usePathname, useRouter } from "next/navigation";
 import Input from "@/components/CodidgeUI/InputField";
 import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
-import { ICustomer } from "@/interfaces/customer";
-import { toast } from "react-toastify/unstyled";
+import TextButton from "@/components/CodidgeUI/TextButton";
 
 type FormData = {
   email: string;
   password: string;
 };
 
-export const SignInForm = () => {
-  const { refreshCustomer } = useCustomer();
+export const SignInForm = ({
+  onSuccess,
+}: {
+  onSuccess: (userId: string) => void;
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const pathname = usePathname();
+  const [loginError, setLoginError] = useState("");
 
   const {
     register,
@@ -30,15 +31,13 @@ export const SignInForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const getUserFromDatabase = async (userId: string) => {
+  const onLoginSuccess = async (userId: string) => {
     try {
-      const customer = await getCustomerAction(userId);
-      refreshCustomer(customer as ICustomer);
-      router.push("/booking/payment");
+      await onSuccess(userId);
     } catch (error) {
       await signOut();
-      console.error("Authentication failed:", error);
-      throw new Error("Error is not created in system");
+      setLoginError("Error getting user info");
+      console.log("Authentication failed:", error);
     }
   };
 
@@ -54,26 +53,28 @@ export const SignInForm = () => {
           const att = await fetchUserAttributes();
           const userId = att?.["sub"] || "";
 
-          await getUserFromDatabase(userId);
+          await onLoginSuccess(userId);
         }
 
         if (user.nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_EMAIL_CODE") {
-          router.push("/mfa");
+          router.push(`${pathname}?auth=mfa`);
         }
 
         if (
           user.nextStep.signInStep ===
           "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED"
         ) {
-          router.push("/change-password");
+          router.push(`${pathname}?auth=change-password`);
         }
       } catch (error) {
-        console.error("Authentication failed:", error);
-        toast.error("Authentication failed");
-      } finally {
-        console.log("::");
+        setLoginError("Authentication failed");
+        console.log("Authentication failed:", error);
       }
     });
+  };
+
+  const forgetPasswordHandler = () => {
+    router.push(`${pathname}?auth=reset-password`);
   };
 
   return (
@@ -134,14 +135,18 @@ export const SignInForm = () => {
           )}
         </div>
         <div className="flex items-center justify-end">
-          <Link
-            href={"/reset-password"}
-            className="text-yellow-400 hover:text-yellow-300 text-sm"
+          <TextButton
+            type="button"
+            onClick={forgetPasswordHandler}
+            className="!text-white hover:!bg-transparent hover:!text-yellow-500 !text-sm"
           >
             Forgot your password?
-          </Link>
+          </TextButton>
         </div>
         <div>
+          {loginError && (
+            <p className="mb-2 text-sm text-red-500">{loginError}</p>
+          )}
           <PrimaryButton
             size={ButtonSize.LARGE}
             loading={isPending}

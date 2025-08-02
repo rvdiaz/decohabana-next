@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCustomer } from "@/context/authProvider";
 import { CustomerProfile } from "@/components/Profile/customerProfile";
 import { CustomerBookings } from "@/components/Profile/customerBookings";
-import { LogoutButton } from "@/components/CustomerAuthForms/widgets/logoutButton";
+import { LogoutButton } from "@/components/Auth/widgets/logoutButton";
 import { PageLoading } from "@/components/CodidgeUI/pageLoading";
 
 const ProfilePage: React.FC = () => {

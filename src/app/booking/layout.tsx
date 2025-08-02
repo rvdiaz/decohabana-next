@@ -3,6 +3,7 @@
 import React from "react";
 import { BookingProvider } from "@/context/bookingProvider";
 import { BookingStepsHeader } from "@/components/Booking/BookStepsHeaders";
+import { ToastContainer } from "react-toastify";
 
 export default async function BookingLayout({
   children,
@@ -14,6 +15,7 @@ export default async function BookingLayout({
       <BookingStepsHeader />
 
       {children}
+      <ToastContainer position="bottom-right" />
     </BookingProvider>
   );
 }

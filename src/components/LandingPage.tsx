@@ -1,13 +1,13 @@
 "use server";
 
 import React from "react";
-import { Contact } from "lucide-react";
 import { Hero } from "./Hero";
 import { GeneralServices } from "./GeneralServices";
 import { Features } from "./Features";
 import { FAQ } from "./Faq";
 import { Footer } from "./Footer";
 import { CarContainers } from "./Cars";
+import { ContactPage } from "./Contact";
 
 const LandingPage: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const LandingPage: React.FC = () => {
       <GeneralServices />
       <Features />
       <FAQ />
-      <Contact />
+      <ContactPage />
       <Footer />
     </div>
   );
