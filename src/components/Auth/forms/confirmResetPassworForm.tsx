@@ -46,6 +46,7 @@ export const ConfirmResetPasswordForm = () => {
 
       router.push("/login");
     } catch (error) {
+      console.log("::error", error);
       setLoginError("Authentication failed");
     } finally {
       setloading(false);

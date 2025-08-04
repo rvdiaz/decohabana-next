@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import TextButton from "../CodidgeUI/TextButton";
 import { LogoutButton } from "../Auth/widgets/logoutButton";
 import { LoginModal } from "../AuthModal";
+import Image from "next/image";
 
 interface HeaderProps {
   onSignOut?: () => void;
@@ -34,25 +35,35 @@ const Header: React.FC<HeaderProps> = () => {
   }
 
   const handleRegister = () => {
+    setIsMenuOpen(false);
     router.push(`${pathname}?auth=register`);
   };
 
   const handleLogin = () => {
+    setIsMenuOpen(false);
     router.push(`${pathname}?auth=login`);
   };
+
+  const logo = "/logo.png";
 
   return (
     <header>
       <div className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-yellow-400/20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-24">
             {/* Logo */}
             <div className="flex items-center">
               <Link
                 href="/"
                 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent"
               >
-                PRESTIGE RIDES
+                <Image
+                  className="w-42"
+                  src={logo}
+                  width={300}
+                  height={400}
+                  alt="ss"
+                />
               </Link>
             </div>
 
@@ -113,7 +124,7 @@ const Header: React.FC<HeaderProps> = () => {
                     onClick={handleRegister}
                     className="!text-white hover:!bg-transparent hover:!text-yellow-500"
                   >
-                    Register
+                    Sign up
                   </TextButton>
                 </div>
               )}
@@ -187,18 +198,18 @@ const Header: React.FC<HeaderProps> = () => {
                     <LogoutButton className="w-full" />
                   </div>
                 ) : (
-                  <div className="flex items-center space-x-4 text-sm text-gray-300">
+                  <div className="grid grid-cols-2 items-center justify-between space-x-4 text-sm">
                     <TextButton
                       onClick={handleLogin}
-                      className="!text-white hover:!bg-transparent hover:!text-yellow-500"
+                      className="!text-white border border-yellow-500 hover:!bg-yellow-600 hover:!text-white"
                     >
                       Login
                     </TextButton>
                     <TextButton
                       onClick={handleRegister}
-                      className="!text-white hover:!bg-transparent hover:!text-yellow-500"
+                      className="!text-gray-800 bg-yellow-500 hover:!bg-yellow-600 hover:!text-gray-800"
                     >
-                      Register
+                      Sign up
                     </TextButton>
                   </div>
                 )}

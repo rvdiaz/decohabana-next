@@ -1,4 +1,3 @@
-import { LoadingSpinner } from "./loadingSpinner";
 import { LoadingIndicator } from "./loadingWidget";
 
 interface ILoadingPageProps {

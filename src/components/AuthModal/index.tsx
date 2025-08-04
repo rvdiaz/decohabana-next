@@ -28,6 +28,7 @@ export const LoginModal = () => {
 
   const handleLoginSuccess = async (userId: string) => {
     const customer = await getCustomerAction(userId);
+    console.log("::customer", customer);
     refreshCustomer(customer as ICustomer);
   };
 
@@ -57,7 +58,7 @@ export const LoginModal = () => {
 
   return (
     <Modal
-      className="m-10 md:max-w-1/2 lg:max-w-1/3 !bg-gray-800 p-2"
+      className="m-4 md:m-10 lg:max-w-1/2 xl:max-w-1/3 !bg-gray-800 p-2"
       isOpen={open && !customer}
       onClose={handleClose}
     >
@@ -68,7 +69,7 @@ export const LoginModal = () => {
               onClick={() => {
                 router.push(`${pathname}?auth=login`);
               }}
-              className={`flex-1 py-2 px-4 rounded-md transition-colors ${
+              className={`flex-1 text-sm md:text-base py-2 px-4 rounded-md transition-colors ${
                 auth === "login"
                   ? "bg-yellow-400 text-black"
                   : "text-gray-400 hover:text-white"
@@ -80,7 +81,7 @@ export const LoginModal = () => {
               onClick={() => {
                 router.push(`${pathname}?auth=register`);
               }}
-              className={`flex-1 py-2 px-4 rounded-md transition-colors ${
+              className={`flex-1 text-sm md:text-base py-2 px-4 rounded-md transition-colors ${
                 auth === "register"
                   ? "bg-yellow-400 text-black"
                   : "text-gray-400 hover:text-white"

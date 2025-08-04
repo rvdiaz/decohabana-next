@@ -80,7 +80,7 @@ const Select: React.FC<SelectProps> = ({
     if (!selectedOption) {
       setSelectedOption(defaultSelected ?? { value: "", valueToShow: "" });
     }
-  }, [defaultSelected]);
+  }, [defaultSelected, selectedOption]);
 
   const normalizedOptions = options.map((opt) => ({
     ...opt,

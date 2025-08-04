@@ -53,12 +53,13 @@ export const getCustomerAction = async (customerId: string) => {
       }),
     });
     const result = await response.json();
-    console.log("::error adding result", result);
+    if (!result.data.getCustomer) {
+      throw Error("Customer not registered in the system");
+    }
 
     return result.data.getCustomer;
   } catch (error) {
-    console.log("::error getting customer", error);
-    return [];
+    throw Error("Error getting customer");
   }
 };
 
@@ -84,10 +85,8 @@ export const getCustomerBookingAction = async (
       }),
     });
     const result = await response.json();
-    console.log("::error getting result", result);
     return result.data.getCustomerBooking;
   } catch (error) {
-    console.log("::error getting customer", error);
     return {
       past: [],
       upcoming: [],

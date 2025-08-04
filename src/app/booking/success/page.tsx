@@ -36,7 +36,7 @@ const SuccessPage: React.FC = () => {
         paid: true,
       });
     }
-  }, [bookingCode]);
+  }, [bookingCode, setBookingState]);
 
   return (
     <div className="min-h-screen bg-black text-white">

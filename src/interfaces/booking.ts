@@ -3,6 +3,11 @@ import { IPrices } from "./common";
 import { IExtraServices } from "./extraServices";
 import { BookMode, IMapLocation } from "./hero";
 
+export enum IPreferedLanguage {
+  EN = "EN",
+  ES = "ES",
+}
+
 export interface BookingParams {
   pickupLocation: IMapLocation;
   dropoffLocation: IMapLocation;
@@ -11,6 +16,8 @@ export interface BookingParams {
   bookHours: number;
   bookMode: BookMode;
   bookingCode?: string;
+  notes?: string;
+  preferedLanguage: IPreferedLanguage;
 }
 
 export interface BookingState {

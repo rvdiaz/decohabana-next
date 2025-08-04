@@ -21,11 +21,7 @@ export const SignUpVerification = ({
   const phoneParams = searchParams.get("phone") || "";
   const fullNameParams = searchParams.get("fullName") || "";
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<{ code: string }>({
+  const { control, handleSubmit } = useForm<{ code: string }>({
     defaultValues: {
       code: "",
     },

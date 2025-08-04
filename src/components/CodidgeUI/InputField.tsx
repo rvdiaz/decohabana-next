@@ -1,7 +1,6 @@
 import React, { forwardRef, ReactNode } from "react";
 import { X } from "lucide-react";
 import Label from "./Label";
-import { LoadingSpinner } from "./loadingSpinner";
 import { LoadingIndicator } from "./loadingWidget";
 
 interface InputProps {
@@ -57,7 +56,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    let inputClasses = `px-4 py-3 rounded-lg !bg-black/50 border !border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:!border-yellow-400 transition-colors w-full ${
+    let inputClasses = `px-4 py-3 text-base md:text-base rounded-lg !bg-black/50 border !border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:!border-yellow-400 transition-colors w-full ${
       rightIcon && "pr-10"
     } ${className}`;
 

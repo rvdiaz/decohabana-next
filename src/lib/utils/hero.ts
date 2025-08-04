@@ -1,5 +1,6 @@
 import { IPrices } from "@/interfaces/common";
 import moment from "moment";
+import { toLocalISOString } from "./general";
 
 export const validateDateTime = (value: string) => {
   const selected = moment(value);
@@ -29,5 +30,5 @@ export const calculateEndDate = (
   const startDateAux = new Date(startDate);
   const endDate = new Date(startDateAux.getTime() + durationSeconds * 1000);
 
-  return endDate.toISOString(); // ✅ correct format for backend
+  return toLocalISOString(endDate); // ✅ correct format for backend
 };

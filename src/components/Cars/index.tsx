@@ -3,6 +3,7 @@ import React from "react";
 import { ICarClass } from "../../interfaces/carTypes";
 import { getCarsAction } from "@/lib/actions/cars";
 import { PriceDisplay } from "../CodidgeUI/priceDisplay";
+import Image from "next/image";
 
 export async function CarContainers() {
   const cars = await getCarsAction();
@@ -24,7 +25,9 @@ export async function CarContainers() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {cars?.getCarTypes?.map((car: ICarClass, index: number) => {
             const imageWidget = car.image ? (
-              <img
+              <Image
+                width={412}
+                height={312}
                 src={car.image.url}
                 alt={car.name}
                 className="w-full h-48 object-cover"

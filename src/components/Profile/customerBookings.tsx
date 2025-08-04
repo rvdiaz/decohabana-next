@@ -33,90 +33,104 @@ export const CustomerBookings = () => {
         <h3 className="text-xl font-semibold mb-4 text-yellow-400">
           Upcoming Bookings
         </h3>
-        {customerBookings?.upcoming?.map((booking) => (
-          <div
-            key={booking.id}
-            className="bg-black rounded-lg p-4 border border-gray-700 mb-4"
-          >
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <p className="font-semibold text-yellow-400">
-                  Booking #{booking.bookingCode}
-                </p>
-                <p className="text-sm text-gray-300">
-                  {booking.bookingBusinessData.car.carType.name}
-                </p>
-              </div>
-              <span
-                className="px-3 py-1 rounded-full text-sm font-semibold"
-                style={{
-                  backgroundColor: `${statusHexColors[booking.status]}40`, // 20 = 12.5% opacity
-                  color: statusHexColors[booking.status],
-                }}
+        {customerBookings?.upcoming?.map(
+          (booking) =>
+            booking?.bookingCode && (
+              <div
+                key={booking.id}
+                className="bg-black rounded-lg p-4 border border-gray-700 mb-4"
               >
-                {booking.status.toLocaleUpperCase()}
-              </span>
-            </div>
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <p className="font-semibold text-yellow-400">
+                      Booking #{booking.bookingCode}
+                    </p>
+                    <p className="text-sm text-gray-300">
+                      {booking.bookingBusinessData.car.carType.name}
+                    </p>
+                  </div>
+                  <span
+                    className="px-3 py-1 rounded-full text-sm font-semibold"
+                    style={{
+                      backgroundColor: `${statusHexColors[booking.status]}40`, // 20 = 12.5% opacity
+                      color: statusHexColors[booking.status],
+                    }}
+                  >
+                    {booking.status.toLocaleUpperCase()}
+                  </span>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-1">
-                  <Calendar className="w-4 h-4 text-yellow-400 mr-2" />
-                  <span>Pickup:</span>
-                  <span className="text-gray-300">
-                    {formatFriendlyDate(booking.startDate)}
-                  </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-4 h-4 text-yellow-400 mr-2" />
+                      <span>Pickup:</span>
+                      <span className="text-gray-300">
+                        {formatFriendlyDate(booking.startDate)}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-4 h-4 text-yellow-400 mr-2" />
+                      <span>Aprox. DropOff:</span>
+                      <span className="text-gray-300">
+                        {formatFriendlyDate(booking.endDate)}
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="w-4 h-4 text-yellow-400 mr-2" />
+                      {booking.bookingBusinessData.bookMode ===
+                      BookMode.trip ? (
+                        <span>
+                          {
+                            booking.bookingBusinessData.pickupLocation
+                              .displayName
+                          }{" "}
+                          →{" "}
+                          {
+                            booking.bookingBusinessData.dropoffLocation
+                              .displayName
+                          }
+                        </span>
+                      ) : (
+                        <span>
+                          {
+                            booking.bookingBusinessData.pickupLocation
+                              .displayName
+                          }{" "}
+                          ({booking.bookingBusinessData.bookHours} hours)
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <User className="w-4 h-4 text-yellow-400 mr-2" />
+                      <span>
+                        Chauffeur: {booking.bookingBusinessData.driver.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <Phone className="w-4 h-4 text-yellow-400 mr-2" />
+                      <span>{booking.bookingBusinessData.driver.phone}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <Calendar className="w-4 h-4 text-yellow-400 mr-2" />
-                  <span>Aprox. DropOff:</span>
-                  <span className="text-gray-300">
-                    {formatFriendlyDate(booking.endDate)}
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 text-yellow-400 mr-2" />
-                  {booking.bookingBusinessData.bookMode === BookMode.trip ? (
-                    <span>
-                      {booking.bookingBusinessData.pickupLocation.displayName} →{" "}
-                      {booking.bookingBusinessData.dropoffLocation.displayName}
-                    </span>
-                  ) : (
-                    <span>
-                      {booking.bookingBusinessData.pickupLocation.displayName} (
-                      {booking.bookingBusinessData.bookHours} hours)
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <User className="w-4 h-4 text-yellow-400 mr-2" />
-                  <span>
-                    Chauffeur: {booking.bookingBusinessData.driver.name}
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 text-yellow-400 mr-2" />
-                  <span>{booking.bookingBusinessData.driver.phone}</span>
-                </div>
-              </div>
-            </div>
 
-            {booking.status !== BookingStatus.cancelled && (
-              <div className="mt-4 flex space-x-3">
-                <button
-                  onClick={() => {
-                    setBookId(booking.id);
-                  }}
-                  className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition-colors"
-                >
-                  Cancel Booking
-                </button>
+                {booking.status !== BookingStatus.cancelled && (
+                  <div className="mt-4 flex space-x-3">
+                    <button
+                      onClick={() => {
+                        setBookId(booking.id);
+                      }}
+                      className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition-colors"
+                    >
+                      Cancel Booking
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ))}
+            )
+        )}
       </div>
 
       {/* Past Bookings */}

@@ -10,6 +10,7 @@ import { payBooking } from "@/lib/actions/checkout";
 import { useBooking } from "@/context/bookingProvider";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { IPreferedLanguage } from "@/interfaces/booking";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -81,6 +82,9 @@ export const CheckoutForm = () => {
             pickupLocation: bookingParams!.pickupLocation,
             dropoffLocation: bookingParams!.dropoffLocation,
             extraServices: extraServ,
+            notes: bookingParams?.notes,
+            preferedLanguage:
+              bookingParams?.preferedLanguage ?? IPreferedLanguage.EN,
           },
           selectedCarType: {
             tripQuotePrice: selectedCarType!.tripQuotePrice,

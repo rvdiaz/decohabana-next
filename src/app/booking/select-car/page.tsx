@@ -10,6 +10,7 @@ import { useCustomer } from "@/context/authProvider";
 import { IExtraServices } from "@/interfaces/extraServices";
 import { useBooking } from "@/context/bookingProvider";
 import { PriceDisplay } from "@/components/CodidgeUI/priceDisplay";
+import Image from "next/image";
 
 const CarSelectionPage = ({
   extraServices,
@@ -61,7 +62,9 @@ const CarSelectionPage = ({
                 onClick={() => handleCarSelect(car)}
               >
                 <div className="flex items-center space-x-3">
-                  <img
+                  <Image
+                    width={412}
+                    height={312}
                     src={car.image.url}
                     alt={car.name}
                     className="w-24 h-24 rounded object-cover"
@@ -132,7 +135,9 @@ const CarSelectionPage = ({
                     />
                     <div className="flex items-center space-x-3">
                       {addon.image?.url && (
-                        <img
+                        <Image
+                          width={412}
+                          height={312}
                           src={addon.image.url}
                           alt={addon.name}
                           className="w-16 h-16 object-cover rounded"

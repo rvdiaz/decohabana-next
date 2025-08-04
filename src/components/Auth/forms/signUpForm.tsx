@@ -90,7 +90,7 @@ export const SignUpForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSignupSubmit)}>
-      <div className="md:max-h-[60vh] overflow-auto">
+      <div className="max-h-[50vh] md:max-h-[60vh] overflow-auto">
         <div className="space-y-6">
           <div>
             <Input
