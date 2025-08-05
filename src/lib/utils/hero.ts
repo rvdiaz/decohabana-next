@@ -28,7 +28,9 @@ export const calculateEndDate = (
   durationSeconds: number
 ) => {
   const startDateAux = new Date(startDate);
-  const endDate = new Date(startDateAux.getTime() + durationSeconds * 1000);
+  const endDate = new Date(
+    startDateAux.getTime() + durationSeconds * 1000
+  ).toISOString();
 
-  return toLocalISOString(endDate); // ✅ correct format for backend
+  return endDate; // ✅ correct format for backend
 };

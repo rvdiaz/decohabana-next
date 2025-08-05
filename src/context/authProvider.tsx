@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     upcoming: IBooking[];
   } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [loadingBookings, setLoadingBookings] = useState(true);
+  const [loadingBookings, setLoadingBookings] = useState(false);
 
   // Configure Amplify once on the client
   useEffect(() => {

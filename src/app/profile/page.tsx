@@ -9,7 +9,7 @@ import { LogoutButton } from "@/components/Auth/widgets/logoutButton";
 import { PageLoading } from "@/components/CodidgeUI/pageLoading";
 
 const ProfilePage: React.FC = () => {
-  const { customer, loading, loadingBookings } = useCustomer();
+  const { customer, loading } = useCustomer();
   const [activeTab, setActiveTab] = useState("bookings");
   const router = useRouter();
 
@@ -19,7 +19,7 @@ const ProfilePage: React.FC = () => {
     }
   }, [customer, loading]);
 
-  if (loadingBookings || loading) {
+  if (loading) {
     return <PageLoading />;
   }
 
