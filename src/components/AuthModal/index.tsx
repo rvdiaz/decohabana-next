@@ -71,7 +71,7 @@ export const LoginModal = () => {
               }}
               className={`flex-1 text-sm md:text-base py-2 px-4 rounded-md transition-colors ${
                 auth === "login"
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-primary-400 text-black"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -83,7 +83,7 @@ export const LoginModal = () => {
               }}
               className={`flex-1 text-sm md:text-base py-2 px-4 rounded-md transition-colors ${
                 auth === "register"
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-primary-400 text-black"
                   : "text-gray-400 hover:text-white"
               }`}
             >

@@ -13,7 +13,7 @@ export const CustomerProfile = () => {
   return (
     <div className="space-y-6">
       <div className="bg-gray-900 rounded-xl p-6">
-        <h3 className="text-xl font-semibold mb-4 text-yellow-400">
+        <h3 className="text-xl font-semibold mb-4 text-primary-400">
           Profile Information
         </h3>
         <div className="space-y-4">

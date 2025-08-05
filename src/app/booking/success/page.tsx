@@ -36,7 +36,7 @@ const SuccessPage: React.FC = () => {
         paid: true,
       });
     }
-  }, [bookingCode, setBookingState]);
+  }, [bookingCode]);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -56,12 +56,14 @@ const SuccessPage: React.FC = () => {
         <div className="bg-gray-900 rounded-xl p-8 mb-8">
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-yellow-400 mb-2">
+              <h2 className="text-2xl font-bold text-primary-400 mb-2">
                 Booking Details
               </h2>
               <p className="text-gray-300">
                 Booking ID:{" "}
-                <span className="font-mono text-yellow-400">{bookingCode}</span>
+                <span className="font-mono text-primary-400">
+                  {bookingCode}
+                </span>
               </p>
             </div>
           </div>
@@ -69,7 +71,7 @@ const SuccessPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <div className="flex items-start">
-                <Car size={18} className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                <Car size={18} className="w-5 h-5 text-primary-400 mr-3 mt-1" />
                 <div className="w-fit">
                   <p className="font-semibold">Vehicle</p>
                   <p className="text-gray-300">{selectedCarType?.name}</p>
@@ -81,7 +83,7 @@ const SuccessPage: React.FC = () => {
 
               {bookingParams?.startDate && (
                 <div className="flex items-start">
-                  <Calendar className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                  <Calendar className="w-5 h-5 text-primary-400 mr-3 mt-1" />
                   <div className="w-fit">
                     <p className="font-semibold">Date & Time</p>
                     <p className="text-gray-300">
@@ -92,7 +94,7 @@ const SuccessPage: React.FC = () => {
               )}
 
               <div className="flex items-start">
-                <MapPin className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+                <MapPin className="w-5 h-5 text-primary-400 mr-3 mt-1" />
                 <div className="w-fit">
                   <p className="font-semibold">Route</p>
                   <p className="text-gray-300">
@@ -107,7 +109,7 @@ const SuccessPage: React.FC = () => {
 
             <div className="space-y-4">
               <div>
-                <p className="font-semibold text-yellow-400 mb-2">
+                <p className="font-semibold text-primary-400 mb-2">
                   Customer Information
                 </p>
                 <div className="space-y-2">
@@ -130,7 +132,7 @@ const SuccessPage: React.FC = () => {
               </div>
 
               <div>
-                <p className="font-semibold text-yellow-400 mb-2">
+                <p className="font-semibold text-primary-400 mb-2">
                   Payment Status
                 </p>
                 <p className="text-green-400">✓ Payment Confirmed</p>
@@ -144,39 +146,39 @@ const SuccessPage: React.FC = () => {
 
         {/* Pickup Instructions */}
         <div className="bg-gray-900 rounded-xl p-8 mb-8">
-          <h2 className="text-2xl font-bold text-yellow-400 mb-6">
+          <h2 className="text-2xl font-bold text-primary-400 mb-6">
             Pickup Instructions
           </h2>
 
           <div className="space-y-6">
             <div className="flex items-start">
-              <Clock className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+              <Clock className="w-5 h-5 text-primary-400 mr-3 mt-1" />
               <div>
                 <p className="font-semibold">Arrival Time</p>
                 <p className="text-gray-300">
                   Your chauffeur will arrive 15 minutes before your scheduled
                   pickup time
                 </p>
-                <p className="text-yellow-400 font-semibold">
+                <p className="text-primary-400 font-semibold">
                   {/*   Expected arrival: {bookingData.time} */}
                 </p>
               </div>
             </div>
 
             <div className="flex items-start">
-              <Phone className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+              <Phone className="w-5 h-5 text-primary-400 mr-3 mt-1" />
               <div>
                 <p className="font-semibold">Chauffeur Contact</p>
                 <p className="text-gray-300">
                   You will receive your chauffeur's contact information 1 hour
                   before pickup
                 </p>
-                <p className="text-yellow-400">Emergency: +1 (555) 123-4567</p>
+                <p className="text-primary-400">Emergency: +1 (555) 123-4567</p>
               </div>
             </div>
 
             <div className="flex items-start">
-              <MapPin className="w-5 h-5 text-yellow-400 mr-3 mt-1" />
+              <MapPin className="w-5 h-5 text-primary-400 mr-3 mt-1" />
               <div>
                 <p className="font-semibold">Pickup Location</p>
                 {/*  <p className="text-gray-300">{bookingData.from}</p> */}
@@ -189,8 +191,8 @@ const SuccessPage: React.FC = () => {
         </div>
 
         {/* Important Notes */}
-        <div className="bg-yellow-400/10 rounded-xl p-6 border border-yellow-400/20">
-          <h3 className="text-lg font-semibold text-yellow-400 mb-4">
+        <div className="bg-primary-400/10 rounded-xl p-6 border border-primary-400/20">
+          <h3 className="text-lg font-semibold text-primary-400 mb-4">
             Important Notes
           </h3>
           <ul className="space-y-2 text-sm text-gray-300">
@@ -216,14 +218,14 @@ const SuccessPage: React.FC = () => {
           <div className="flex justify-center space-x-8">
             <a
               href="tel:+15551234567"
-              className="flex items-center text-yellow-400 hover:text-yellow-300"
+              className="flex items-center text-primary-400 hover:text-primary-300"
             >
               <Phone className="w-4 h-4 mr-2" />
               +1 (555) 123-4567
             </a>
             <a
               href="mailto:support@prestigerides.com"
-              className="flex items-center text-yellow-400 hover:text-yellow-300"
+              className="flex items-center text-primary-400 hover:text-primary-300"
             >
               <Mail className="w-4 h-4 mr-2" />
               support@prestigerides.com
@@ -233,7 +235,7 @@ const SuccessPage: React.FC = () => {
 
         {/* Thank You Message */}
         <div className="mt-12 text-center">
-          <h3 className="text-2xl font-bold text-yellow-400 mb-4">
+          <h3 className="text-2xl font-bold text-primary-400 mb-4">
             Thank You!
           </h3>
           <p className="text-gray-300 max-w-2xl mx-auto">
@@ -246,7 +248,7 @@ const SuccessPage: React.FC = () => {
           <div className="mt-8 space-x-4">
             <button
               onClick={handleNewBooking}
-              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-r from-primary-400 to-primary-600 text-black font-semibold py-3 px-8 rounded-lg hover:from-primary-500 hover:to-primary-700 transition-all duration-300 transform hover:scale-105"
             >
               Book Another Ride
             </button>

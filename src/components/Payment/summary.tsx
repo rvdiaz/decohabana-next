@@ -18,7 +18,7 @@ export const TripSummary = () => {
 
   return (
     <div className="bg-gray-900 rounded-xl p-4 md:p-8">
-      <h2 className="text-xl font-semibold mb-6 text-yellow-400">
+      <h2 className="text-xl font-semibold mb-6 text-primary-400">
         Booking Summary
       </h2>
 
@@ -86,7 +86,7 @@ export const TripSummary = () => {
 
         <hr className="border-gray-700" />
 
-        <div className="flex justify-between text-xl font-bold text-yellow-400">
+        <div className="flex justify-between text-xl font-bold text-primary-400">
           <span>Total:</span>
           <PriceDisplay
             price={{

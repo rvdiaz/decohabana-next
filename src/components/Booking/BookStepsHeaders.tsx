@@ -47,12 +47,12 @@ export const BookingStepsHeader = () => {
 
   const circleStyle = (status: string) => {
     if (status === "completed") return "bg-green-500 text-black";
-    if (status === "current") return "bg-yellow-400 text-black";
+    if (status === "current") return "bg-primary-400 text-black";
     return "bg-gray-600 text-white";
   };
 
   const labelStyle = (status: string) => {
-    if (status === "current") return "text-yellow-400";
+    if (status === "current") return "text-primary-400";
     if (status === "completed") return "text-white";
     return "text-gray-400";
   };
@@ -85,7 +85,7 @@ export const BookingStepsHeader = () => {
 
   return (
     <div className="">
-      <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black py-2 md:py-4">
+      <div className="bg-gradient-to-r from-primary-400 to-primary-600 text-black py-2 md:py-4">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">

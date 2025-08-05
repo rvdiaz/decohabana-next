@@ -1,6 +1,18 @@
 @import "tailwindcss";
 
-/* HTML: <div class="loader"></div> */
+@theme {
+  --color-primary-50: hsl(45, 58%, 97%);
+  --color-primary-100: hsl(45, 58%, 90%);
+  --color-primary-200: hsl(45, 58%, 80%);
+  --color-primary-300: hsl(45, 58%, 70%);
+  --color-primary-400: hsl(45, 58%, 65%);
+  --color-primary-500: hsl(45, 58%, 60%); /* Base */
+  --color-primary-600: hsl(45, 58%, 52%);
+  --color-primary-700: hsl(45, 58%, 42%);
+  --color-primary-800: hsl(45, 58%, 32%);
+  --color-primary-900: hsl(45, 58%, 20%);
+}
+
 .loader {
   width: 18px;
   aspect-ratio: 1;

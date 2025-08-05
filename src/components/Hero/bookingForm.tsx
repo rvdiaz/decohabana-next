@@ -138,7 +138,7 @@ export const BookingForm = () => {
         clearErrors("startDate");
       }
     }
-  }, [startDate]);
+  }, [startDate, clearErrors, setError]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 xl:space-y-6">
@@ -154,7 +154,7 @@ export const BookingForm = () => {
               }}
               className={`cursor-pointer flex-1 py-2 px-4 rounded-md transition-colors ${
                 field.value === BookMode.trip
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-primary-400 text-black"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -167,7 +167,7 @@ export const BookingForm = () => {
               }}
               className={`cursor-pointer flex-1 py-2 px-4 rounded-md transition-colors ${
                 field.value === BookMode.hourly
-                  ? "bg-yellow-400 text-black"
+                  ? "bg-primary-400 text-black"
                   : "text-gray-400 hover:text-white"
               }`}
             >

@@ -133,7 +133,7 @@ export const ConfirmResetPasswordForm = () => {
                     onClick={() => {
                       router.push(`${pathname}?auth=login`);
                     }}
-                    className="!text-white hover:!bg-transparent hover:!text-yellow-500 !text-sm"
+                    className="!text-white hover:!bg-transparent hover:!text-primary-500 !text-sm"
                   >
                     Back to Login
                   </TextButton>

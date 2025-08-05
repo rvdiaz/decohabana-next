@@ -28,7 +28,7 @@ const ProfilePage: React.FC = () => {
       <div className="pt-20 md:pt-32 max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           {!loading && (
-            <h1 className="text-3xl font-bold text-yellow-400 mb-2">
+            <h1 className="text-3xl font-bold text-primary-400 mb-2">
               Welcome back, {customer?.name}!
             </h1>
           )}
@@ -43,7 +43,7 @@ const ProfilePage: React.FC = () => {
                   onClick={() => setActiveTab("bookings")}
                   className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
                     activeTab === "bookings"
-                      ? "bg-yellow-400 text-black"
+                      ? "bg-primary-400 text-black"
                       : "text-gray-300 hover:bg-gray-800"
                   }`}
                 >
@@ -53,7 +53,7 @@ const ProfilePage: React.FC = () => {
                   onClick={() => setActiveTab("profile")}
                   className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
                     activeTab === "profile"
-                      ? "bg-yellow-400 text-black"
+                      ? "bg-primary-400 text-black"
                       : "text-gray-300 hover:bg-gray-800"
                   }`}
                 >

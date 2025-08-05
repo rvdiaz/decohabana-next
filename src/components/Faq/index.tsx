@@ -42,7 +42,7 @@ export const FAQ = () => {
     <div id="faq" className="py-20 bg-gray-900">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-yellow-400">
+          <h2 className="text-4xl font-bold mb-4 text-primary-400">
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-gray-300">
@@ -63,7 +63,7 @@ export const FAQ = () => {
               >
                 <span className="font-semibold text-white">{faq.question}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-yellow-400 transition-transform ${
+                  className={`w-5 h-5 text-primary-400 transition-transform ${
                     openFAQ === index ? "rotate-180" : ""
                   }`}
                 />

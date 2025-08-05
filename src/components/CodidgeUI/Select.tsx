@@ -100,7 +100,7 @@ const Select: React.FC<SelectProps> = ({
               </div>
             ) : (
               <div
-                className={`px-4 py-2.5 rounded-lg !bg-black/50 border !border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:!border-yellow-400 transition-colors w-full flex ${classNameWrapper}`}
+                className={`px-4 py-2.5 rounded-lg !bg-black/50 border !border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:!border-primary-400 transition-colors w-full flex ${classNameWrapper}`}
               >
                 <div className="flex flex-wrap items-center flex-auto gap-2">
                   {selectedOption.value !== "" ? (

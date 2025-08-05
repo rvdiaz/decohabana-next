@@ -16,8 +16,8 @@ export interface BookingParams {
   bookHours: number;
   bookMode: BookMode;
   bookingCode?: string;
-  notes?: string;
-  preferedLanguage: IPreferedLanguage;
+  note?: string;
+  languagePrefered: IPreferedLanguage;
 }
 
 export interface BookingState {

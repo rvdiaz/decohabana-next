@@ -43,6 +43,7 @@ export const payBooking = async ({
     });
 
     const result = await response.json();
+    console.log("res", result);
     return result.data.payBooking;
   } catch (error) {
     console.log("::error", error);

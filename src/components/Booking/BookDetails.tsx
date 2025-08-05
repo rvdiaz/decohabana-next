@@ -19,7 +19,7 @@ export const BookingSummaryWidgetHeader = () => {
     value: string | number | ReactNode;
   }) => (
     <div className="flex items-center gap-1 text-sm text-white whitespace-nowrap">
-      <span className="text-yellow-400">{icon}</span>
+      <span className="text-primary-400">{icon}</span>
       <span className="font-medium">{label}:</span>
       <span>{value}</span>
     </div>

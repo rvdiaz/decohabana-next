@@ -12,7 +12,7 @@ export async function CarContainers() {
     <div id="fleet" className="py-20 bg-gradient-to-b from-gray-900 to-black">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-yellow-400">
+          <h2 className="text-4xl font-bold mb-4 text-primary-400">
             Our Service Classes
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -41,13 +41,13 @@ export async function CarContainers() {
             return (
               <div
                 key={index}
-                className="bg-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-yellow-400 transition-all duration-300 transform hover:scale-105"
+                className="bg-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-primary-400 transition-all duration-300 transform hover:scale-105"
               >
                 <div className="relative">{imageWidget}</div>
 
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-yellow-400">
+                    <h3 className="text-xl font-bold text-primary-400">
                       {car.name}
                     </h3>
                     <div className="text-right">
@@ -64,7 +64,7 @@ export async function CarContainers() {
                   </div>
 
                   <div className="flex items-center mb-4">
-                    <Users className="w-5 h-5 text-yellow-400 mr-2" />
+                    <Users className="w-5 h-5 text-primary-400 mr-2" />
                     <span className="text-sm">
                       Up to {car.maxPassengers} passengers
                     </span>

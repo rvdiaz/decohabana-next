@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           refreshCustomer(customer as ICustomer);
         }
       } catch (error) {
+        console.log(":::error", error);
         setLoading(false);
       } finally {
         setLoading(false);
@@ -86,6 +87,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setCustomerBookings(bookings);
         setLoadingBookings(false);
       } catch (error) {
+        console.log(":::error", error);
         setLoadingBookings(false);
       }
     };

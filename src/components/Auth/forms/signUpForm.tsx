@@ -41,6 +41,7 @@ export const SignUpForm = ({
     try {
       await onSuccess(userId, formData);
     } catch (error) {
+      console.log("::error", error);
       await signOut();
       setLoginError("Error getting user info");
     }

@@ -77,7 +77,7 @@ export const PlacesAutoCompleteWidget = ({
     }, 300);
 
     return () => clearTimeout(debounceTimerRef.current);
-  }, [input]);
+  }, [input, selectedPlace, initialValue]);
 
   const fetchSuggestions = async (query: string) => {
     setLoading(true);

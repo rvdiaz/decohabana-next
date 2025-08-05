@@ -138,7 +138,7 @@ export const SignInForm = ({
           <TextButton
             type="button"
             onClick={forgetPasswordHandler}
-            className="!text-white hover:!bg-transparent hover:!text-yellow-500 !text-sm"
+            className="!text-white hover:!bg-transparent hover:!text-primary-500 !text-sm"
           >
             Forgot your password?
           </TextButton>

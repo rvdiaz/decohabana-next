@@ -10,11 +10,7 @@ type FormData = {
   email: string;
 };
 
-interface FormHHeader {
-  header: ReactNode;
-}
-
-export const ResetPasswordForm = ({ header }: FormHHeader) => {
+export const ResetPasswordForm = () => {
   const [loading, setloading] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -85,7 +81,7 @@ export const ResetPasswordForm = ({ header }: FormHHeader) => {
                   <TextButton
                     type="button"
                     onClick={backToLogin}
-                    className="!text-white hover:!bg-transparent hover:!text-yellow-500 !text-sm"
+                    className="!text-white hover:!bg-transparent hover:!text-primary-500 !text-sm"
                   >
                     Back
                   </TextButton>

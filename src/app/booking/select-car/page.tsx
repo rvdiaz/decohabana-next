@@ -56,7 +56,7 @@ const CarSelectionPage = ({
                 key={car.id}
                 className={`rounded-lg overflow-hidden border-2 transition-all cursor-pointer p-3 bg-gray-900 hover:scale-[1.02] ${
                   selectedCarType?.id === car.id
-                    ? "border-yellow-400 shadow-lg"
+                    ? "border-primary-400 shadow-lg"
                     : "border-gray-700 hover:border-gray-600"
                 }`}
                 onClick={() => handleCarSelect(car)}
@@ -70,13 +70,13 @@ const CarSelectionPage = ({
                     className="w-24 h-24 rounded object-cover"
                   />
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-yellow-400">
+                    <h3 className="text-lg font-semibold text-primary-400">
                       {car.name}
                     </h3>
                     <p className="text-sm text-gray-400">
                       Up to {car.maxPassengers} passengers
                     </p>
-                    <div className="text-yellow-300 font-bold text-xl">
+                    <div className="text-primary-300 font-bold text-xl">
                       <PriceDisplay
                         price={{
                           amount: car.tripQuotePrice,
@@ -91,8 +91,8 @@ const CarSelectionPage = ({
         </div>
         {/* Selected Car Expanded Details */}
         {selectedCarType && (
-          <div className="p-6 rounded-xl bg-gray-800 border border-yellow-500 space-y-4">
-            <h2 className="text-2xl font-bold text-yellow-400">
+          <div className="p-6 rounded-xl bg-gray-800 border border-primary-500 space-y-4">
+            <h2 className="text-2xl font-bold text-primary-400">
               {selectedCarType.name}
             </h2>
             <p className="text-gray-300">{selectedCarType.description}</p>
@@ -100,7 +100,7 @@ const CarSelectionPage = ({
               {selectedCarType.features.map((feature, idx) => (
                 <span
                   key={idx}
-                  className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-xs"
+                  className="bg-primary-400/20 text-primary-400 px-3 py-1 rounded-full text-xs"
                 >
                   {feature?.label}
                 </span>
@@ -119,9 +119,9 @@ const CarSelectionPage = ({
                 .map((addon) => (
                   <label
                     key={addon.name}
-                    className={`cursor-pointer border-2 rounded-lg p-4 bg-gray-800 hover:border-yellow-400 ${
+                    className={`cursor-pointer border-2 rounded-lg p-4 bg-gray-800 hover:border-primary-400 ${
                       selectedAddons?.some((a) => a.name === addon.name)
-                        ? "border-yellow-400"
+                        ? "border-primary-400"
                         : "border-gray-700"
                     }`}
                   >
@@ -144,13 +144,13 @@ const CarSelectionPage = ({
                         />
                       )}
                       <div>
-                        <h4 className="text-yellow-400 font-bold">
+                        <h4 className="text-primary-400 font-bold">
                           {addon.name}
                         </h4>
                         <p className="text-sm text-gray-400">
                           {addon.description}
                         </p>
-                        <div className="text-yellow-300 text-sm font-semibold">
+                        <div className="text-primary-300 text-sm font-semibold">
                           <PriceDisplay price={addon.price} />
                         </div>
                       </div>
@@ -173,7 +173,7 @@ const CarSelectionPage = ({
         </div>
         {/* Terms and Conditions */}
         <div className="mt-8 bg-gray-900 rounded-xl p-6">
-          <h3 className="text-lg font-semibold mb-4 text-yellow-400">
+          <h3 className="text-lg font-semibold mb-4 text-primary-400">
             Terms & Conditions
           </h3>
           <div className="text-sm text-gray-300 space-y-2">
@@ -184,7 +184,7 @@ const CarSelectionPage = ({
           </div>
           <a
             href="#"
-            className="text-yellow-400 hover:text-yellow-300 text-sm underline mt-2 inline-block"
+            className="text-primary-400 hover:text-primary-300 text-sm underline mt-2 inline-block"
           >
             Read full Terms & Conditions
           </a>

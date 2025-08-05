@@ -41,7 +41,7 @@ export async function ContactPage() {
       </div>
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-yellow-400">
+          <h2 className="text-4xl font-bold mb-4 text-primary-400">
             Contact Us
           </h2>
           <p className="text-xl text-gray-300">
@@ -53,12 +53,12 @@ export async function ContactPage() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-yellow-400">
+              <h3 className="text-2xl font-semibold mb-6 text-primary-400">
                 Get In Touch
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <Phone className="w-6 h-6 text-yellow-400 mr-4" />
+                  <Phone className="w-6 h-6 text-primary-400 mr-4" />
                   <div>
                     <p className="font-semibold">Phone</p>
                     <p className="text-gray-300">+1 (555) 123-4567</p>
@@ -66,7 +66,7 @@ export async function ContactPage() {
                 </div>
 
                 <div className="flex items-center">
-                  <Mail className="w-6 h-6 text-yellow-400 mr-4" />
+                  <Mail className="w-6 h-6 text-primary-400 mr-4" />
                   <div>
                     <p className="font-semibold">Email</p>
                     <p className="text-gray-300">info@goldenwheels.com</p>
@@ -74,7 +74,7 @@ export async function ContactPage() {
                 </div>
 
                 <div className="flex items-center">
-                  <MapPinIcon className="w-6 h-6 text-yellow-400 mr-4" />
+                  <MapPinIcon className="w-6 h-6 text-primary-400 mr-4" />
                   <div>
                     <p className="font-semibold">Address</p>
                     <p className="text-gray-300">
@@ -88,13 +88,13 @@ export async function ContactPage() {
             </div>
 
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-yellow-400">
+              <h4 className="text-lg font-semibold mb-4 text-primary-400">
                 Business Hours
               </h4>
               <div className="space-y-2 text-gray-300">
                 <p>Monday - Friday: 6:00 AM - 12:00 AM</p>
                 <p>Saturday - Sunday: 24/7 Service Available</p>
-                <p className="text-yellow-400 text-sm">
+                <p className="text-primary-400 text-sm">
                   Emergency service available 24/7
                 </p>
               </div>
@@ -103,7 +103,7 @@ export async function ContactPage() {
 
           {/* Contact Form */}
           <div className="bg-gray-900 rounded-xl p-8">
-            <h3 className="text-2xl font-semibold mb-6 text-yellow-400">
+            <h3 className="text-2xl font-semibold mb-6 text-primary-400">
               Send us a Message
             </h3>
 

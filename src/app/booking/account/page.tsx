@@ -42,7 +42,7 @@ const AccountPage: React.FC = () => {
                     onClick={() => setIsSignUp(false)}
                     className={`flex-1 py-2 px-4 rounded-md transition-colors ${
                       !isSignUp
-                        ? "bg-yellow-400 text-black"
+                        ? "bg-primary-400 text-black"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -52,7 +52,7 @@ const AccountPage: React.FC = () => {
                     onClick={() => setIsSignUp(true)}
                     className={`flex-1 py-2 px-4 rounded-md transition-colors ${
                       isSignUp
-                        ? "bg-yellow-400 text-black"
+                        ? "bg-primary-400 text-black"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >

@@ -82,9 +82,9 @@ export const CheckoutForm = () => {
             pickupLocation: bookingParams!.pickupLocation,
             dropoffLocation: bookingParams!.dropoffLocation,
             extraServices: extraServ,
-            notes: bookingParams?.notes,
-            preferedLanguage:
-              bookingParams?.preferedLanguage ?? IPreferedLanguage.EN,
+            note: bookingParams?.note,
+            languagePrefered:
+              bookingParams?.languagePrefered ?? IPreferedLanguage.EN,
           },
           selectedCarType: {
             tripQuotePrice: selectedCarType!.tripQuotePrice,
@@ -141,7 +141,7 @@ export const CheckoutForm = () => {
   return (
     <div className="bg-gray-900 rounded-xl p-4 md:p-8 text-white">
       <div className="flex items-center mb-6">
-        <Lock className="w-5 h-5 text-yellow-400 mr-2" />
+        <Lock className="w-5 h-5 text-primary-400 mr-2" />
         <h2 className="text-xl font-semibold">Secure Payment</h2>
       </div>
 
@@ -167,8 +167,8 @@ export const CheckoutForm = () => {
           <ChevronRight className="ml-2 w-5 h-5" />
         </PrimaryButton>
 
-        <div className="mt-8 p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20">
-          <p className="text-sm text-yellow-400 mb-2">
+        <div className="mt-8 p-4 bg-primary-400/10 rounded-lg border border-primary-400/20">
+          <p className="text-sm text-primary-400 mb-2">
             <Shield className="inline w-4 h-4 mr-1" />
             Secure Payment
           </p>

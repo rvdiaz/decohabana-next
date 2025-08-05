@@ -22,7 +22,7 @@ export const Hero = () => {
           src="/assets/header.jpg"
           alt="Golden wheel"
         />
-        <h1 className="text-2xl md:text-5xl font-bold mt-8 sm:mt-0 mb-6 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+        <h1 className="text-2xl md:text-5xl font-bold mt-8 sm:mt-0 mb-6 bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
           Golden Wheels Private Chauffeur
         </h1>
         <p className="text-base md:text-xl mb-8 text-gray-300">
@@ -30,8 +30,8 @@ export const Hero = () => {
         </p>
 
         {/* Booking Form */}
-        <div className="max-w-lg mx-auto bg-opacity-10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-yellow-400/20">
-          <h2 className="text-xl md:text-2xl font-semibold mb-6 text-yellow-400">
+        <div className="max-w-lg mx-auto bg-opacity-10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-primary-400/20">
+          <h2 className="text-xl md:text-2xl font-semibold mb-6 text-primary-500">
             Book Your Luxury Ride
           </h2>
 
