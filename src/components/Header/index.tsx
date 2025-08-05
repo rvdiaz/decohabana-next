@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Menu, X, User } from "lucide-react";
 import Link from "next/link";
 import { useCustomer } from "@/context/authProvider";
@@ -218,7 +218,10 @@ const Header: React.FC<HeaderProps> = () => {
           )}
         </div>
       </div>
-      <LoginModal />
+
+      <Suspense>
+        <LoginModal />
+      </Suspense>
     </header>
   );
 };

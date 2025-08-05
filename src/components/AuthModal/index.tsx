@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Modal } from "../CodidgeUI/modal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AuthFormWrapper } from "../Auth";
@@ -91,10 +91,12 @@ export const LoginModal = () => {
             </button>
           </div>
         )}
-        <AuthFormWrapper
-          onSignUpSuccess={handleRegisterSuccess}
-          onLoginSuccess={handleLoginSuccess}
-        />
+        <Suspense>
+          <AuthFormWrapper
+            onSignUpSuccess={handleRegisterSuccess}
+            onLoginSuccess={handleLoginSuccess}
+          />
+        </Suspense>
       </div>
     </Modal>
   );

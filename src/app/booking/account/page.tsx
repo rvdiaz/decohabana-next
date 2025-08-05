@@ -1,80 +1,12 @@
 "use client";
-import { BookingRouteGuard } from "@/components/Booking/BookingRoutesGuard";
-import { SignInForm } from "@/components/Auth/forms/signInForm";
-import { SignUpForm } from "@/components/Auth/forms/signUpForm";
-import { SignUpVerification } from "@/components/Auth/forms/signUpVerification";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
-import { getCustomerAction } from "@/lib/actions/customer";
-import { useCustomer } from "@/context/authProvider";
-import { ICustomer } from "@/interfaces/customer";
+import React, { Suspense } from "react";
+import { AccountStep } from "@/components/AcountLogin";
 
 const AccountPage: React.FC = () => {
-  const router = useRouter();
-  const { refreshCustomer } = useCustomer();
-
-  const [isSignUp, setIsSignUp] = useState(false);
-
-  const searchParams = useSearchParams();
-  const emailFromParams = searchParams.get("step") || "";
-
-  const handleLoginSuccess = async (userId: string) => {
-    const customer = await getCustomerAction(userId);
-    refreshCustomer(customer as ICustomer);
-    router.push("/booking/payment");
-  };
-
   return (
-    <BookingRouteGuard>
-      <div className="min-h-screen bg-black text-white">
-        <div className="max-w-2xl mx-auto px-4 py-12">
-          <div className="bg-gray-900 rounded-xl p-8">
-            {emailFromParams ? (
-              <SignUpVerification
-                onSuccess={() => {
-                  router.push("/booking/payment");
-                }}
-              />
-            ) : (
-              <div>
-                <div className="flex mb-8 bg-gray-800 rounded-lg p-1">
-                  <button
-                    onClick={() => setIsSignUp(false)}
-                    className={`flex-1 py-2 px-4 rounded-md transition-colors ${
-                      !isSignUp
-                        ? "bg-primary-400 text-black"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    Sign In
-                  </button>
-                  <button
-                    onClick={() => setIsSignUp(true)}
-                    className={`flex-1 py-2 px-4 rounded-md transition-colors ${
-                      isSignUp
-                        ? "bg-primary-400 text-black"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    Create Account
-                  </button>
-                </div>
-
-                {isSignUp ? (
-                  <SignUpForm
-                    onSuccess={() => {
-                      router.push("/booking/payment");
-                    }}
-                  />
-                ) : (
-                  <SignInForm onSuccess={handleLoginSuccess} />
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </BookingRouteGuard>
+    <Suspense>
+      <AccountStep />
+    </Suspense>
   );
 };
 
