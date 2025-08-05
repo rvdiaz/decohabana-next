@@ -19,8 +19,6 @@ export const getExtraServices = async () => {
       }),
     });
     const result = await response.json();
-    console.log("::error adding result extra serv", result);
-
     return result.data.getExtraServices;
   } catch (error) {
     console.log("::error adding extra serv", error);

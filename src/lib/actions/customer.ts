@@ -28,7 +28,6 @@ export const addCustomerAction = async (
       }),
     });
     const result = await response.json();
-    console.log("::error adding result", result);
     return result.data.addCustomer;
   } catch (error) {
     console.log("::error adding customer", error);
