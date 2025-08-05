@@ -10,7 +10,7 @@ type FormData = {
   email: string;
 };
 
-export const ResetPasswordForm = () => {
+export const ResetPasswordForm = ({ header }: { header: ReactNode }) => {
   const [loading, setloading] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -57,6 +57,7 @@ export const ResetPasswordForm = () => {
     <div className="flex flex-col flex-1">
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <div>
+          {header}
           <div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-6">
