@@ -1,14 +1,11 @@
-// app/booking/select-car/page.tsx
-import { getExtraServices } from "@/lib/actions/extraServices";
-import { BookingRouteGuard } from "@/components/Booking/BookingRoutesGuard";
-import CarSelection from "@/components/CarSelection";
+import CarSelectionWrapper from "@/components/CarSelection/carSelectionWrapper";
+import { PageLoading } from "@/components/CodidgeUI/pageLoading";
+import { Suspense } from "react";
 
-export default async function SelectCar() {
-  const extraServices = await getExtraServices();
-
+export default function SelectCarPage() {
   return (
-    <BookingRouteGuard>
-      <CarSelection extraServices={extraServices} />
-    </BookingRouteGuard>
+    <Suspense fallback={<PageLoading />}>
+      <CarSelectionWrapper />
+    </Suspense>
   );
 }

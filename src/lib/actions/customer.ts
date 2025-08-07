@@ -13,6 +13,13 @@ export const addCustomerAction = async (
   customer: Partial<Omit<ICustomerInput, "externalReference">>
 ) => {
   try {
+    const variables = {
+      ...getQueriesVariables,
+      customer,
+    };
+
+    console.log(":::variables", variables);
+
     const response = await fetch(process.env.GRAPHQL_API_ENDPOINT!, {
       method: "POST",
       headers: {
@@ -21,13 +28,11 @@ export const addCustomerAction = async (
       },
       body: JSON.stringify({
         query: addCustomerMutation,
-        variables: {
-          ...getQueriesVariables,
-          customer,
-        },
+        variables,
       }),
     });
     const result = await response.json();
+    console.log(":::res", result);
     return result.data.addCustomer;
   } catch (error) {
     console.log("::error adding customer", error);

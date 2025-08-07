@@ -18,11 +18,7 @@ export const AuthFormWrapper = ({
   const searchParams = useSearchParams();
   const auth = searchParams.get("auth");
 
-  let authWidget = <div></div>;
-
-  if (auth === "login") {
-    authWidget = <SignInForm onSuccess={onLoginSuccess} />;
-  }
+  let authWidget = <SignInForm onSuccess={onLoginSuccess} />;
 
   if (auth === "register") {
     authWidget = <SignUpForm onSuccess={onSignUpSuccess} />;

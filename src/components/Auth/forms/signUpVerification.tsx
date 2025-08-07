@@ -46,7 +46,7 @@ export const SignUpVerification = ({
 
           onSuccess(userId, {
             email: emailFromParams,
-            name: fullNameParams,
+            fullName: fullNameParams,
             phone: phoneParams,
             id: userId,
           });

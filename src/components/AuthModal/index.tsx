@@ -28,8 +28,8 @@ export const LoginModal = () => {
 
   const handleLoginSuccess = async (userId: string) => {
     const customer = await getCustomerAction(userId);
-    console.log("::customer", customer);
     refreshCustomer(customer as ICustomer);
+    router.replace("/");
   };
 
   const handleRegisterSuccess = async (userId: string, formData: any) => {
@@ -39,7 +39,9 @@ export const LoginModal = () => {
       phone: formData.phone,
       id: userId,
     });
+
     refreshCustomer(customer);
+    router.replace("/");
   };
 
   const handleClose = () => {
