@@ -65,6 +65,9 @@ export const LoginModal = () => {
       onClose={handleClose}
     >
       <div className="p-10">
+        <h2 className="text-lg md:text-xl font-semibold mb-6 text-primary-500">
+          Sign In or Create Account
+        </h2>
         {(auth === "login" || auth === "register") && (
           <div className="flex mb-8 bg-gray-900 rounded-lg p-1">
             <button

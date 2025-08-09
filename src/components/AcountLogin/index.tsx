@@ -37,7 +37,7 @@ export const AccountStep = () => {
         <div className="max-w-2xl mx-auto px-4 py-12">
           <div className="bg-gray-900 rounded-xl p-8">
             <div className="text-2xl mb-4 text-center">
-              <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center text-white">
+              <h2 className="text-lg md:text-xl font-semibold mb-6 text-primary-500">
                 Sign In or Create Account
               </h2>
             </div>
