@@ -84,7 +84,7 @@ export const FormRenderer: FC<FormRendererProps> = ({ fields, onSubmit }) => {
           reset();
         }
       } catch (error) {
-        console.log(":::error", error);
+        console.log(":::erro contact section", error);
       }
     });
   };

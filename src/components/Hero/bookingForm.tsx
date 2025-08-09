@@ -115,7 +115,7 @@ export const BookingForm = () => {
 
           router.push("/booking/select-car");
         } catch (error) {
-          console.log(":::error", error);
+          console.log(":::error booking select", error);
         }
       });
     } catch (error) {

@@ -2,7 +2,6 @@ import { ImageOff, Users } from "lucide-react";
 import React from "react";
 import { ICarClass } from "../../interfaces/carTypes";
 import { getCarsAction } from "@/lib/actions/cars";
-import { PriceDisplay } from "../CodidgeUI/priceDisplay";
 import Image from "next/image";
 
 export async function CarContainers() {
@@ -44,23 +43,11 @@ export async function CarContainers() {
                 className="bg-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-primary-400 transition-all duration-300 transform hover:scale-105"
               >
                 <div className="relative">{imageWidget}</div>
-
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-bold text-primary-400">
                       {car.name}
                     </h3>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold">
-                        <PriceDisplay
-                          price={{
-                            amount: car.hourlyRate,
-                            currencyCode: "USD",
-                          }}
-                        />
-                      </div>
-                      <div className="text-sm text-gray-400">per hour</div>
-                    </div>
                   </div>
 
                   <div className="flex items-center mb-4">

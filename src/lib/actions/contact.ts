@@ -66,7 +66,7 @@ export const submitContact = async ({
       throw Error("Error connecting to api");
     }
   } catch (error) {
-    console.log(":::error", error);
+    console.log(":::error submit contact", error);
     throw Error(error as string);
   }
 };
