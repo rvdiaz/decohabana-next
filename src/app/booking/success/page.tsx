@@ -18,6 +18,8 @@ import Link from "next/link";
 import { useBooking } from "@/context/bookingProvider";
 import { formatFriendlyDate } from "@/lib/utils/general";
 import { useCustomer } from "@/context/authProvider";
+import { tenantConctact } from "@/core";
+import { BookMode } from "@/interfaces/hero";
 
 const SuccessPage: React.FC = () => {
   const { bookingParams, selectedCarType, setBookingState, bookingCode } =
@@ -100,9 +102,15 @@ const SuccessPage: React.FC = () => {
                   <p className="text-gray-300">
                     From: {bookingParams?.pickupLocation.displayName}
                   </p>
-                  <p className="text-gray-300">
-                    To: {bookingParams?.dropoffLocation.displayName}
-                  </p>
+                  {bookingParams?.bookMode === BookMode.trip ? (
+                    <p className="text-gray-300">
+                      To: {bookingParams?.dropoffLocation.displayName}
+                    </p>
+                  ) : (
+                    <p className="text-gray-300">
+                      {bookingParams?.bookHours} hours
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -173,7 +181,9 @@ const SuccessPage: React.FC = () => {
                   You will receive your chauffeur's contact information 1 hour
                   before pickup
                 </p>
-                <p className="text-primary-400">Emergency: +1 (555) 123-4567</p>
+                <p className="text-primary-400">
+                  Emergency: {tenantConctact.phone}
+                </p>
               </div>
             </div>
 
@@ -215,20 +225,20 @@ const SuccessPage: React.FC = () => {
         {/* Contact Information */}
         <div className="mt-8 text-center">
           <p className="text-gray-300 mb-4">Need assistance? Contact us:</p>
-          <div className="flex justify-center space-x-8">
+          <div className="space-y-2 space-x-8">
             <a
-              href="tel:+15551234567"
+              href={tenantConctact.email}
               className="flex items-center text-primary-400 hover:text-primary-300"
             >
               <Phone className="w-4 h-4 mr-2" />
-              +1 (555) 123-4567
+              {tenantConctact.phoneText}
             </a>
             <a
-              href="mailto:support@prestigerides.com"
+              href={`mailto:${tenantConctact.email}`}
               className="flex items-center text-primary-400 hover:text-primary-300"
             >
               <Mail className="w-4 h-4 mr-2" />
-              support@prestigerides.com
+              {tenantConctact.email}
             </a>
           </div>
         </div>
@@ -253,10 +263,10 @@ const SuccessPage: React.FC = () => {
               Book Another Ride
             </button>
             <Link
-              href="/dashboard"
+              href="/"
               className="inline-block bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-600 transition-colors"
             >
-              View Dashboard
+              Home
             </Link>
           </div>
         </div>

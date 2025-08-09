@@ -59,17 +59,22 @@ export const CustomerBookings = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4 text-primary-400 mr-2" />
-                      <span>Pickup:</span>
+                  <div className="space-y-3">
+                    <div className="block md:flex items-center space-x-1 space-y-1">
+                      <div className="flex">
+                        <Calendar className="w-4 h-4 text-primary-400 mr-2" />
+                        <span>Pickup:</span>
+                      </div>
                       <span className="text-gray-300">
                         {formatFriendlyDate(booking.startDate)}
                       </span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4 text-primary-400 mr-2" />
-                      <span>Aprox. DropOff:</span>
+                    <div className="block md:flex items-center space-x-1 space-y-1">
+                      <div className="flex">
+                        <Calendar className="w-4 h-4 text-primary-400 mr-2" />
+                        <span>Aprox. DropOff:</span>
+                      </div>
+
                       <span className="text-gray-300">
                         {formatFriendlyDate(booking.endDate)}
                       </span>
@@ -145,7 +150,7 @@ export const CustomerBookings = () => {
               <div className="flex justify-between items-start mb-3">
                 <div>
                   <p className="font-semibold text-primary-400">
-                    Booking #{booking.id}
+                    Booking #{booking.bookingCode}
                   </p>
                   <p className="text-sm text-gray-300">
                     {booking.bookingBusinessData.car.carType.name}
@@ -161,9 +166,6 @@ export const CustomerBookings = () => {
                   >
                     {booking.status.toLocaleUpperCase()}
                   </span>
-                  <p className="text-sm text-gray-300 mt-1">
-                    {booking.bookingBusinessData.totalPrice.amount}
-                  </p>
                 </div>
               </div>
 

@@ -36,6 +36,11 @@ export const AccountStep = () => {
       <div className="min-h-screen bg-black text-white">
         <div className="max-w-2xl mx-auto px-4 py-12">
           <div className="bg-gray-900 rounded-xl p-8">
+            <div className="text-2xl mb-4 text-center">
+              <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center text-white">
+                Sign In or Create Account
+              </h2>
+            </div>
             {(auth === "register" || auth === "login" || !auth) && (
               <div className="flex mb-8 bg-gray-800 rounded-lg p-1">
                 <button

@@ -25,7 +25,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="pt-20 md:pt-32 max-w-7xl mx-auto px-4 py-8">
+      <div className="pt-32 max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           {!loading && (
             <h1 className="text-3xl font-bold text-primary-400 mb-2">
