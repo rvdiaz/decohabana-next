@@ -15,6 +15,7 @@ export const getCarsAction = async () => {
         query: getCarClassesQuery,
         variables: getQueriesVariables,
       }),
+      next: { revalidate: 60 },
     });
     const result = await response.json();
     return result.data;
