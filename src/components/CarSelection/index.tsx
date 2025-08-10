@@ -171,7 +171,15 @@ const CarSelection = ({
             <div className="mt-4 border-t border-primary-500 pt-4 space-y-2 text-gray-300">
               {/* Minimum fare note */}
               {selectedCarType.minimumFare && (
-                <p className="text-xs text-yellow-400 italic">* Minimum fare</p>
+                <p className="text-xs text-yellow-400 italic flex gap-1">
+                  Minimum fare:{" "}
+                  <PriceDisplay
+                    price={{
+                      amount: selectedCarType.minimumFare,
+                      currencyCode: "USD",
+                    }}
+                  />
+                </p>
               )}
 
               {/* Rate breakdown */}

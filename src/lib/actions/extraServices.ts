@@ -25,7 +25,6 @@ export const getExtraServices = async () => {
     const availableExtraServices = extraServ.filter(
       (serv: IExtraServices) => serv?.available
     );
-    console.log(":::availableExtraServices", availableExtraServices);
 
     return availableExtraServices;
   } catch (error) {

@@ -300,6 +300,13 @@ export const BookingForm = () => {
         Find Your Perfect Ride
         <ChevronRight className="ml-2 w-5 h-5" />
       </PrimaryButton>
+      {watch("bookMode") === BookMode.hourly && (
+        <div className="text-sm text-yellow-600 font-semibold border-l-4 border-yellow-500 pl-3">
+          <strong>* Note:</strong> Hourly trips are limited to the Miami-Dade
+          and Broward County areas (including Homestead). For trips outside this
+          area, please choose the "Trip" option instead.
+        </div>
+      )}
     </form>
   );
 };
