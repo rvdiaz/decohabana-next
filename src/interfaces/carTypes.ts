@@ -13,7 +13,7 @@ export interface ICarClass {
   supportsHourly: boolean;
   supportsDistance: boolean;
   hourlyRate: number;
-  pricePerKm: number;
+  pricePerMiles: number;
   baseFare: number;
   minimumFare: number;
   tripQuotePrice: number;

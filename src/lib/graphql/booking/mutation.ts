@@ -22,7 +22,7 @@ export const updateBookingMutation = `
             supportsHourly
             hourlyRate
             supportsDistance
-            pricePerKm
+            pricePerMiles
             baseFare
             minimumFare
             tripQuotePrice

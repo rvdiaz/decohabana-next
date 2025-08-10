@@ -11,6 +11,7 @@ import { IExtraServices } from "@/interfaces/extraServices";
 import { useBooking } from "@/context/bookingProvider";
 import { PriceDisplay } from "@/components/CodidgeUI/priceDisplay";
 import Image from "next/image";
+import { BookMode } from "@/interfaces/hero";
 
 const CarSelection = ({
   extraServices,
@@ -23,10 +24,9 @@ const CarSelection = ({
     selectedCarType,
     selectedAddons,
     handleAddonToggle,
+    availableCarTypes: availableCarTypesCtx,
   } = useBooking();
   const { customer } = useCustomer();
-
-  const { availableCarTypes: availableCarTypesCtx } = useBooking();
 
   const availabilityCars = availableCarTypesCtx ?? [];
 
@@ -43,6 +43,13 @@ const CarSelection = ({
       router.push("/booking/account");
     }
   };
+
+  const totalExtraServices =
+    selectedAddons?.reduce((add: number, item) => {
+      add += item.price.amount;
+
+      return add;
+    }, 0) ?? 0;
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -69,14 +76,14 @@ const CarSelection = ({
                     alt={car.name}
                     className="w-24 h-24 rounded object-cover"
                   />
-                  <div className="flex-1">
+                  <div className="flex-1 space-y-1">
                     <h3 className="text-lg font-semibold text-primary-400">
                       {car.name}
                     </h3>
                     <p className="text-sm text-gray-400">
                       Up to {car.maxPassengers} passengers
                     </p>
-                    <div className="text-primary-300 font-bold text-xl">
+                    <div className="text-primary-300 font-bold text-md">
                       <PriceDisplay
                         price={{
                           amount: car.tripQuotePrice,
@@ -89,25 +96,6 @@ const CarSelection = ({
               </div>
             ))}
         </div>
-        {/* Selected Car Expanded Details */}
-        {selectedCarType && (
-          <div className="p-6 rounded-xl bg-gray-800 border border-primary-500 space-y-4">
-            <h2 className="text-2xl font-bold text-primary-400">
-              {selectedCarType.name}
-            </h2>
-            <p className="text-gray-300">{selectedCarType.description}</p>
-            <div className="flex flex-wrap gap-2">
-              {selectedCarType.features.map((feature, idx) => (
-                <span
-                  key={idx}
-                  className="bg-primary-400/20 text-primary-400 px-3 py-1 rounded-full text-xs"
-                >
-                  {feature?.label}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Add-ons Selection */}
         {selectedCarType && (
@@ -143,14 +131,14 @@ const CarSelection = ({
                           className="w-16 h-16 object-cover rounded"
                         />
                       )}
-                      <div>
+                      <div className="space-y-1">
                         <h4 className="text-primary-400 font-bold">
                           {addon.name}
                         </h4>
                         <p className="text-sm text-gray-400">
                           {addon.description}
                         </p>
-                        <div className="text-primary-300 text-sm font-semibold">
+                        <div className="text-primary-300 text-md font-semibold">
                           <PriceDisplay price={addon.price} />
                         </div>
                       </div>
@@ -160,6 +148,101 @@ const CarSelection = ({
             </div>
           </div>
         )}
+        {/* Selected Car Expanded Details */}
+        {selectedCarType && (
+          <div className="p-6 rounded-xl bg-gray-800 border border-primary-500 space-y-4">
+            <h2 className="text-2xl font-bold text-white">
+              {selectedCarType.name}
+            </h2>
+            <p className="text-gray-300">{selectedCarType.description}</p>
+
+            <div className="flex flex-wrap gap-2">
+              {selectedCarType.features.map((feature, idx) => (
+                <span
+                  key={idx}
+                  className="bg-primary-400/20 text-primary-400 px-3 py-1 rounded-full text-xs"
+                >
+                  {feature?.label}
+                </span>
+              ))}
+            </div>
+
+            {/* Pricing Section */}
+            <div className="mt-4 border-t border-primary-500 pt-4 space-y-2 text-gray-300">
+              {/* Minimum fare note */}
+              {selectedCarType.minimumFare && (
+                <p className="text-xs text-yellow-400 italic">* Minimum fare</p>
+              )}
+
+              {/* Rate breakdown */}
+              {bookingParams?.bookMode === BookMode.hourly ? (
+                <div className="flex items-baseline italic text-sm">
+                  <span className="whitespace-nowrap">Hourly Rate:</span>
+                  <span
+                    className="flex-grow mx-2 border-1 border-dashed mt-1"
+                    aria-hidden="true"
+                  />
+                  <PriceDisplay
+                    price={{
+                      amount: selectedCarType.hourlyRate,
+                      currencyCode: "USD",
+                    }}
+                  />
+                  <span className="ml-1 text-gray-400">/ hour</span>
+                </div>
+              ) : (
+                <div className="flex items-baseline italic text-sm">
+                  <span className="whitespace-nowrap">Rate per Mile:</span>
+                  <span
+                    className="flex-grow mx-2 border-1 border-dashed mt-1"
+                    aria-hidden="true"
+                  />
+                  <PriceDisplay
+                    price={{
+                      amount: selectedCarType.pricePerMiles,
+                      currencyCode: "USD",
+                    }}
+                  />
+                  <span className="ml-1 text-gray-400">/ mile</span>
+                </div>
+              )}
+
+              {totalExtraServices ? (
+                <div className="flex items-baseline italic text-sm">
+                  <span className="whitespace-nowrap">Addons:</span>
+                  <span
+                    className="flex-grow mx-2 border-1 border-dashed mt-1"
+                    aria-hidden="true"
+                  />
+                  <PriceDisplay
+                    price={{
+                      amount: totalExtraServices,
+                      currencyCode: "USD",
+                    }}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+
+              {/* Total Price */}
+              <div className="flex items-baseline font-semibold text-primary-300 text-xl">
+                <span className="whitespace-nowrap">Total Price:</span>
+                <span
+                  className="flex-grow mx-2 border-1 border-dashed mt-1"
+                  aria-hidden="true"
+                />
+                <PriceDisplay
+                  price={{
+                    amount: selectedCarType.tripQuotePrice + totalExtraServices,
+                    currencyCode: "USD",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="text-center pt-8">
           <PrimaryButton
             className="flex !w-fit mx-auto"

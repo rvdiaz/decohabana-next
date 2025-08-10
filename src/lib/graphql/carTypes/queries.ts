@@ -14,7 +14,7 @@ export const getCarClassesQuery = `
                 value
             }
             hourlyRate
-            pricePerKm
+            pricePerMiles
         }
     }
 `;

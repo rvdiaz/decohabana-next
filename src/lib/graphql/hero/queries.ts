@@ -18,7 +18,7 @@ export const getCarClassesAvilabilityQuery = `
                 supportsHourly
                 supportsDistance
                 hourlyRate
-                pricePerKm
+                pricePerMiles
                 baseFare
                 minimumFare
                 tripQuotePrice

@@ -1,4 +1,10 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import { useForm } from "react-hook-form";
 import { Lock, ChevronRight, Shield } from "lucide-react";
 import { useState } from "react";
@@ -58,11 +64,11 @@ export const CheckoutForm = () => {
       setErrorMsg("");
       if (!stripe || !elements) return;
 
-      const card = elements.getElement(CardElement);
-      if (!card) return;
+      const cardNumberElement = elements.getElement(CardNumberElement);
+      if (!cardNumberElement) return;
 
       setLoading(true);
-      const result = await stripe.createToken(card);
+      const result = await stripe.createToken(cardNumberElement);
 
       if (result.error) {
         setErrorMsg(result.error.message || "Payment failed.");
@@ -93,7 +99,7 @@ export const CheckoutForm = () => {
             supportsHourly: selectedCarType!.supportsHourly,
             supportsDistance: selectedCarType!.supportsDistance,
             hourlyRate: selectedCarType!.hourlyRate,
-            pricePerKm: selectedCarType!.pricePerKm,
+            pricePerMiles: selectedCarType!.pricePerMiles,
             baseFare: selectedCarType!.baseFare,
             minimumFare: selectedCarType!.minimumFare,
           },
@@ -146,16 +152,39 @@ export const CheckoutForm = () => {
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        {/* Card Number */}
         <div>
           <label className="text-sm font-medium text-gray-300 mb-2 block">
-            Card Details
+            Card Number
           </label>
           <div className="rounded-lg bg-black/50 border border-gray-600 px-4 py-3">
-            <CardElement options={CARD_ELEMENT_OPTIONS} />
+            <CardNumberElement options={CARD_ELEMENT_OPTIONS} />
+          </div>
+        </div>
+
+        {/* Expiration + CVC in same row */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-sm font-medium text-gray-300 mb-2 block">
+              Expiration Date
+            </label>
+            <div className="rounded-lg bg-black/50 border border-gray-600 px-4 py-3">
+              <CardExpiryElement options={CARD_ELEMENT_OPTIONS} />
+            </div>
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-gray-300 mb-2 block">
+              CVC
+            </label>
+            <div className="rounded-lg bg-black/50 border border-gray-600 px-4 py-3">
+              <CardCvcElement options={CARD_ELEMENT_OPTIONS} />
+            </div>
           </div>
           {errorMsg && <p className="text-red-400 text-sm mt-2">{errorMsg}</p>}
         </div>
 
+        {/* Submit */}
         <PrimaryButton
           size={ButtonSize.MEDIUM}
           type="submit"
@@ -167,6 +196,7 @@ export const CheckoutForm = () => {
           <ChevronRight className="ml-2 w-5 h-5" />
         </PrimaryButton>
 
+        {/* Secure note */}
         <div className="mt-8 p-4 bg-primary-400/10 rounded-lg border border-primary-400/20">
           <p className="text-sm text-primary-400 mb-2">
             <Shield className="inline w-4 h-4 mr-1" />

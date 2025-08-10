@@ -72,7 +72,7 @@ export const TripSummary = () => {
           </div>
         )}
 
-        {totalExtraServices && (
+        {totalExtraServices ? (
           <div className="flex justify-between">
             <span className="text-gray-300">Extra Services Price:</span>
             <PriceDisplay
@@ -82,6 +82,8 @@ export const TripSummary = () => {
               }}
             />
           </div>
+        ) : (
+          <div></div>
         )}
 
         <hr className="border-gray-700" />
