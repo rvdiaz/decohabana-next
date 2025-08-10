@@ -2,6 +2,7 @@
 
 import { getExtraServicesQuery } from "@/lib/graphql/extraServices/queries";
 import { getQueriesVariables } from "@/core";
+import { IExtraServices } from "@/interfaces/extraServices";
 
 export const getExtraServices = async () => {
   try {
@@ -19,7 +20,14 @@ export const getExtraServices = async () => {
       }),
     });
     const result = await response.json();
-    return result.data.getExtraServices;
+    const extraServ = result.data?.getExtraServices ?? [];
+
+    const availableExtraServices = extraServ.filter(
+      (serv: IExtraServices) => serv?.available
+    );
+    console.log(":::availableExtraServices", availableExtraServices);
+
+    return availableExtraServices;
   } catch (error) {
     console.log("::error adding extra serv", error);
     return [];
