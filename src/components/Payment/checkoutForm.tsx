@@ -133,7 +133,11 @@ export const CheckoutForm = () => {
           });
           router.push("/booking/success");
         }
-
+        if (!res.success) {
+          toast.error(
+            "Sorry, no cars or drivers available for those dates. Please try another time."
+          );
+        }
         return res;
       }
     } catch (error) {

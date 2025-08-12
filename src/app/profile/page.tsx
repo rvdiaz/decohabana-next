@@ -7,6 +7,7 @@ import { CustomerProfile } from "@/components/Profile/customerProfile";
 import { CustomerBookings } from "@/components/Profile/customerBookings";
 import { LogoutButton } from "@/components/Auth/widgets/logoutButton";
 import { PageLoading } from "@/components/CodidgeUI/pageLoading";
+import { CustomerCoupons } from "@/components/Profile/customerCoupons";
 
 const ProfilePage: React.FC = () => {
   const { customer, loading } = useCustomer();
@@ -49,6 +50,18 @@ const ProfilePage: React.FC = () => {
                 >
                   My Bookings
                 </button>
+                {customer?.welcomeCoupon && (
+                  <button
+                    onClick={() => setActiveTab("coupons")}
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                      activeTab === "coupons"
+                        ? "bg-primary-400 text-black"
+                        : "text-gray-300 hover:bg-gray-800"
+                    }`}
+                  >
+                    Coupons
+                  </button>
+                )}
                 <button
                   onClick={() => setActiveTab("profile")}
                   className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
@@ -70,6 +83,9 @@ const ProfilePage: React.FC = () => {
           <div className="lg:col-span-3">
             {activeTab === "bookings" && <CustomerBookings />}
             {activeTab === "profile" && <CustomerProfile />}
+            {activeTab === "coupons" && (
+              <CustomerCoupons customer={customer!} />
+            )}
           </div>
         </div>
       </div>

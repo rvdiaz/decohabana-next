@@ -1,5 +1,5 @@
 import { useCustomer } from "@/context/authProvider";
-import { Calendar, MapPin, Phone, Star, User } from "lucide-react";
+import { Calendar, MapPin, Phone, User } from "lucide-react";
 import React, { useState, useTransition } from "react";
 import { formatFriendlyDate } from "@/lib/utils/general";
 import { BookMode } from "@/interfaces/hero";
@@ -9,7 +9,6 @@ import { TwoConfirmationWidget } from "../CodidgeUI/modal/twoConfirmationWidget"
 import { updateBookingAction } from "@/lib/actions/booking";
 
 export const statusHexColors: Record<BookingStatus, string> = {
-  [BookingStatus.pending]: "#F59E0B", // yellow-500
   [BookingStatus.payment_failed]: "#F97316", // orange-500
   [BookingStatus.confirmed]: "#3B82F6", // blue-500
   [BookingStatus.in_progress]: "#6366F1", // indigo-500
@@ -187,15 +186,6 @@ export const CustomerBookings = () => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="flex space-x-3">
-                <button className="bg-primary-400 text-black px-4 py-2 rounded-lg text-sm hover:bg-primary-500 transition-colors">
-                  Book Again
-                </button>
-                <button className="bg-gray-700 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-600 transition-colors">
-                  Download Receipt
-                </button>
-              </div> */}
             </div>
           ))}
         </div>

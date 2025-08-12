@@ -30,7 +30,6 @@ export interface BookingState {
 }
 
 export enum BookingStatus {
-  pending = "pending",
   payment_failed = "payment_failed",
   confirmed = "confirmed",
   in_progress = "in_progress",

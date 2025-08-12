@@ -9,6 +9,11 @@ query getCustomer($tenant: TenantData!, $customerId: ID!){
             referenceId
             sourceHandler
         }
+        welcomeCoupon {
+            id
+            description
+            code
+        }
     }
 }
 `;

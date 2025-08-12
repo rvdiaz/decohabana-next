@@ -18,4 +18,9 @@ export type ICustomer = {
     referenceId: string;
     sourceHandler: string;
   };
+  welcomeCoupon: {
+    id: string;
+    description: string;
+    code: string;
+  };
 };

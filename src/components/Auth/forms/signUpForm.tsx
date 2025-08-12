@@ -80,8 +80,14 @@ export const SignUpForm = ({
         }
 
         onSignUpSuccess(result.userId, formData);
-      } catch (err) {
-        setLoginError("Signup error");
+      } catch (err: any) {
+        if (err?.name === "UsernameExistsException") {
+          setLoginError(
+            "An account with this email already exists. Please sign in."
+          );
+        } else {
+          setLoginError("Signup error");
+        }
         console.log("Signup error:", err);
       }
     });

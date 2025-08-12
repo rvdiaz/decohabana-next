@@ -1,7 +1,7 @@
 import React, { useEffect, useTransition } from "react";
 import { PlacesAutoCompleteWidget } from "../CodidgeUI/PlacesAutoComplete";
 import Input from "../CodidgeUI/InputField";
-import { Calendar, ChevronRight } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import PrimaryButton, { ButtonSize } from "../CodidgeUI/PrimaryButton";
 import { BookMode, IBookingFormInput } from "../../interfaces/hero";
 import { Controller, useForm } from "react-hook-form";
@@ -291,14 +291,17 @@ export const BookingForm = () => {
       </div>
 
       <PrimaryButton
-        disabled={!isDirty}
+        //disabled={!isDirty}
+        disabled={true}
         type="submit"
         loading={isPending}
         size={ButtonSize.LARGE}
-        className="flex items-center justify-center"
+        className="flex items-center justify-center text-white"
       >
-        Find Your Perfect Ride
-        <ChevronRight className="ml-2 w-5 h-5" />
+        {/* Find Your Perfect Ride */}
+        Coming soon
+        <Clock className="ml-2" />
+        {/* <ChevronRight className="ml-2 w-5 h-5" /> */}
       </PrimaryButton>
       {watch("bookMode") === BookMode.hourly && (
         <div className="text-sm text-yellow-600 font-semibold border-l-4 border-yellow-500 pl-3">
