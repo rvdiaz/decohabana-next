@@ -15,7 +15,6 @@ export const getCarsAction = async () => {
         query: getCarClassesQuery,
         variables: getQueriesVariables,
       }),
-      cache: "no-store",
     });
     const result = await response.json();
     return result.data;
