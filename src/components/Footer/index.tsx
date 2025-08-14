@@ -7,7 +7,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-2xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent mb-4">
-              PRESTIGE RIDES
+              GOLDEN WHEELS
             </h3>
             <p className="text-gray-300 text-sm">
               Premium luxury transportation services with professional
@@ -38,34 +38,14 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-primary-400">Contact</h4>
             <div className="space-y-2 text-sm text-gray-300">
-              <p>+1 (555) 123-4567</p>
-              <p>info@prestigerides.com</p>
-              <p>
-                123 Luxury Lane
-                <br />
-                Beverly Hills, CA 90210
-              </p>
+              <p>+1 (786) 473-1737</p>
+              <p>info@goldenwheelsprivatechauffeur.com</p>
             </div>
           </div>
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>
-            &copy; 2024 Prestige Rides. All rights reserved. |
-            <a
-              href="#"
-              className="text-primary-400 hover:text-primary-300 ml-1"
-            >
-              Privacy Policy
-            </a>{" "}
-            |
-            <a
-              href="#"
-              className="text-primary-400 hover:text-primary-300 ml-1"
-            >
-              Terms of Service
-            </a>
-          </p>
+          <p>&copy; 2025 Golden Wheels. All rights reserved. |</p>
         </div>
       </div>
     </footer>

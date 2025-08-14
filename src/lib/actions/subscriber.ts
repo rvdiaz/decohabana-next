@@ -29,8 +29,6 @@ export const addSubscriberAction = async ({
 
     const result = await response.json();
 
-    console.log(":::result", result);
-
     if (result.errors?.length > 0) {
       return {
         alreadySubscribed: true,
