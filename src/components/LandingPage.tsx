@@ -20,7 +20,6 @@ const LandingPage: React.FC = () => {
       <FAQ />
       <ContactPage />
       <Footer />
-      <SubscriberPopup />
     </div>
   );
 };

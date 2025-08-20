@@ -3,9 +3,11 @@ import { useBooking } from "@/context/bookingProvider";
 import { formatFriendlyDate } from "@/lib/utils/general";
 import { BookMode } from "@/interfaces/hero";
 import { PriceDisplay } from "../CodidgeUI/priceDisplay";
+import { useCustomer } from "@/context/authProvider";
 
 export const TripSummary = () => {
   const { bookingParams, selectedCarType, selectedAddons } = useBooking();
+  const { customer } = useCustomer();
 
   const totalExtraServices = selectedAddons?.reduce((add: number, item) => {
     add += item.price.amount;
@@ -88,14 +90,53 @@ export const TripSummary = () => {
 
         <hr className="border-gray-700" />
 
-        <div className="flex justify-between text-xl font-bold text-primary-400">
-          <span>Total:</span>
-          <PriceDisplay
-            price={{
-              amount: total,
-              currencyCode: "USD",
-            }}
-          />
+        <div className="space-y-2">
+          {/* Base total */}
+          {customer?.welcomeCoupon && (
+            <div className="flex justify-between items-center text-lg text-gray-400">
+              <span className="whitespace-nowrap">Subtotal:</span>
+              <PriceDisplay
+                price={{
+                  amount: total,
+                  currencyCode: "USD",
+                }}
+                className="line-through text-gray-400" // optional if PriceDisplay supports className
+              />
+            </div>
+          )}
+
+          {/* Coupon (if any) */}
+          {customer?.welcomeCoupon && (
+            <div className="flex justify-between text-md text-green-600">
+              <span>Coupon ({customer.welcomeCoupon.code}):</span>
+              <span>
+                <PriceDisplay
+                  price={{
+                    amount:
+                      customer.welcomeCoupon.discountType === "PERCENTAGE"
+                        ? total * (customer.welcomeCoupon.discountValue / 100)
+                        : customer.welcomeCoupon.discountValue,
+                    currencyCode: "USD",
+                  }}
+                />
+              </span>
+            </div>
+          )}
+
+          {/* Final total */}
+          <div className="flex justify-between text-xl font-bold text-primary-400">
+            <span>Total:</span>
+            <PriceDisplay
+              price={{
+                amount: customer?.welcomeCoupon
+                  ? customer.welcomeCoupon.discountType === "PERCENTAGE"
+                    ? total * (1 - customer.welcomeCoupon.discountValue / 100)
+                    : total - customer.welcomeCoupon.discountValue
+                  : total,
+                currencyCode: "USD",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

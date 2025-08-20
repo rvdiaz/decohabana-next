@@ -78,6 +78,14 @@ export const CheckoutForm = () => {
           name: serv.name,
           price: serv.price,
         }));
+        const baseTotal =
+          (selectedCarType?.tripQuotePrice ?? 0) + (totalExtraServices ?? 0);
+
+        const totalPrice = customer?.welcomeCoupon
+          ? customer.welcomeCoupon.discountType === "PERCENTAGE"
+            ? baseTotal * (1 - customer.welcomeCoupon.discountValue / 100)
+            : baseTotal - customer.welcomeCoupon.discountValue
+          : baseTotal;
 
         const input = {
           bookingDetails: {
@@ -105,9 +113,7 @@ export const CheckoutForm = () => {
           },
           cardToken: result.token.id,
           totalPrice: {
-            amount:
-              (selectedCarType?.tripQuotePrice ?? 0) +
-              (totalExtraServices ?? 0),
+            amount: totalPrice,
             currencyCode: "USD",
           },
           customerData: {
@@ -116,6 +122,7 @@ export const CheckoutForm = () => {
             email: customer?.email,
             phone: customer?.phone,
             externalReference: customer?.externalReference,
+            coupon: customer?.welcomeCoupon,
           },
         };
 
@@ -123,6 +130,7 @@ export const CheckoutForm = () => {
 
         refreshCustomer({
           ...customer!,
+          welcomeCoupon: undefined,
           externalReference:
             res?.customerExternalReference ?? customer?.externalReference,
         });

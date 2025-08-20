@@ -18,9 +18,15 @@ export type ICustomer = {
     referenceId: string;
     sourceHandler: string;
   };
-  welcomeCoupon: {
+  welcomeCoupon?: {
     id: string;
     description: string;
     code: string;
+    discountType: string;
+    discountValue: number;
+    validFrom: string;
+    validTo: string;
+    maxUses: number;
+    usedCount: number;
   };
 };
