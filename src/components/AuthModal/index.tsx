@@ -60,7 +60,7 @@ export const LoginModal = () => {
 
   return (
     <Modal
-      className="m-4 md:m-10 lg:max-w-1/2 xl:max-w-1/3 !bg-gray-800 p-2"
+      className="m-4 md:m-10 lg:max-w-1/2 xl:max-w-[600px] !bg-gray-800 p-2"
       isOpen={open && !customer}
       onClose={handleClose}
     >

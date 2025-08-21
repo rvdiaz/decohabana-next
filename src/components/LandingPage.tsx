@@ -8,7 +8,6 @@ import { FAQ } from "./Faq";
 import { Footer } from "./Footer";
 import { CarContainers } from "./Cars";
 import { ContactPage } from "./Contact";
-import SubscriberPopup from "./SubscriptionPopup";
 
 const LandingPage: React.FC = () => {
   return (
