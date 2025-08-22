@@ -1,7 +1,7 @@
-import React, { useEffect, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { PlacesAutoCompleteWidget } from "../CodidgeUI/PlacesAutoComplete";
 import Input from "../CodidgeUI/InputField";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, ChevronRight, Clock } from "lucide-react";
 import PrimaryButton, { ButtonSize } from "../CodidgeUI/PrimaryButton";
 import { BookMode, IBookingFormInput } from "../../interfaces/hero";
 import { Controller, useForm } from "react-hook-form";
@@ -23,6 +23,8 @@ const durationOptions = Array.from({ length: 23 }, (_, i) => {
 export const BookingForm = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  const [availability, setAvailability] = useState(true);
 
   const methods = useForm<IBookingFormInput>({
     defaultValues: {
@@ -55,6 +57,7 @@ export const BookingForm = () => {
 
   const onSubmit = async (data: IBookingFormInput) => {
     try {
+      setAvailability(true);
       if (!data?.pickupLocation?.id) {
         setError("pickupLocation", {
           message: "Must enter origin",
@@ -97,9 +100,8 @@ export const BookingForm = () => {
             !carTypes.getCarTypesAvailable?.carTypes ||
             carTypes.getCarTypesAvailable?.carTypes.length === 0
           ) {
-            toast.error(
-              "No cars are available for the selected trip. Please call us at (123) 456-7890."
-            );
+            setAvailability(false);
+            return;
           }
 
           localStorage.setItem(
@@ -291,18 +293,21 @@ export const BookingForm = () => {
       </div>
 
       <PrimaryButton
-        //disabled={!isDirty}
-        disabled={true}
+        disabled={!isDirty}
         type="submit"
         loading={isPending}
         size={ButtonSize.LARGE}
         className="flex items-center justify-center text-white"
       >
-        {/* Find Your Perfect Ride */}
-        Coming soon
-        <Clock className="ml-2" />
-        {/* <ChevronRight className="ml-2 w-5 h-5" /> */}
+        Find Your Perfect Ride
+        <ChevronRight className="ml-2 w-5 h-5" />
       </PrimaryButton>
+      {!availability && (
+        <div className="text-md text-white-600 font-semibold text-left border-l-4 border-red-500 pl-3">
+          Unfortunately, we don’t have any cars available for the selected date.
+          Please try choosing another date or adjust your trip details.
+        </div>
+      )}
       {watch("bookMode") === BookMode.hourly && (
         <div className="text-sm text-yellow-600 font-semibold border-l-4 border-yellow-500 pl-3">
           <strong>* Note:</strong> Hourly trips are limited to the Miami-Dade

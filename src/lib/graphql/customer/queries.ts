@@ -13,6 +13,12 @@ query getCustomer($tenant: TenantData!, $customerId: ID!){
             id
             description
             code
+            discountType
+            discountValue
+            validFrom
+            validTo
+            maxUses
+            usedCount
         }
     }
 }

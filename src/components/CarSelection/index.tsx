@@ -247,6 +247,10 @@ const CarSelection = ({
                   }}
                 />
               </div>
+              {/* Note about coupons */}
+              <div className="text-sm text-gray-500 mt-1">
+                Coupons will be applied at checkout
+              </div>
             </div>
           </div>
         )}
