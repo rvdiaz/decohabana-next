@@ -18,6 +18,7 @@ export const getExtraServices = async () => {
           ...getQueriesVariables,
         },
       }),
+      cache: "no-store",
     });
     const result = await response.json();
     const extraServ = result.data?.getExtraServices ?? [];
