@@ -61,7 +61,7 @@ export async function ContactPage() {
                   <Phone className="w-6 h-6 text-primary-400 mr-4" />
                   <div>
                     <p className="font-semibold">Phone</p>
-                    <p className="text-gray-300">+1 (555) 123-4567</p>
+                    <p className="text-gray-300">+1 (786) 473-1737</p>
                   </div>
                 </div>
 
@@ -69,34 +69,11 @@ export async function ContactPage() {
                   <Mail className="w-6 h-6 text-primary-400 mr-4" />
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p className="text-gray-300">info@goldenwheels.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <MapPinIcon className="w-6 h-6 text-primary-400 mr-4" />
-                  <div>
-                    <p className="font-semibold">Address</p>
                     <p className="text-gray-300">
-                      123 Luxury Lane
-                      <br />
-                      Beverly Hills, CA 90210
+                      info@goldenwheelsprivatechauffeur.com
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-primary-400">
-                Business Hours
-              </h4>
-              <div className="space-y-2 text-gray-300">
-                <p>Monday - Friday: 6:00 AM - 12:00 AM</p>
-                <p>Saturday - Sunday: 24/7 Service Available</p>
-                <p className="text-primary-400 text-sm">
-                  Emergency service available 24/7
-                </p>
               </div>
             </div>
           </div>

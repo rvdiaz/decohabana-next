@@ -8,6 +8,7 @@ import { PasswordRules } from "../widgets/passwordRules";
 import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
+import { TermsAndConditions } from "@/components/TermsAndConditions";
 
 type FormData = {
   email: string;
@@ -34,6 +35,7 @@ export const SignUpForm = ({
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -97,7 +99,7 @@ export const SignUpForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSignupSubmit)}>
-      <div className="max-h-[50vh] md:max-h-[60vh] overflow-auto">
+      <div className="max-h-[40vh] overflow-auto">
         <div className="space-y-6">
           <div>
             <Input
@@ -235,6 +237,9 @@ export const SignUpForm = ({
         {loginError && (
           <p className="mb-2 text-sm text-red-500">{loginError}</p>
         )}
+        <div className="my-5">
+          <TermsAndConditions control={control} />
+        </div>
         <PrimaryButton
           size={ButtonSize.LARGE}
           loading={isPending}

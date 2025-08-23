@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = () => {
                   src={logo}
                   width={300}
                   height={400}
-                  alt="ss"
+                  alt="golden wheels"
                 />
               </Link>
             </div>
