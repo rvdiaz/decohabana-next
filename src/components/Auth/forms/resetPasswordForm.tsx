@@ -55,7 +55,7 @@ export const ResetPasswordForm = ({ header }: { header: ReactNode }) => {
 
   return (
     <div className="flex flex-col flex-1">
-      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
+      <div className="flex flex-col justify-center flex-1 w-full">
         <div>
           {header}
           <div>

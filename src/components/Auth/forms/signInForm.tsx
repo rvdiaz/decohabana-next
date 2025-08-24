@@ -146,9 +146,6 @@ export const SignInForm = ({
           </TextButton>
         </div>
         <div>
-          <TermsAndConditions control={control} />
-        </div>
-        <div>
           {loginError && (
             <p className="mb-2 text-sm text-red-500">{loginError}</p>
           )}

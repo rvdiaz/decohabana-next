@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import { confirmResetPassword } from "aws-amplify/auth";
 import { Eye, EyeOff } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Label from "../../CodidgeUI/Label";
 import Input from "../../CodidgeUI/InputField";
 import PrimaryButton from "../../CodidgeUI/PrimaryButton";
@@ -20,8 +20,10 @@ export const ConfirmResetPasswordForm = () => {
   const [loginError, setLoginError] = useState("");
 
   const router = useRouter();
-  const username = "";
   const pathname = usePathname();
+
+  const searchParams = useSearchParams();
+  const username = searchParams.get("email"); // 👈 this gets your email
 
   const {
     control,
@@ -44,7 +46,7 @@ export const ConfirmResetPasswordForm = () => {
         newPassword: data.newPassword,
       });
 
-      router.push("/login");
+      router.push(`${pathname}?auth=login`);
     } catch (error) {
       console.log("::error", error);
       setLoginError("Authentication failed");
@@ -55,7 +57,7 @@ export const ConfirmResetPasswordForm = () => {
 
   return (
     <div className="flex flex-col flex-1">
-      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
+      <div className="flex flex-col justify-center flex-1 w-full">
         <div>
           <div className="mb-5 sm:mb-8">
             <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
