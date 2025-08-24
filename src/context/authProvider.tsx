@@ -84,6 +84,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         setLoadingBookings(true);
         const bookings = await getCustomerBookingAction(customerId);
+
         setCustomerBookings(bookings);
         setLoadingBookings(false);
       } catch (error) {
@@ -95,8 +96,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (customer?.id) {
       getCustomerBookings(customer?.id);
     }
-
-    // getUser();
   }, [customer?.id]);
 
   const refreshCustomer = async (customer: ICustomer | null) => {

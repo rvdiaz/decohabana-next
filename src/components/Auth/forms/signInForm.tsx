@@ -8,7 +8,6 @@ import PrimaryButton, {
   ButtonSize,
 } from "@/components/CodidgeUI/PrimaryButton";
 import TextButton from "@/components/CodidgeUI/TextButton";
-import { TermsAndConditions } from "@/components/TermsAndConditions";
 
 type FormData = {
   email: string;
@@ -29,7 +28,6 @@ export const SignInForm = ({
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<FormData>();
 
