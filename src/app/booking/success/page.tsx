@@ -47,9 +47,7 @@ const SuccessPage: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <CheckCircle className="w-16 h-16 mx-auto mb-4" />
           <h1 className="text-3xl font-bold mb-2">Booking Confirmed!</h1>
-          <p className="text-green-100">
-            Thank you for choosing Prestige Rides
-          </p>
+          <p className="text-green-100">Thank you for choosing Golden Wheels</p>
         </div>
       </div>
 

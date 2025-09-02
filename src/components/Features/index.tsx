@@ -6,7 +6,7 @@ export const Features = () => {
     <div className="py-20 bg-gradient-to-b from-black to-gray-900">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-16 text-primary-400">
-          Why Choose Prestige Rides?
+          Why Choose Golden Wheels?
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
