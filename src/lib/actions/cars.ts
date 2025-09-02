@@ -1,5 +1,4 @@
 "use server";
-
 import { getCarClassesQuery } from "@/lib/graphql/carTypes/queries";
 import { getQueriesVariables } from "@/core";
 
@@ -16,6 +15,7 @@ export const getCarsAction = async () => {
         variables: getQueriesVariables,
       }),
     });
+
     const result = await response.json();
     return result.data;
   } catch (error) {
