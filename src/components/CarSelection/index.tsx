@@ -183,7 +183,7 @@ const CarSelection = ({
               )}
 
               {/* Rate breakdown */}
-              {bookingParams?.bookMode === BookMode.hourly ? (
+              {/* {bookingParams?.bookMode === BookMode.hourly ? (
                 <div className="flex items-baseline italic text-sm">
                   <span className="whitespace-nowrap">Hourly Rate:</span>
                   <span
@@ -213,7 +213,7 @@ const CarSelection = ({
                   />
                   <span className="ml-1 text-gray-400">/ mile</span>
                 </div>
-              )}
+              )} */}
 
               {totalExtraServices ? (
                 <div className="flex items-baseline italic text-sm">
