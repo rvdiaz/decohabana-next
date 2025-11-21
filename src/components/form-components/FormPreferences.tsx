@@ -1,25 +1,56 @@
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Textarea } from "../ui/textarea";
+import Input from "../CodidgeUI/InputField";
+import TextArea from "../CodidgeUI/TextArea";
+import Select, { ISelectOption } from "../CodidgeUI/Select";
+import Label from "../CodidgeUI/Label";
 import { FormData } from "../QuoteForm";
+import RadioGroup from "../CodidgeUI/radioButton";
 
 type FormPreferencesProps = {
   formData: FormData;
   updateFormData: (field: string, value: any) => void;
 };
 
+const budgetOptions = [
+  { value: "under-2500", label: "Under $2,500", id: "under-2500" },
+  { value: "2500-5000", label: "$2,500 - $5,000", id: "2500-5000" },
+  { value: "5000-10000", label: "$5,000 - $10,000", id: "5000-10000" },
+  { value: "10000-20000", label: "$10,000 - $20,000", id: "10000-20000" },
+  { value: "20000-plus", label: "$20,000+", id: "20000-plus" },
+  {
+    value: "flexible",
+    label: "Flexible - depends on services",
+    id: "flexible",
+  },
+];
+
+const styleOptions: ISelectOption[] = [
+  {
+    value: "elegant-classic",
+    valueToShow: "Elegant & Classic",
+    available: true,
+  },
+  { value: "modern-chic", valueToShow: "Modern & Chic", available: true },
+  {
+    value: "rustic-romantic",
+    valueToShow: "Rustic & Romantic",
+    available: true,
+  },
+  { value: "bohemian", valueToShow: "Bohemian", available: true },
+  { value: "minimalist", valueToShow: "Minimalist", available: true },
+  { value: "vintage", valueToShow: "Vintage", available: true },
+  { value: "tropical", valueToShow: "Tropical", available: true },
+  { value: "glamorous", valueToShow: "Glamorous", available: true },
+  { value: "not-sure", valueToShow: "Not sure yet", available: true },
+];
+
 export default function FormPreferences({
   formData,
   updateFormData,
 }: FormPreferencesProps) {
+  const selectedStyle = styleOptions.find(
+    (opt) => opt.value === formData.style
+  );
+
   return (
     <div className="space-y-6">
       <div>
@@ -27,54 +58,26 @@ export default function FormPreferences({
           Budget Range
         </Label>
         <RadioGroup
+          options={budgetOptions}
           value={formData.budgetRange}
-          onValueChange={(value) => updateFormData("budgetRange", value)}
-        >
-          {[
-            { value: "under-2500", label: "Under $2,500" },
-            { value: "2500-5000", label: "$2,500 - $5,000" },
-            { value: "5000-10000", label: "$5,000 - $10,000" },
-            { value: "10000-20000", label: "$10,000 - $20,000" },
-            { value: "20000-plus", label: "$20,000+" },
-            {
-              value: "flexible",
-              label: "Flexible - depends on services",
-            },
-          ].map((budget) => (
-            <div key={budget.value} className="flex items-center space-x-2">
-              <RadioGroupItem value={budget.value} id={budget.value} />
-              <Label htmlFor={budget.value}>{budget.label}</Label>
-            </div>
-          ))}
-        </RadioGroup>
+          onChange={(value) => updateFormData("budgetRange", value)}
+          name="budgetRange"
+        />
       </div>
 
       <div>
-        <Label htmlFor="style">Event Style/Theme</Label>
         <Select
-          value={formData.style}
-          onValueChange={(value) => updateFormData("style", value)}
-        >
-          <SelectTrigger className="mt-1">
-            <SelectValue placeholder="Select your preferred style" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="elegant-classic">Elegant & Classic</SelectItem>
-            <SelectItem value="modern-chic">Modern & Chic</SelectItem>
-            <SelectItem value="rustic-romantic">Rustic & Romantic</SelectItem>
-            <SelectItem value="bohemian">Bohemian</SelectItem>
-            <SelectItem value="minimalist">Minimalist</SelectItem>
-            <SelectItem value="vintage">Vintage</SelectItem>
-            <SelectItem value="tropical">Tropical</SelectItem>
-            <SelectItem value="glamorous">Glamorous</SelectItem>
-            <SelectItem value="not-sure">Not sure yet</SelectItem>
-          </SelectContent>
-        </Select>
+          label="Event Style/Theme"
+          options={styleOptions}
+          defaultSelected={selectedStyle}
+          onChange={(selected) => updateFormData("style", selected.value)}
+          placeholder="Select your preferred style"
+        />
       </div>
 
       <div>
-        <Label htmlFor="colorScheme">Preferred Color Scheme</Label>
         <Input
+          label="Preferred Color Scheme"
           id="colorScheme"
           value={formData.colorScheme}
           onChange={(e) => updateFormData("colorScheme", e.target.value)}
@@ -84,13 +87,10 @@ export default function FormPreferences({
       </div>
 
       <div>
-        <Label htmlFor="inspiration">
-          Inspiration or Additional Preferences
-        </Label>
-        <Textarea
-          id="inspiration"
+        <TextArea
+          label="Inspiration or Additional Preferences"
           value={formData.inspiration}
-          onChange={(e) => updateFormData("inspiration", e.target.value)}
+          onChange={(e: any) => updateFormData("inspiration", e.target.value)}
           placeholder="Share any inspiration images, Pinterest boards, or specific preferences you have..."
           className="mt-1"
           rows={4}

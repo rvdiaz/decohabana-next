@@ -1,29 +1,41 @@
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 import { FormData } from "../QuoteForm";
+import Input from "../CodidgeUI/InputField";
+import Select, { ISelectOption } from "../CodidgeUI/Select";
+import Label from "../CodidgeUI/Label";
+import RadioGroup from "../CodidgeUI/radioButton";
 
 type FormContactProps = {
   formData: FormData;
   updateFormData: (field: string, value: any) => void;
 };
+
+const contactMethodOptions = [
+  { value: "email", label: "Email", id: "contact-email" },
+  { value: "phone", label: "Phone Call", id: "contact-phone" },
+  { value: "text", label: "Text Message", id: "contact-text" },
+];
+
+const timelineOptions: ISelectOption[] = [
+  { value: "asap", valueToShow: "ASAP", available: true },
+  { value: "within-24hrs", valueToShow: "Within 24 hours", available: true },
+  { value: "within-week", valueToShow: "Within a week", available: true },
+  { value: "flexible", valueToShow: "Flexible", available: true },
+];
+
 export default function FormContact({
   formData,
   updateFormData,
 }: FormContactProps) {
+  const selectedTimeline = timelineOptions.find(
+    (opt) => opt.value === formData.timeline
+  );
+
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="firstName">First Name *</Label>
           <Input
+            label="First Name *"
             id="firstName"
             value={formData.firstName}
             onChange={(e) => updateFormData("firstName", e.target.value)}
@@ -32,8 +44,8 @@ export default function FormContact({
           />
         </div>
         <div>
-          <Label htmlFor="lastName">Last Name *</Label>
           <Input
+            label="Last Name *"
             id="lastName"
             value={formData.lastName}
             onChange={(e) => updateFormData("lastName", e.target.value)}
@@ -44,8 +56,8 @@ export default function FormContact({
       </div>
 
       <div>
-        <Label htmlFor="email">Email Address *</Label>
         <Input
+          label="Email Address *"
           id="email"
           type="email"
           value={formData.email}
@@ -56,8 +68,8 @@ export default function FormContact({
       </div>
 
       <div>
-        <Label htmlFor="phone">Phone Number *</Label>
         <Input
+          label="Phone Number *"
           id="phone"
           type="tel"
           value={formData.phone}
@@ -72,40 +84,21 @@ export default function FormContact({
           Preferred Contact Method
         </Label>
         <RadioGroup
+          options={contactMethodOptions}
           value={formData.preferredContact}
-          onValueChange={(value) => updateFormData("preferredContact", value)}
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="email" id="contact-email" />
-            <Label htmlFor="contact-email">Email</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="phone" id="contact-phone" />
-            <Label htmlFor="contact-phone">Phone Call</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="text" id="contact-text" />
-            <Label htmlFor="contact-text">Text Message</Label>
-          </div>
-        </RadioGroup>
+          onChange={(value) => updateFormData("preferredContact", value)}
+          name="preferredContact"
+        />
       </div>
 
       <div>
-        <Label htmlFor="timeline">When do you need a response?</Label>
         <Select
-          value={formData.timeline}
-          onValueChange={(value) => updateFormData("timeline", value)}
-        >
-          <SelectTrigger className="mt-1">
-            <SelectValue placeholder="Select timeline" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="asap">ASAP</SelectItem>
-            <SelectItem value="within-24hrs">Within 24 hours</SelectItem>
-            <SelectItem value="within-week">Within a week</SelectItem>
-            <SelectItem value="flexible">Flexible</SelectItem>
-          </SelectContent>
-        </Select>
+          label="When do you need a response?"
+          options={timelineOptions}
+          defaultSelected={selectedTimeline}
+          onChange={(selected) => updateFormData("timeline", selected.value)}
+          placeholder="Select timeline"
+        />
       </div>
     </div>
   );

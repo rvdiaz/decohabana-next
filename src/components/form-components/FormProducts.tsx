@@ -1,6 +1,6 @@
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
+import Checkbox from "../CodidgeUI/Checkbox";
+import Label from "../CodidgeUI/Label";
+import TextArea from "../CodidgeUI/TextArea";
 import { FormData } from "../QuoteForm";
 
 type FormProductsProps = {
@@ -35,7 +35,7 @@ export default function FormProducts({
               <Checkbox
                 id={service}
                 checked={formData.services.includes(service)}
-                onCheckedChange={(checked) =>
+                onChange={(checked) =>
                   handleArrayUpdate("services", service, checked as boolean)
                 }
               />
@@ -71,7 +71,7 @@ export default function FormProducts({
               <Checkbox
                 id={product}
                 checked={formData.products.includes(product)}
-                onCheckedChange={(checked) =>
+                onChange={(checked) =>
                   handleArrayUpdate("products", product, checked as boolean)
                 }
               />
@@ -87,13 +87,12 @@ export default function FormProducts({
       </div>
 
       <div>
-        <Label htmlFor="specialRequests">
-          Special Requests or Additional Details
-        </Label>
-        <Textarea
-          id="specialRequests"
+        <TextArea
+          label="Special Requests or Additional Details"
           value={formData.specialRequests}
-          onChange={(e) => updateFormData("specialRequests", e.target.value)}
+          onChange={(e: any) =>
+            updateFormData("specialRequests", e.target.value)
+          }
           placeholder="Tell us about any specific requirements, themes, or special requests..."
           className="mt-1"
           rows={4}

@@ -1,4 +1,4 @@
-import { eventTypes } from "@/app/db/eventTypes";
+import { eventTypes } from "@/core/eventTypes";
 import { FormData } from "../QuoteForm";
 import { Check } from "lucide-react";
 

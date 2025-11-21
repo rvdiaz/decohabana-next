@@ -1,26 +1,32 @@
 import React from "react";
-import { Label } from "../ui/label";
-import { Card, CardContent } from "../ui/card";
-import { Input } from "../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { eventTypes } from "../../app/db/eventTypes";
 import { FormData } from "../QuoteForm";
+import { eventTypes } from "@/core/eventTypes";
+import Input from "../CodidgeUI/InputField";
+import Select, { ISelectOption } from "../CodidgeUI/Select";
+import Label from "../CodidgeUI/Label";
 
 type FormEventDetailsProps = {
   formData: FormData;
   updateFormData: (field: string, value: any) => void;
 };
 
+const guestCountOptions: ISelectOption[] = [
+  { value: "1-25", valueToShow: "1-25 guests", available: true },
+  { value: "26-50", valueToShow: "26-50 guests", available: true },
+  { value: "51-100", valueToShow: "51-100 guests", available: true },
+  { value: "101-200", valueToShow: "101-200 guests", available: true },
+  { value: "201-300", valueToShow: "201-300 guests", available: true },
+  { value: "300+", valueToShow: "300+ guests", available: true },
+];
+
 export default function FormEventDetails({
   formData,
   updateFormData,
 }: FormEventDetailsProps) {
+  const selectedGuestCount = guestCountOptions.find(
+    (opt) => opt.value === formData.guestCount
+  );
+
   return (
     <div className="space-y-6">
       <div>
@@ -31,24 +37,24 @@ export default function FormEventDetails({
           {eventTypes.map((type) => {
             const IconComponent = type.icon;
             return (
-              <Card
+              <div
                 key={type.id}
-                className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
+                className={`cursor-pointer transition-all duration-200 hover:shadow-md rounded-lg border ${
                   formData.eventType === type.id
-                    ? "ring-2 ring-red-900 bg-red-900/5"
-                    : "hover:bg-gray-50"
+                    ? "ring-2 ring-red-900 bg-red-900/5 border-red-900"
+                    : "border-gray-200 hover:bg-gray-50"
                 }`}
                 onClick={() => updateFormData("eventType", type.id)}
               >
-                <CardContent className="p-4 text-center">
+                <div className="p-4 text-center">
                   <div
                     className={`inline-flex p-2 rounded-full mb-2 ${type.color}`}
                   >
                     <IconComponent className="h-5 w-5" />
                   </div>
                   <div className="text-sm font-medium">{type.label}</div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             );
           })}
         </div>
@@ -56,8 +62,8 @@ export default function FormEventDetails({
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="eventDate">Event Date</Label>
           <Input
+            label="Event Date"
             id="eventDate"
             type="date"
             value={formData.eventDate}
@@ -66,8 +72,8 @@ export default function FormEventDetails({
           />
         </div>
         <div>
-          <Label htmlFor="eventTime">Event Time</Label>
           <Input
+            label="Event Time"
             id="eventTime"
             type="time"
             value={formData.eventTime}
@@ -78,28 +84,18 @@ export default function FormEventDetails({
       </div>
 
       <div>
-        <Label htmlFor="guestCount">Expected Number of Guests</Label>
         <Select
-          value={formData.guestCount}
-          onValueChange={(value) => updateFormData("guestCount", value)}
-        >
-          <SelectTrigger className="mt-1">
-            <SelectValue placeholder="Select guest count" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="1-25">1-25 guests</SelectItem>
-            <SelectItem value="26-50">26-50 guests</SelectItem>
-            <SelectItem value="51-100">51-100 guests</SelectItem>
-            <SelectItem value="101-200">101-200 guests</SelectItem>
-            <SelectItem value="201-300">201-300 guests</SelectItem>
-            <SelectItem value="300+">300+ guests</SelectItem>
-          </SelectContent>
-        </Select>
+          label="Expected Number of Guests"
+          options={guestCountOptions}
+          defaultSelected={selectedGuestCount}
+          onChange={(selected) => updateFormData("guestCount", selected.value)}
+          placeholder="Select guest count"
+        />
       </div>
 
       <div>
-        <Label htmlFor="venue">Venue Name (if decided)</Label>
         <Input
+          label="Venue Name (if decided)"
           id="venue"
           value={formData.venue}
           onChange={(e) => updateFormData("venue", e.target.value)}
@@ -109,8 +105,8 @@ export default function FormEventDetails({
       </div>
 
       <div>
-        <Label htmlFor="venueAddress">Venue Address/City</Label>
         <Input
+          label="Venue Address/City"
           id="venueAddress"
           value={formData.venueAddress}
           onChange={(e) => updateFormData("venueAddress", e.target.value)}

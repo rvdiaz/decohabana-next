@@ -1,3 +1,5 @@
+import Label from "./Label";
+
 interface TextareaProps {
   placeholder?: string; // Placeholder text
   rows?: number; // Number of rows
@@ -7,6 +9,7 @@ interface TextareaProps {
   disabled?: boolean; // Disabled state
   error?: boolean; // Error state
   hint?: string; // Hint text to display
+  label?: string;
 }
 
 const TextArea: React.FC<TextareaProps> = ({
@@ -18,6 +21,7 @@ const TextArea: React.FC<TextareaProps> = ({
   disabled = false, // Disabled state
   error = false, // Error state
   hint = "", // Default hint text
+  label,
   ...rest
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -38,6 +42,7 @@ const TextArea: React.FC<TextareaProps> = ({
 
   return (
     <div className="relative">
+      {label && <Label className="mb-1">{label}</Label>}
       <textarea
         placeholder={placeholder}
         rows={rows}

@@ -1,10 +1,11 @@
-import { Progress } from "../ui/progress";
+import Progress from "../CodidgeUI/Progress";
 
 type StepsProps = {
   id: number;
   title: string;
   description: string;
 };
+
 type FormHeaderProps = {
   currentStep: number;
   steps: StepsProps[];
@@ -28,7 +29,7 @@ export default function FormHeader({
           </span>
           <span>{Math.round(progress)}% Complete</span>
         </div>
-        <Progress value={progress} className="h-2" />
+        <Progress value={progress} className="h-2" colorClass="bg-red-900" />
       </div>
       <div className="mt-4">
         <h3 className="font-semibold text-gray-900">

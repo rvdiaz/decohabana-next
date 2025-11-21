@@ -25,6 +25,7 @@ interface InputProps {
   clearable?: boolean;
   loading?: boolean;
   rightIcon?: ReactNode;
+  required?: boolean;
 }
 
 // 👇 Now using forwardRef
@@ -52,6 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       clearable,
       loading,
       rightIcon,
+      required,
       ...rest
     },
     ref
@@ -100,6 +102,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             className={inputClasses}
             onFocus={onFocus}
+            required={required}
             {...rest}
           />
           {showClearButton && (
