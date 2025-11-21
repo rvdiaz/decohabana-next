@@ -1,3 +1,4 @@
+import { Badge } from "@/components/CodidgeUI/badge";
 import { LucideIcon } from "lucide-react";
 
 export type ProductItem = {
@@ -25,9 +26,9 @@ export default function Products({ products }: ProductsProps) {
     <section id="products" className="py-10 lg:py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
-          <div className="bg-[#731313]/10 text-[#731313] hover:bg-[#731313]/20 px-4 py-2">
+          <Badge className="bg-primary/10 !text-primary hover:bg-primary/20 hover:!text-white px-4 py-2">
             Rental Collection
-          </div>
+          </Badge>
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
             Premium Event Rentals
           </h2>
@@ -53,7 +54,7 @@ export default function Products({ products }: ProductsProps) {
                   {category.items.map((item, idx) => (
                     <div
                       key={idx}
-                      className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md overflow-hidden"
+                      className="rounded-xl hover:shadow-lg transition-all duration-300 border-0 shadow-md overflow-hidden "
                     >
                       <div className="aspect-[4/3] overflow-hidden bg-gray-100">
                         <img

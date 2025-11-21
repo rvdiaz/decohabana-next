@@ -1,3 +1,4 @@
+import { Badge } from "@/components/CodidgeUI/badge";
 import { Star } from "lucide-react";
 
 export type TestimonialItem = {
@@ -16,9 +17,10 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
     <section id="testimonials" className="py-10 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
-          <div className="bg-[#731313]/10 text-[#731313] hover:bg-[#731313]/20 px-4 py-2">
+          <Badge className="bg-primary/10 !text-primary hover:bg-primary/20 hover:!text-white px-4 py-2">
             Client Love
-          </div>
+          </Badge>
+
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
             What Our Clients Say
           </h2>
@@ -27,7 +29,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="border-0 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="rounded-xl border-0 shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <div className="p-6 space-y-4">
                 <div className="flex space-x-1">

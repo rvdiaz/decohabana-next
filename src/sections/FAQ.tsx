@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/CodidgeUI/badge";
 import { faqs } from "@/core/faq";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { useState } from "react";
@@ -15,10 +16,11 @@ export default function FAQ() {
     <section id="faq" className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
-          <div className="bg-red-900/10 text-red-900 hover:bg-red-900/20 px-4 py-2">
+          <Badge className="bg-primary/10 !text-primary hover:bg-primary/20 hover:!text-white px-4 py-2">
             <HelpCircle className="w-4 h-4 mr-2" />
             Frequently Asked Questions
-          </div>
+          </Badge>
+
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
             Everything You Need to Know
           </h2>
@@ -72,7 +74,7 @@ export default function FAQ() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:decohabanausa@gmail.com"
+              href={`mailto:decohabanausa@gmail.com?subject=Información sobre servicios&body=Hola DecoHabana,%0D%0A%0D%0AEstoy interesado(a) en sus servicios. Me gustaría recibir más información.%0D%0A%0D%0A¡Gracias!`}
               className="inline-flex items-center justify-center px-6 py-3 bg-secondary hover:bg-primary text-primary hover:text-secondary rounded-full font-semibold transition-colors"
             >
               Email Us

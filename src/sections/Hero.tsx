@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import MyCarousel from "@/components/MyCarousel";
 import QuoteFormDeco from "./QuoteForm/quoteForm";
 import { images, text } from "@/core/slide-images";
+import { Badge } from "@/components/CodidgeUI/badge";
 
 export default function Hero() {
   const [modalQuote, setmodalQuote] = useState(false);
@@ -14,9 +15,9 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2">
+              <Badge className="bg-primary/10 !text-primary hover:bg-primary/20 hover:!text-white px-4 py-2">
                 ✨ Creating Magical Moments Since 2015
-              </div>
+              </Badge>
               <h1 className="text-3xl lg:text-4xl font-medium text-gray-900 leading-tight">
                 Drawing
                 <span className="bg-gradient-to-r from-primary to-pink-700 bg-clip-text text-transparent">
@@ -35,7 +36,7 @@ export default function Hero() {
                 onClick={() => {
                   setmodalQuote(true);
                 }}
-                className="bg-secondary hover:bg-primary text-primary hover:text-secondary px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl group"
+                className="cursor-pointer bg-secondary hover:bg-primary text-primary hover:text-secondary px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
               >
                 Start Planning Your Event
                 <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -49,7 +50,7 @@ export default function Hero() {
                   <div className="flex min-h-screen items-center justify-center p-4">
                     {/* Backdrop */}
                     <div
-                      className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+                      className="fixed inset-0 bg-white/30 backdrop-blur-sm transition-opacity"
                       onClick={() => setmodalQuote(false)}
                     />
 

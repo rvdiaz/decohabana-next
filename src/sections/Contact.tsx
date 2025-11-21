@@ -23,7 +23,7 @@ export default function Contact() {
             onClick={() => {
               setmodalQuote(true);
             }}
-            className="bg-primary-foreground hover:bg-secondary text-primary px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="cursor-pointer bg-primary-foreground hover:bg-secondary text-primary px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Get Your Free Quote
           </button>
@@ -33,7 +33,7 @@ export default function Contact() {
               <div className="flex min-h-screen items-center justify-center p-4">
                 {/* Backdrop */}
                 <div
-                  className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+                  className="fixed inset-0 bg-white/30 backdrop-blur-sm transition-opacity"
                   onClick={() => setmodalQuote(false)}
                 />
 

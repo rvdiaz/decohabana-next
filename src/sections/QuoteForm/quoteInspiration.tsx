@@ -233,24 +233,27 @@ export default function QuoteInspiration({
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {filesPreviews.map((preview) => (
               <div key={preview.tempUrl} className="relative group">
-                <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
                   <img
                     src={preview.tempUrl}
                     alt={preview.alt}
                     className="w-full h-full object-cover"
                   />
+
                   {preview.uploading && (
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                     </div>
                   )}
+
                   {preview.error && (
-                    <div className="absolute inset-0 bg-red-500 bg-opacity-75 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-red-500/75 flex items-center justify-center">
                       <span className="text-white text-xs">Failed</span>
                     </div>
                   )}
+
                   {preview.uploaded && (
-                    <div className="absolute inset-0 bg-green-500 bg-opacity-75 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-green-500/50 flex items-center justify-center">
                       <svg
                         className="h-8 w-8 text-white"
                         fill="none"

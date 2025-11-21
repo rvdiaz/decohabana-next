@@ -13,7 +13,7 @@ const eventTypes = [
     icon: Cake,
     color: "bg-amber-100 text-amber-700",
   },
-  {
+  { 
     id: "gender-reveal",
     label: "Gender Reveal",
     icon: Cake,
