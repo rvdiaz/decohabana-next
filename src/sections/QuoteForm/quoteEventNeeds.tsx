@@ -25,7 +25,7 @@ export default function QuoteEventNeeds({
       <div className="space-y-6">
         {/* Chairs Section */}
         <div className="border border-gray-200 rounded-lg p-4">
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4">
             <div className="flex items-center space-x-3">
               <input
                 type="checkbox"
@@ -43,11 +43,6 @@ export default function QuoteEventNeeds({
                 Chairs
               </label>
             </div>
-            {formData.needChairs && (
-              <span className="text-sm text-gray-500">
-                Recommended: {formData.peopleCount || 0} chairs
-              </span>
-            )}
           </div>
 
           {formData.needChairs && (
@@ -72,7 +67,7 @@ export default function QuoteEventNeeds({
 
         {/* Tables Section */}
         <div className="border border-gray-200 rounded-lg p-4">
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4">
             <div className="flex items-center space-x-3">
               <input
                 type="checkbox"
@@ -90,12 +85,6 @@ export default function QuoteEventNeeds({
                 Tables
               </label>
             </div>
-            {formData.needTables && (
-              <span className="text-sm text-gray-500">
-                Recommended: {Math.ceil((formData.peopleCount || 0) / 8)} tables
-                (8 people per table)
-              </span>
-            )}
           </div>
 
           {formData.needTables && (
