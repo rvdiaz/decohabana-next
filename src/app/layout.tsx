@@ -5,26 +5,37 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Golden Wheels - Luxury Car Rental with Chauffeur",
+  title: "DecoHabanaUSA – Event Decoration & Event Planning in Naples, FL",
   description:
-    "Premium luxury transportation services with professional chauffeurs and an exceptional fleet of vehicles.",
+    "DecoHabanaUSA specializes in event decoration and event planning in Naples, Florida. From birthdays and weddings to corporate events and special celebrations, we transform your vision into a stunning experience.",
   icons: {
-    icon: "/assets/ico.png", // Must exist at /public/assets/logo_link.svg
+    icon: "/assets/ico.ico",
   },
   openGraph: {
-    title: "Golden Wheels - Luxury Car Rental with Chauffeur",
+    title: "DecoHabanaUSA – Event Decoration & Planning in Naples, FL",
     description:
-      "Premium luxury transportation services with professional chauffeurs and an exceptional fleet of vehicles.",
-    url: "https://www.goldenwheelsprivatechauffeur.com",
+      "Transform your next celebration with DecoHabanaUSA. Expert event decorators in Naples for birthdays, weddings, baby showers, corporate events, and more.",
+    url: "https://www.decohabanausa.com",
     type: "website",
-    siteName: "Golden Wheels - Luxury Car Rental with Chauffeur",
+    siteName: "DecoHabanaUSA",
     images: [
       {
-        url: "https://d6kk5owt2hjia.cloudfront.net/rentra/6ac91fcd-e2a7-4375-b42c-678abb4d73a3/booking/gallery/Golden Wheels Brand Kit-1754447344846.jpg",
-        alt: "Golden Wheels - Luxury Car Rental with Chauffeur",
+        url: "https://d6kk5owt2hjia.cloudfront.net/rentra/decohabana/DECOHABANA%202.jpg",
+        alt: "DecoHabanaUSA Event Decoration – Naples Florida",
       },
     ],
   },
+  keywords: [
+    "event decoration Naples",
+    "event planner Naples FL",
+    "party decoration Naples Florida",
+    "wedding decoration Naples",
+    "birthday decoration Naples",
+    "quinceañera decorations Naples",
+    "corporate event decorations",
+    "event services Naples",
+    "DecoHabanaUSA",
+  ],
 };
 
 export default function RootLayout({
@@ -34,7 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="icon" type="image/svg+xml" href="/ico.png" />
+      <link rel="icon" type="image/svg+xml" href="/ico.ico" />
       <body className={inter.className}>{children}</body>
     </html>
   );
