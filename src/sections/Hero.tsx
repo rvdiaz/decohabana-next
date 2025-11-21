@@ -10,7 +10,7 @@ export default function Hero() {
 
   return (
     <section className="relative py-10 lg:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-red-100 to-white"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-red-50 to-white"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">

@@ -20,7 +20,7 @@ export default function MyCarousel({ images, text }: MyCarouselProps) {
 
   return (
     <div className="relative">
-      <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl relative">
+      <div className="aspect-[4/3] rounded-2xl overflow-hidden relative">
         {images.map((src, index) => (
           <img
             key={src}
