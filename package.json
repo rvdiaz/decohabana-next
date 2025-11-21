@@ -1,5 +1,5 @@
 {
-  "name": "golden-wheels-next",
+  "name": "decohabanausa-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^3.8.0",
-    "@stripe/stripe-js": "^7.6.1",
     "aws-amplify": "^6.15.3",
+    "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.1",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.525.0",

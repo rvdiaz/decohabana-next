@@ -12,10 +12,6 @@ applications:
             - echo "APPSYNC_API_KEY=$APPSYNC_API_KEY" >> .env.production
             - echo "TENANTID=$TENANTID" >> .env.production
             - echo "TENANT_SOLUTION=$TENANT_SOLUTION" >> .env.production
-            - echo "GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY" >> .env.production
-            - echo "NEXT_PUBLIC_COGNITO_USERPOOL_ID=$NEXT_PUBLIC_COGNITO_USERPOOL_ID" >> .env.production
-            - echo "NEXT_PUBLIC_COGNITO_CLIENT_ID=$NEXT_PUBLIC_COGNITO_CLIENT_ID" >> .env.production
-            - echo "NEXT_PUBLIC_STRIPE_API=$NEXT_PUBLIC_STRIPE_API" >> .env.production
             - npm run build
       artifacts:
         baseDirectory: .next

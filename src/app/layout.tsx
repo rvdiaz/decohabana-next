@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import AmplifyProvider from "@/context/amplifyProvider";
-import { AuthProvider } from "@/context/authProvider";
-import Header from "@/components/Header";
-import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,17 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" type="image/svg+xml" href="/ico.png" />
-      <body className={inter.className}>
-        <AmplifyProvider>
-          <AuthProvider>
-            <div className="min-h-screen bg-black text-white">
-              <Header />
-              {children}
-            </div>
-          </AuthProvider>
-        </AmplifyProvider>
-        <ToastContainer position="bottom-right" />
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
