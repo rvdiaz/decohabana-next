@@ -22,4 +22,5 @@ export interface ICreateQuoteInput {
     name: string;
     phone: string;
   };
+  additionalImgComments?: string;
 }

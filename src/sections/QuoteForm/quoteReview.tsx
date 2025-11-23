@@ -113,10 +113,6 @@ export default function QuoteReview({ formData }: QuoteReviewProps) {
         <h4 className="font-semibold text-gray-900 mb-3">Inspiration Images</h4>
         {formData.inspirationImages.length > 0 ? (
           <div>
-            <p className="text-sm text-gray-600 mb-3">
-              {formData.inspirationImages.length} image
-              {formData.inspirationImages.length > 1 ? "s" : ""} uploaded
-            </p>
             <div className="grid grid-cols-4 gap-2">
               {formData.inspirationImages.slice(0, 8).map((image, index) => (
                 <div
@@ -138,6 +134,14 @@ export default function QuoteReview({ formData }: QuoteReviewProps) {
                 </div>
               )}
             </div>
+            {formData.additionalImgComments && (
+              <div className="mt-8">
+                <p className="text-sm text-gray-600 mb-1">Notes:</p>
+                <p className="text-sm text-gray-600 mb-3">
+                  {formData.additionalImgComments}
+                </p>
+              </div>
+            )}
           </div>
         ) : (
           <p className="text-sm text-gray-600">

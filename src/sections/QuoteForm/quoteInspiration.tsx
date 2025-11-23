@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useRef, useState, useTransition } from "react";
 import imageCompression from "browser-image-compression";
 import { QuoteFormData } from "./quoteForm";
 import { IImage } from "@/lib/interfaces";
@@ -27,6 +27,11 @@ export default function QuoteInspiration({
   const [filesPreviews, setFilesPreviews] = useState<FilePreview[]>([]);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleCardClick = () => {
+    if (!isPending) fileInputRef.current?.click();
+  };
 
   const uploadSingleImage = async (fileData: FilePreview) => {
     try {
@@ -169,6 +174,10 @@ export default function QuoteInspiration({
     URL.revokeObjectURL(tempUrl);
   };
 
+  const handleComment = (value: string) => {
+    updateFormData("additionalImgComments", value);
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -182,7 +191,10 @@ export default function QuoteInspiration({
       </div>
 
       {/* Upload Area */}
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors">
+      <div
+        className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer"
+        onClick={handleCardClick}
+      >
         <svg
           className="mx-auto h-12 w-12 text-gray-400"
           stroke="currentColor"
@@ -197,22 +209,23 @@ export default function QuoteInspiration({
             strokeLinejoin="round"
           />
         </svg>
+
         <div className="mt-4">
-          <label htmlFor="file-upload" className="cursor-pointer">
-            <span className="mt-2 block text-sm font-medium text-gray-900">
-              Click to upload or drag and drop
-            </span>
-            <input
-              id="file-upload"
-              name="file-upload"
-              type="file"
-              className="sr-only"
-              multiple
-              accept="image/*"
-              onChange={handleFileSelect}
-              disabled={isPending}
-            />
-          </label>
+          <span className="mt-2 block text-sm font-medium text-gray-900">
+            Click to upload or drag and drop
+          </span>
+
+          <input
+            ref={fileInputRef}
+            id="file-upload"
+            name="file-upload"
+            type="file"
+            className="sr-only"
+            multiple
+            accept="image/*"
+            onChange={handleFileSelect}
+            disabled={isPending}
+          />
           <p className="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
         </div>
       </div>
@@ -224,6 +237,18 @@ export default function QuoteInspiration({
         </div>
       )}
 
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Image Notes (Optional)
+        </label>
+
+        <textarea
+          value={formData.additionalImgComments || ""}
+          onChange={(e) => handleComment(e.target.value)}
+          placeholder="Add notes about your uploaded images…"
+          className="w-full min-h-24 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-500"
+        />
+      </div>
       {/* Preview Grid - Uploading Files */}
       {filesPreviews.length > 0 && (
         <div>
@@ -273,7 +298,7 @@ export default function QuoteInspiration({
                 {!preview.uploading && (
                   <button
                     onClick={() => removePreview(preview.tempUrl)}
-                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 transition-opacity"
+                    className="absolute top-2 right-2 bg-blue-500 text-white rounded-full p-1 transition-opacity"
                   >
                     <svg
                       className="h-4 w-4"

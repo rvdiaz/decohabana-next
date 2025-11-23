@@ -31,7 +31,7 @@ export type QuoteFormData = {
 
   // Inspiration
   inspirationImages: IImage[];
-
+  additionalImgComments: string;
   // Contact
   contactInfo: {
     phone: string;
@@ -72,6 +72,7 @@ export default function QuoteFormDeco({ onClose }: QuoteFormProps) {
     needTents: false,
     tentsCount: 0,
     inspirationImages: [],
+    additionalImgComments: "",
     contactInfo: {
       email: "",
       name: "",
@@ -119,6 +120,7 @@ export default function QuoteFormDeco({ onClose }: QuoteFormProps) {
         needTents: formData.needTents || undefined,
         tentsCount: formData.needTents ? formData.tentsCount : undefined,
         contactInfo: formData.contactInfo,
+        additionalImgComments: formData.additionalImgComments || undefined,
       };
 
       // Remove undefined values

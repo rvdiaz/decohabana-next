@@ -5,19 +5,14 @@ const faqs = [
       "We recommend booking at least 3-6 months in advance for weddings and large events, and 4-6 weeks for smaller celebrations. However, we understand that sometimes events come up quickly, so don't hesitate to contact us even if your event is just a few weeks away - we'll do our best to accommodate you!",
   },
   {
-    question: "Do you provide services outside of Havana?",
+    question: "What's included in your event services?",
     answer:
-      "Yes! While we're based in Havana, we provide event planning and decoration services throughout Cuba. Travel fees may apply for events outside our immediate service area. Contact us with your location details and we'll provide you with a comprehensive quote.",
-  },
-  {
-    question: "What's included in your event planning packages?",
-    answer:
-      "Our packages vary depending on your needs, but typically include initial consultation, venue coordination, decoration design and setup, rental coordination, timeline management, and day-of coordination. We offer both full-service planning and partial planning options to fit your budget and preferences.",
+      "We specialize in event decoration and furniture rental. We do not provide event planning or coordination services. Our offerings include decoration design, full setup, themed styling, and rental of specialized furniture for your event.",
   },
   {
     question: "Can I rent items without full event planning services?",
     answer:
-      "Absolutely! We offer rental-only services for clients who prefer to handle their own planning. Our rental inventory includes tables, chairs, linens, lighting, decorative items, and more. Delivery, setup, and pickup services are available for an additional fee.",
+      "Absolutely! We offer rental-only services for clients who prefer to handle their own planning. Our rental inventory includes tables, chairs, linens, decorative items, and more. Delivery, setup, and pickup services are available for an additional fee.",
   },
   {
     question: "Do you work with specific vendors or can I choose my own?",
@@ -32,23 +27,13 @@ const faqs = [
   {
     question: "How do you handle payment and what's your cancellation policy?",
     answer:
-      "We typically require a 50% deposit to secure your date, with the remaining balance due 2 weeks before your event. We accept cash, bank transfers, and major credit cards. Our cancellation policy varies by package and timing - full details will be provided in your contract. We understand that life happens and try to work with clients when possible.",
+      "We typically require a 35% deposit to secure your date, with the remaining balance due 2 days before your event. We accept cash, bank transfers, and major credit cards. Our cancellation policy varies by package and timing - full details will be provided in your contract. We understand that life happens and try to work with clients when possible.",
   },
   {
     question:
       "Can you accommodate dietary restrictions and cultural preferences?",
     answer:
       "Yes! We work with diverse clients and are experienced in accommodating various dietary restrictions, cultural traditions, and religious requirements. During our consultation, we'll discuss any specific needs to ensure your event is inclusive and comfortable for all guests.",
-  },
-  {
-    question: "Do you provide day-of coordination services?",
-    answer:
-      "Yes! Our day-of coordination service is perfect for clients who have planned their own event but want professional support on the actual day. This includes timeline management, vendor coordination, setup supervision, and handling any issues that arise so you can enjoy your special day stress-free.",
-  },
-  {
-    question: "What makes Decohabana different from other event planners?",
-    answer:
-      "Our attention to detail, personalized approach, and commitment to bringing your unique vision to life sets us apart. We combine years of experience with fresh creativity, and we pride ourselves on being responsive, reliable, and genuinely invested in making your event extraordinary. Plus, our local knowledge of Havana venues and vendors gives us unique advantages in creating seamless events.",
   },
 ];
 export { faqs };

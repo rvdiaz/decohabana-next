@@ -38,11 +38,6 @@ export default function FormFooter({
           Back
         </button>
 
-        {/* Step Indicator */}
-        <div className="text-sm text-gray-600">
-          Step {currentStep} of {steps.length}
-        </div>
-
         {/* Next/Submit Button */}
         {isLastStep ? (
           <button
