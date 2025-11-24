@@ -1,5 +1,4 @@
 const staticImages = [
-  "gallery1.png",
   "gallery3.png",
   "gallery4.jpeg",
   "gallery5.png",
